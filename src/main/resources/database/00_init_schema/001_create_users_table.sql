@@ -1,0 +1,6 @@
+CREATE TABLE users (
+    id NUMERIC PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    login VARCHAR(100) NOT NULL,
+    password VARCHAR(100) NOT NULL
+);

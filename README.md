@@ -11,6 +11,7 @@ Frameworks and libraries:
  - [Spring](https://spring.io/) - IOC container, MVC, transactions handling
  - [Hibernate](http://hibernate.org/) - data access
  - [Flywaydb](https://flywaydb.org/) - DB migration
+ - [Swagger](http://swagger.io/) + [Springfox](http://springfox.github.io/springfox/) - API documentation
  
 ## Environment setup
 

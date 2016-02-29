@@ -16,6 +16,11 @@
         </mvc:message-converters>
     </mvc:annotation-driven>
 
-    <bean id="jacksonObjectMapper" class="by.kachanov.shop.util.JacksonObjectMapper" />
+    <bean id="jacksonObjectMapper" class="by.kachanov.shop.util.spring.JacksonObjectMapper" />
+
+    <mvc:resources mapping="/swagger-ui.html" location="classpath:/META-INF/resources/"/>
+    <mvc:resources mapping="/webjars/**" location="classpath:/META-INF/resources/webjars/"/>
+
+    <bean name="/applicationSwaggerConfig" class="by.kachanov.shop.util.spring.SwaggerConfig"/>
 
 </beans>

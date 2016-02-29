@@ -10,18 +10,27 @@ import java.util.List;
 @Repository
 public class UserDaoImpl extends AbstractDao implements UserDao {
 
-//    @Transactional
+    @Override
+    @Transactional
     public User getUser(BigDecimal userId) {
         return getCurrentSession().load(User.class, userId);
     }
 
-//    @Transactional
+    @Override
+    @Transactional
     public List<User> getUsers() {
         return getCurrentSession().createQuery("from User").list();
     }
 
+    @Override
     @Transactional
     public void saveUser(User user) {
         getCurrentSession().save(user);
+    }
+
+    @Override
+    @Transactional
+    public void deleteUser(User user) {
+        getCurrentSession().delete(user);
     }
 }

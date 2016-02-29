@@ -1,4 +1,4 @@
-package by.kachanov.shop.util;
+package by.kachanov.shop.util.spring;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;

@@ -16,7 +16,7 @@ import java.util.List;
 
 @Controller
 @Api("Users")
-@RequestMapping("/user")
+@RequestMapping("/users")
 public class UserController {
 
     @Autowired
@@ -30,7 +30,7 @@ public class UserController {
         return user.getId();
     }
 
-    @ApiOperation("Update user")
+    @ApiOperation("Modify user")
     @RequestMapping(value = "/{userId}", method = RequestMethod.PUT)
     @ResponseBody
     public BigDecimal modifyUser(@PathVariable("userId") BigDecimal userId, @RequestBody User user) {
@@ -58,9 +58,7 @@ public class UserController {
     @RequestMapping(value = "/{userId}", method = RequestMethod.DELETE)
     @ResponseBody
     public ResponseEntity<?> deleteUser(@PathVariable("userId") BigDecimal userId) {
-        User user = new User();
-        user.setId(userId);
-        userService.deleteUser(user);
+        userService.deleteUser(userId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 

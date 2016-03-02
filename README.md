@@ -32,3 +32,23 @@ In order to set up development DB, perform following steps:
  8. Run `/env/db-vm-init.sh` to install and configure PostgreSQL on VM.
  
 Now you have VM with installed PostgreSQL. Empty DB with specified service name, user and password will be created automatically. Running application for the first time will automatically create all needed tables.
+
+#### Environment management scripts
+
+ - `db-backup-prepare.sh` - create and transfer to local machine backup of DB. DB will be stopped during backup procedure.
+ - `db-backup-restore.sh` - restore DB from previously created backup. DB will be stopped during backup restoration procedure.
+ - `db-vm-init.sh` - Connects to VM over SSH and sets up DB environment.
+ - `db-vm-reset.sh` - Resets VM with DB to snapshot.
+ - `db-vm-run.sh` - Starts VM with DB.
+ - All scripts starting with `_` - Service scripts, should not be run standalone.
+
+#### vm.properties
+
+ - `vm_db_name` - name of VM with DB
+ - `vm_db_snapshot` - name of snapshot for resetting VM with DB
+ - `vm_db_host` - host of VM with DB (used for making SSH connections)
+ - `db_service` - name of DB
+ - `db_username` - username for DB access
+ - `db_password` - password for DB access
+ - `db_backup_name` - file name for backup
+ - `db_data_location` - location of data folder of DB

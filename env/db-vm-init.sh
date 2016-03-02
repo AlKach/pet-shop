@@ -2,6 +2,10 @@
 
 . vm.properties
 
+ssh_host=$vm_db_host
+
+. _add-ssh-key.sh
+
 cp _prepare-db.sh _prepare-db-actual.sh
 
 eval "sed -i -e 's/__SERVICE__/$db_service/g' _prepare-db-actual.sh"

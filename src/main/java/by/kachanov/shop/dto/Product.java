@@ -21,6 +21,9 @@ public class Product {
     @Column(name = "description")
     private String description;
 
+    @Column(name = "price")
+    private BigDecimal price;
+
     @ManyToMany
     @JoinTable(
             name = "products_categories",
@@ -52,6 +55,14 @@ public class Product {
         this.description = description;
     }
 
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
     public Set<Category> getCategories() {
         return categories;
     }
@@ -71,7 +82,7 @@ public class Product {
         if (getName() != null ? !getName().equals(product.getName()) : product.getName() != null) return false;
         if (getDescription() != null ? !getDescription().equals(product.getDescription()) : product.getDescription() != null)
             return false;
-        return getCategories() != null ? getCategories().equals(product.getCategories()) : product.getCategories() == null;
+        return getPrice() != null ? getPrice().equals(product.getPrice()) : product.getPrice() == null;
 
     }
 
@@ -80,7 +91,7 @@ public class Product {
         int result = getId() != null ? getId().hashCode() : 0;
         result = 31 * result + (getName() != null ? getName().hashCode() : 0);
         result = 31 * result + (getDescription() != null ? getDescription().hashCode() : 0);
-        result = 31 * result + (getCategories() != null ? getCategories().hashCode() : 0);
+        result = 31 * result + (getPrice() != null ? getPrice().hashCode() : 0);
         return result;
     }
 }

@@ -1,4 +1,4 @@
-package by.kachanov.shop.web;
+package by.kachanov.shop.web.rest;
 
 import by.kachanov.shop.dto.Product;
 import by.kachanov.shop.service.ProductService;

@@ -1,8 +1,10 @@
-package by.kachanov.shop.util.spring;
+package by.kachanov.shop.web.rest.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
+import org.springframework.stereotype.Component;
 
+@Component
 public class JacksonObjectMapper extends ObjectMapper {
 
     public JacksonObjectMapper() {

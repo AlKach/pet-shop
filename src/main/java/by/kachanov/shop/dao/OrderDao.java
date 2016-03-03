@@ -1,6 +1,5 @@
 package by.kachanov.shop.dao;
 
-import by.kachanov.shop.dto.Category;
 import by.kachanov.shop.dto.Order;
 
 import java.math.BigDecimal;

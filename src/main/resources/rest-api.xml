@@ -5,7 +5,7 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <context:component-scan base-package="by.kachanov.shop.web"/>
+    <context:component-scan base-package="by.kachanov.shop.web.rest"/>
     <context:annotation-config/>
     <mvc:annotation-driven>
         <mvc:message-converters>
@@ -16,11 +16,7 @@
         </mvc:message-converters>
     </mvc:annotation-driven>
 
-    <bean id="jacksonObjectMapper" class="by.kachanov.shop.util.spring.JacksonObjectMapper" />
-
     <mvc:resources mapping="/swagger-ui.html" location="classpath:/META-INF/resources/"/>
     <mvc:resources mapping="/webjars/**" location="classpath:/META-INF/resources/webjars/"/>
-
-    <bean name="/applicationSwaggerConfig" class="by.kachanov.shop.util.spring.SwaggerConfig"/>
 
 </beans>

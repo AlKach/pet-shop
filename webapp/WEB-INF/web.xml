@@ -10,12 +10,12 @@
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <init-param>
             <param-name>contextConfigLocation</param-name>
-            <param-value>classpath:/webapp.xml</param-value>
+            <param-value>classpath:/rest-api.xml</param-value>
         </init-param>
     </servlet>
     <servlet-mapping>
         <servlet-name>dispatcher</servlet-name>
-        <url-pattern>/</url-pattern>
+        <url-pattern>/rest/*</url-pattern>
     </servlet-mapping>
 
     <filter>

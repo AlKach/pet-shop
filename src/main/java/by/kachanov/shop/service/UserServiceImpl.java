@@ -2,6 +2,7 @@ package by.kachanov.shop.service;
 
 import by.kachanov.shop.dao.UserDao;
 import by.kachanov.shop.dto.User;
+import by.kachanov.shop.dto.condition.Expression;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,8 +21,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getUsers() {
-        return userDao.getUsers();
+    public List<User> getUsers(Expression selector) {
+        return userDao.getUsers(selector);
     }
 
     @Override

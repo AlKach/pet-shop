@@ -2,6 +2,7 @@ package by.kachanov.shop.service;
 
 import by.kachanov.shop.dao.OrderDao;
 import by.kachanov.shop.dto.Order;
+import by.kachanov.shop.dto.condition.Expression;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,8 +26,8 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<Order> getOrders() {
-        return orderDao.getOrders();
+    public List<Order> getOrders(Expression selector) {
+        return orderDao.getOrders(selector);
     }
 
     @Override

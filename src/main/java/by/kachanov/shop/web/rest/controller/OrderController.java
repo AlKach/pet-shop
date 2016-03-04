@@ -1,6 +1,7 @@
 package by.kachanov.shop.web.rest.controller;
 
 import by.kachanov.shop.dto.Order;
+import by.kachanov.shop.dto.condition.Expression;
 import by.kachanov.shop.service.OrderService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -48,10 +49,10 @@ public class OrderController {
     }
 
     @ApiOperation("Get orders list")
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    @RequestMapping(value = "/query", method = RequestMethod.POST)
     @ResponseBody
-    public List<Order> getOrders() {
-        return orderService.getOrders();
+    public List<Order> getOrders(@RequestBody(required = false) Expression selector) {
+        return orderService.getOrders(selector);
     }
 
     @ApiOperation("Delete order")

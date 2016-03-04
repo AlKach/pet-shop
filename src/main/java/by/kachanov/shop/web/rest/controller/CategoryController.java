@@ -1,4 +1,4 @@
-package by.kachanov.shop.web.rest;
+package by.kachanov.shop.web.rest.controller;
 
 import by.kachanov.shop.dto.Category;
 import by.kachanov.shop.service.CategoryService;

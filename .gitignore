@@ -3,3 +3,6 @@
 
 target
 out
+
+nb-configuration.xml
+rebel.xml

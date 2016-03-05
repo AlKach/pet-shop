@@ -25,8 +25,8 @@ In order to set up development DB, perform following steps:
  1. Create VM in VirtualBox.
  2. Install Debian on it.
  3. Create VM snapshot in VirtualBox (in order to be able to reset VM and run new version of setup script).
- 4. Configure SSH access to this VM. Make sure posts 22 (SSH) and 5432 (PostgreSQL) are passed through from VMto your local machine.
- 5. Specify VM and snapshot names, DB service name, user and password in `/env/vm.properties` file.
+ 4. Configure SSH access to this VM. Make sure to permit root login (`PermitRootLogin yes`) and password authentication (`PasswordAuthentication yes`) in `/etc/ssh/sshd_config`. Also make sure posts 22 (SSH) and 5432 (PostgreSQL) are passed through from VMto your local machine.
+ 5. Specify VM and snapshot names, DB service name, user and password in `/env/vm.properties` file. Also pay attention to `db_data_location` and `db_config_location` properties - they may vary depending on PostgreSQL version provided in your Debian distribution.
  6. Make sure VirtualBox folder is in your `PATH`
  7. Run VM in headless mode by running `/env/db-vm-run.sh`
  8. Run `/env/db-vm-init.sh` to install and configure PostgreSQL on VM.

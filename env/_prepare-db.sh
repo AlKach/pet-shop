@@ -1,5 +1,7 @@
-apt-get install postgresql-9.1 -y && \
-cd /etc/postgresql/9.1/main && \
+apt-get update -y && \
+apt-get upgrade -y && \
+apt-get install postgresql -y && \
+cd __CONFIG__ && \
 cp pg_hba.conf pg_hba.conf.orig && \
 echo "host all all all md5" >> pg_hba.conf && \
 cp postgresql.conf postgresql.conf.orig && \

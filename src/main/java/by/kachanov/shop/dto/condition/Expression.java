@@ -10,11 +10,11 @@ public class Expression {
 
     private Equals eq;
 
-    private GreaterThan gt;
+    private Greater gt;
 
     private In in;
 
-    private LessThan lt;
+    private Less lt;
 
     private Like like;
 
@@ -52,11 +52,11 @@ public class Expression {
         this.eq = eq;
     }
 
-    public GreaterThan getGt() {
+    public Greater getGt() {
         return gt;
     }
 
-    public void setGt(GreaterThan gt) {
+    public void setGt(Greater gt) {
         setActiveCondition(gt);
         this.gt = gt;
     }
@@ -70,11 +70,11 @@ public class Expression {
         this.in = in;
     }
 
-    public LessThan getLt() {
+    public Less getLt() {
         return lt;
     }
 
-    public void setLt(LessThan lt) {
+    public void setLt(Less lt) {
         setActiveCondition(lt);
         this.lt = lt;
     }

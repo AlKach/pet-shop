@@ -3,8 +3,9 @@ package by.kachanov.shop.service;
 import by.kachanov.shop.dto.condition.*;
 import by.kachanov.shop.service.converter.ConditionConverter;
 import java.util.List;
-import org.hibernate.Criteria;
-import org.hibernate.Session;
+
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,19 +15,18 @@ public class ExpressionConversionServiceImpl implements ExpressionConversionServ
     @Autowired
     private List<ConditionConverter> conditionConverters;
 
-    public Criteria convertExpression(Class<?> type, Expression expression, Session session) {
-        Criteria baseCriteria = session.createCriteria(type);
+    public Criterion convertExpression(Expression expression) {
         if (expression == null || expression.getActiveCondition() == null) {
-            return baseCriteria;
+            return Restrictions.sqlRestriction("");
         } else {
-            return convertCondition(baseCriteria, expression.getActiveCondition());
+            return convertCondition(expression.getActiveCondition());
         }
     }
 
-    private Criteria convertCondition(Criteria baseCriteria, Condition condition) {
+    public Criterion convertCondition(Condition condition) {
         for (ConditionConverter converter : conditionConverters) {
             if (converter.supports(condition.getClass())) {
-                return converter.convertCondition(baseCriteria, condition);
+                return converter.convertCondition(condition);
             }
         }
 

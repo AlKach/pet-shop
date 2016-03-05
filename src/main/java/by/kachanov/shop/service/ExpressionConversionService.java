@@ -1,11 +1,13 @@
 package by.kachanov.shop.service;
 
+import by.kachanov.shop.dto.condition.Condition;
 import by.kachanov.shop.dto.condition.Expression;
-import org.hibernate.Criteria;
-import org.hibernate.Session;
+import org.hibernate.criterion.Criterion;
 
 public interface ExpressionConversionService {
 
-    Criteria convertExpression(Class<?> type, Expression expression, Session session);
+    Criterion convertExpression(Expression expression);
+
+    Criterion convertCondition(Condition condition);
 
 }

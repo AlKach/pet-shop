@@ -2,11 +2,17 @@ package by.kachanov.shop.service.converter;
 
 import by.kachanov.shop.dto.condition.Condition;
 import java.lang.reflect.ParameterizedType;
-import org.hibernate.Criteria;
+
+import by.kachanov.shop.service.ExpressionConversionService;
+import org.hibernate.criterion.Criterion;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public abstract class AbstractConditionConverter<T extends Condition> implements ConditionConverter {
 
     private final Class<?> supportedType;
+
+    @Autowired
+    private ExpressionConversionService expressionConverter;
 
     public AbstractConditionConverter() {
         this.supportedType = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
@@ -18,13 +24,17 @@ public abstract class AbstractConditionConverter<T extends Condition> implements
     }
 
     @Override
-    public final Criteria convertCondition(Criteria baseCriteria, Condition condition) {
+    public final Criterion convertCondition(Condition condition) {
         if (supports(condition.getClass())) {
-            return doConvertCondition(baseCriteria, (T) condition);
+            return doConvertCondition((T) condition);
         }
         throw new IllegalArgumentException("Unsupported condition type");
     }
 
-    public abstract Criteria doConvertCondition(Criteria baseCriteria, T condition);
+    public ExpressionConversionService getExpressionConverter() {
+        return expressionConverter;
+    }
+
+    public abstract Criterion doConvertCondition(T condition);
 
 }

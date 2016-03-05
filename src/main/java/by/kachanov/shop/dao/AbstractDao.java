@@ -5,6 +5,7 @@ import by.kachanov.shop.service.ExpressionConversionService;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Criterion;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class AbstractDao {
@@ -20,7 +21,9 @@ public class AbstractDao {
     }
 
     protected Criteria getCriteria(Class<?> type, Expression expression) {
-        return expressionConversionService.convertExpression(type, expression, sessionFactory.getCurrentSession());
+        Criteria criteria = getCurrentSession().createCriteria(type);
+        Criterion criterion = expressionConversionService.convertExpression(expression);
+        return criteria.add(criterion);
     }
 
 }

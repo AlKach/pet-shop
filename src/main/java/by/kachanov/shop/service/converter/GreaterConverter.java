@@ -1,15 +1,16 @@
 package by.kachanov.shop.service.converter;
 
 import by.kachanov.shop.dto.condition.Greater;
-import org.hibernate.Criteria;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Component;
 
 @Component
 public class GreaterConverter extends AbstractConditionConverter<Greater> {
 
     @Override
-    public Criteria doConvertCondition(Criteria baseCriteria, Greater condition) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public Criterion doConvertCondition(Greater greater) {
+        return Restrictions.gt(greater.getField(), greater.getValue());
     }
 
 }

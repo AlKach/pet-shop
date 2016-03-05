@@ -1,15 +1,16 @@
 package by.kachanov.shop.service.converter;
 
 import by.kachanov.shop.dto.condition.Like;
-import org.hibernate.Criteria;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Component;
 
 @Component
 public class LikeConverter extends AbstractConditionConverter<Like> {
 
     @Override
-    public Criteria doConvertCondition(Criteria baseCriteria, Like condition) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public Criterion doConvertCondition(Like like) {
+        return Restrictions.like(like.getField(), like.getValue());
     }
 
 }

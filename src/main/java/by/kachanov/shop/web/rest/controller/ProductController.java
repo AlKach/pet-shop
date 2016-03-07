@@ -1,6 +1,7 @@
 package by.kachanov.shop.web.rest.controller;
 
 import by.kachanov.shop.dto.Product;
+import by.kachanov.shop.dto.condition.Expression;
 import by.kachanov.shop.service.ProductService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -48,10 +49,10 @@ public class ProductController {
     }
 
     @ApiOperation("Get products list")
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    @RequestMapping(value = "/list", method = RequestMethod.POST)
     @ResponseBody
-    public List<Product> getProducts() {
-        return productService.getProducts();
+    public List<Product> getProducts(@RequestBody(required = false) Expression selector) {
+        return productService.getProducts(selector);
     }
 
     @ApiOperation("Delete product")

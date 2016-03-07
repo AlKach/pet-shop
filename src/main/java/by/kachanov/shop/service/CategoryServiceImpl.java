@@ -2,6 +2,7 @@ package by.kachanov.shop.service;
 
 import by.kachanov.shop.dao.CategoryDao;
 import by.kachanov.shop.dto.Category;
+import by.kachanov.shop.dto.condition.Expression;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,8 +26,8 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public List<Category> getCategories() {
-        return categoryDao.getCategories();
+    public List<Category> getCategories(Expression selector) {
+        return categoryDao.getCategories(selector);
     }
 
     @Override

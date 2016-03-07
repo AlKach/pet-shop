@@ -1,6 +1,7 @@
 package by.kachanov.shop.web.rest.controller;
 
 import by.kachanov.shop.dto.Category;
+import by.kachanov.shop.dto.condition.Expression;
 import by.kachanov.shop.service.CategoryService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -48,10 +49,10 @@ public class CategoryController {
     }
 
     @ApiOperation("Get categories list")
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    @RequestMapping(value = "/query", method = RequestMethod.POST)
     @ResponseBody
-    public List<Category> getCategories() {
-        return categoryService.getCategories();
+    public List<Category> getCategories(@RequestBody(required = false) Expression selector) {
+        return categoryService.getCategories(selector);
     }
 
     @ApiOperation("Delete category")

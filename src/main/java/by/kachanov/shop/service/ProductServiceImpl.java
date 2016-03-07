@@ -2,6 +2,7 @@ package by.kachanov.shop.service;
 
 import by.kachanov.shop.dao.ProductDao;
 import by.kachanov.shop.dto.Product;
+import by.kachanov.shop.dto.condition.Expression;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,8 +26,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> getProducts() {
-        return productDao.getProducts();
+    public List<Product> getProducts(Expression selector) {
+        return productDao.getProducts(selector);
     }
 
     @Override

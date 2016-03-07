@@ -1,6 +1,7 @@
 package by.kachanov.shop.dao;
 
 import by.kachanov.shop.dto.User;
+import by.kachanov.shop.dto.condition.Expression;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,8 +19,8 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
 
     @Override
     @Transactional
-    public List<User> getUsers() {
-        return getCurrentSession().createQuery("from User").list();
+    public List<User> getUsers(Expression selector) {
+        return getCriteria(User.class, selector).list();
     }
 
     @Override

@@ -2,25 +2,30 @@ package by.kachanov.shop.service.converter;
 
 import by.kachanov.shop.dto.condition.Expression;
 import by.kachanov.shop.dto.condition.Or;
-import by.kachanov.shop.service.ExpressionConversionService;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.core.convert.ConversionService;
+import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class OrConverter extends AbstractConditionConverter<Or> {
+public class OrConverter implements Converter<Or, Criterion> {
+
+    @Autowired
+    @Qualifier("conditionConverter")
+    private ConversionService expressionConverter;
 
     @Override
-    public Criterion doConvertCondition(Or condition) {
-        ExpressionConversionService expressionConverter = getExpressionConverter();
-        List<Criterion> subCriteria = condition.getExpressions().stream()
+    public Criterion convert(Or source) {
+        List<Criterion> subCriteria = source.getExpressions().stream()
                 .map(Expression::getActiveCondition)
-                .map(expressionConverter::convertCondition)
+                .map(condition -> expressionConverter.convert(condition, Criterion.class))
                 .collect(Collectors.toList());
         return Restrictions.disjunction(subCriteria.toArray(new Criterion[]{}));
     }
-
 }

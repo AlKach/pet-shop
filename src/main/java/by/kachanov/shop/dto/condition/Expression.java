@@ -110,7 +110,7 @@ public class Expression {
         return activeCondition;
     }
 
-    public void setActiveCondition(Condition activeCondition) {
+    private void setActiveCondition(Condition activeCondition) {
         if (this.activeCondition != null) {
             throw new IllegalArgumentException("Only one condition can be active in expression");
         }

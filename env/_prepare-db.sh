@@ -8,10 +8,13 @@ cp postgresql.conf postgresql.conf.orig && \
 echo "listen_addresses = '*'" >> postgresql.conf && \
 service postgresql restart && \
 su - postgres -c "createdb __SERVICE__" && \
+su - postgres -c "createdb __TEST_SERVICE__" && \
 su - postgres <<-'ENDPOSTGRES'
 	psql <<-'ENDPSQL'
 		create user __USER__ with password '__PASSWORD__';
 		grant all privileges on database "__SERVICE__" to __USER__;
+		create user __TEST_USER__ with password '__TEST_PASSWORD__';
+		grant all privileges on database "__TEST_SERVICE__" to __TEST_USER__;
 		\q
 	ENDPSQL
 ENDPOSTGRES

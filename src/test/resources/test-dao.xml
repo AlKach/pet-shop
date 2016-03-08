@@ -10,7 +10,7 @@
                            http://www.springframework.org/schema/tx
                            http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-    <context:property-placeholder location="classpath:/database.properties" />
+    <context:property-placeholder location="classpath:test-database.properties" />
 
     <tx:annotation-driven transaction-manager="transactionManager"/>
 
@@ -23,6 +23,7 @@
 
     <bean id="databaseMigration" class="org.flywaydb.core.Flyway" init-method="migrate">
         <property name="dataSource" ref="dataSource"/>
+        <property name="schemas" value="${migration.schemas}"/>
         <property name="locations" value="${migration.location}"/>
         <property name="baselineVersionAsString" value="${migration.baseline}"/>
         <property name="sqlMigrationPrefix" value="${migration.prefix}"/>

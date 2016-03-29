@@ -1,6 +1,6 @@
 #!/bin/sh
 
-. vm.properties
+. ./vm.properties
 
 ssh_host=$vm_db_host
 

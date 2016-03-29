@@ -1,6 +1,6 @@
 #!/bin/sh
 
-. vm.properties
+. ./vm.properties
 
 echo '----------------------------'
 echo $vm_db_name

@@ -1,6 +1,6 @@
 #!/bin/sh
 
-. vm.properties
+. ./vm.properties
 
 cp _prepare-backup.sh _prepare-backup-actual.sh
 

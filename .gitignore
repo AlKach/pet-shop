@@ -4,5 +4,6 @@
 target
 out
 
+nbactions.xml
 nb-configuration.xml
 rebel.xml

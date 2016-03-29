@@ -1,6 +1,6 @@
 #!/bin/sh
 
-. vm.properties
+. ./vm.properties
 
 cp _restore-backup.sh _restore-backup-actual.sh
 

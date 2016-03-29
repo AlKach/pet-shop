@@ -1,7 +1,7 @@
 package by.kachanov.shop.dao;
 
 import by.kachanov.shop.dto.Product;
-import by.kachanov.shop.dto.condition.Expression;
+import by.kachanov.shop.dto.condition.Condition;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -12,7 +12,7 @@ public interface ProductRepository {
 
     Product getProduct(BigDecimal productId);
 
-    List<Product> getProducts(Expression selector);
+    List<Product> getProducts(Condition selector);
 
     void deleteProduct(Product product);
 

@@ -1,7 +1,7 @@
 package by.kachanov.shop.dao;
 
 import by.kachanov.shop.dto.Product;
-import by.kachanov.shop.dto.condition.Expression;
+import by.kachanov.shop.dto.condition.Condition;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,7 +25,7 @@ public class ProductRepositoryImpl extends AbstractRepository implements Product
 
     @Override
     @Transactional
-    public List<Product> getProducts(Expression selector) {
+    public List<Product> getProducts(Condition selector) {
         return getCriteria(Product.class, selector).list();
     }
 

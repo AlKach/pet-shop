@@ -1,7 +1,7 @@
 package by.kachanov.shop.dao;
 
 import by.kachanov.shop.dto.Order;
-import by.kachanov.shop.dto.condition.Expression;
+import by.kachanov.shop.dto.condition.Condition;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,7 +26,7 @@ public class OrderRepositoryImpl extends AbstractRepository implements OrderRepo
 
     @Override
     @Transactional
-    public List<Order> getOrders(Expression selector) {
+    public List<Order> getOrders(Condition selector) {
         return getCriteria(Order.class, selector).list();
     }
 

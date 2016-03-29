@@ -1,7 +1,6 @@
 package by.kachanov.shop.dao;
 
 import by.kachanov.shop.dto.condition.Condition;
-import by.kachanov.shop.dto.condition.Expression;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -23,11 +22,10 @@ public class AbstractRepository {
         return sessionFactory.getCurrentSession();
     }
 
-    protected Criteria getCriteria(Class<?> type, Expression expression) {
+    protected Criteria getCriteria(Class<?> type, Condition condition) {
         Criteria criteria = getCurrentSession().createCriteria(type);
-        Condition activeCondition = expression.getActiveCondition();
-        if (activeCondition != null) {
-            Criterion criterion = expressionConverter.convert(activeCondition, Criterion.class);
+        Criterion criterion = expressionConverter.convert(condition, Criterion.class);
+        if (criterion != null) {
             return criteria.add(criterion);
         } else {
             return criteria;

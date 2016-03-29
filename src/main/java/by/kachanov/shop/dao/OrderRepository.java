@@ -1,7 +1,7 @@
 package by.kachanov.shop.dao;
 
 import by.kachanov.shop.dto.Order;
-import by.kachanov.shop.dto.condition.Expression;
+import by.kachanov.shop.dto.condition.Condition;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -12,7 +12,7 @@ public interface OrderRepository {
 
     Order getOrder(BigDecimal orderId);
 
-    List<Order> getOrders(Expression selector);
+    List<Order> getOrders(Condition selector);
 
     void deleteOrder(Order order);
 

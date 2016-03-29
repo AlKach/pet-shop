@@ -1,7 +1,7 @@
 package by.kachanov.shop.dao;
 
 import by.kachanov.shop.dto.User;
-import by.kachanov.shop.dto.condition.Expression;
+import by.kachanov.shop.dto.condition.Condition;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,7 +19,7 @@ public class UserRepositoryImpl extends AbstractRepository implements UserReposi
 
     @Override
     @Transactional
-    public List<User> getUsers(Expression selector) {
+    public List<User> getUsers(Condition selector) {
         return getCriteria(User.class, selector).list();
     }
 

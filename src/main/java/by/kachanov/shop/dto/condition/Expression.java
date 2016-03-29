@@ -2,7 +2,7 @@ package by.kachanov.shop.dto.condition;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-public class Expression {
+public class Expression implements Condition {
 
     private And and;
 

@@ -1,7 +1,7 @@
 package by.kachanov.shop.dao;
 
 import by.kachanov.shop.dto.Category;
-import by.kachanov.shop.dto.condition.Expression;
+import by.kachanov.shop.dto.condition.Condition;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,7 +25,7 @@ public class CategoryRepositoryImpl extends AbstractRepository implements Catego
 
     @Override
     @Transactional
-    public List<Category> getCategories(Expression selector) {
+    public List<Category> getCategories(Condition selector) {
         return getCriteria(Category.class, selector).list();
     }
 

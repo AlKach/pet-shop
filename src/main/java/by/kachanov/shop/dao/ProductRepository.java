@@ -6,7 +6,7 @@ import by.kachanov.shop.dto.condition.Expression;
 import java.math.BigDecimal;
 import java.util.List;
 
-public interface ProductDao {
+public interface ProductRepository {
 
     void saveProduct(Product product);
 

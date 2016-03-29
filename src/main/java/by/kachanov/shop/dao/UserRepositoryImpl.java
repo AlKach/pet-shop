@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @Repository
-public class UserDaoImpl extends AbstractDao implements UserDao {
+public class UserRepositoryImpl extends AbstractRepository implements UserRepository {
 
     @Override
     @Transactional

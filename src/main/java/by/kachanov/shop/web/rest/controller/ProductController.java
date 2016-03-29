@@ -49,7 +49,7 @@ public class ProductController {
     }
 
     @ApiOperation("Get products list")
-    @RequestMapping(value = "/list", method = RequestMethod.POST)
+    @RequestMapping(value = "/query", method = RequestMethod.POST)
     @ResponseBody
     public List<Product> getProducts(@RequestBody(required = false) Expression selector) {
         return productService.getProducts(selector);

@@ -1,6 +1,5 @@
 package by.kachanov.shop.service;
 
-import by.kachanov.shop.dao.CategoryDao;
 import by.kachanov.shop.dto.Category;
 import by.kachanov.shop.dto.condition.Expression;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,31 +7,32 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
+import by.kachanov.shop.dao.CategoryRepository;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
 
     @Autowired
-    private CategoryDao categoryDao;
+    private CategoryRepository categoryRepository;
 
     @Override
     public void saveCategory(Category category) {
-        categoryDao.saveCategory(category);
+        categoryRepository.saveCategory(category);
     }
 
     @Override
     public Category getCategory(BigDecimal categoryId) {
-        return categoryDao.getCategory(categoryId);
+        return categoryRepository.getCategory(categoryId);
     }
 
     @Override
     public List<Category> getCategories(Expression selector) {
-        return categoryDao.getCategories(selector);
+        return categoryRepository.getCategories(selector);
     }
 
     @Override
     public void deleteCategory(BigDecimal categoryId) {
         Category category = getCategory(categoryId);
-        categoryDao.deleteCategory(category);
+        categoryRepository.deleteCategory(category);
     }
 }

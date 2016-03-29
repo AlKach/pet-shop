@@ -6,7 +6,7 @@ import by.kachanov.shop.dto.condition.Expression;
 import java.math.BigDecimal;
 import java.util.List;
 
-public interface OrderDao {
+public interface OrderRepository {
 
     void saveOrder(Order order);
 

@@ -1,6 +1,5 @@
 package by.kachanov.shop.service;
 
-import by.kachanov.shop.dao.UserDao;
 import by.kachanov.shop.dto.User;
 import by.kachanov.shop.dto.condition.Expression;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,31 +7,32 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
+import by.kachanov.shop.dao.UserRepository;
 
 @Service
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    private UserDao userDao;
+    private UserRepository userRepository;
 
     @Override
     public User getUser(BigDecimal userId) {
-        return userDao.getUser(userId);
+        return userRepository.getUser(userId);
     }
 
     @Override
     public List<User> getUsers(Expression selector) {
-        return userDao.getUsers(selector);
+        return userRepository.getUsers(selector);
     }
 
     @Override
     public void saveUser(User user) {
-        userDao.saveUser(user);
+        userRepository.saveUser(user);
     }
 
     @Override
     public void deleteUser(BigDecimal userId) {
         User user = getUser(userId);
-        userDao.deleteUser(user);
+        userRepository.deleteUser(user);
     }
 }

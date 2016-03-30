@@ -41,7 +41,7 @@
     </filter>
     <filter-mapping>
         <filter-name>hibernateSessionFilter</filter-name>
-        <servlet-name>dispatcher</servlet-name>
+        <servlet-name>rest</servlet-name>
     </filter-mapping>
 
     <listener>

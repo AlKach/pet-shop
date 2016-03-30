@@ -8,6 +8,6 @@
     <context:component-scan base-package="by.kachanov.shop.web.app"/>
     <context:annotation-config/>
 
-    <mvc:resources mapping="/**" location="classpath:/web/"/>
+    <mvc:resources mapping="/**" location="/"/>
 
 </beans>

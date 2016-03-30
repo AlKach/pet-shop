@@ -1,4 +1,4 @@
-package by.kachanov.shop.dao;
+package by.kachanov.shop.repository;
 
 import by.kachanov.shop.dto.Category;
 import by.kachanov.shop.dto.condition.Condition;

@@ -4,13 +4,20 @@ import java.util.List;
 
 public abstract class JunctionCondition implements Condition {
 
-    protected List<Expression> expressions;
+    protected List<Condition> conditions;
 
-    public List<Expression> getExpressions() {
-        return expressions;
+    public JunctionCondition() {
     }
 
-    public void setExpressions(List<Expression> expressions) {
-        this.expressions = expressions;
+    public JunctionCondition(List<Condition> conditions) {
+        this.conditions = conditions;
+    }
+
+    public List<Condition> getConditions() {
+        return conditions;
+    }
+
+    public void setConditions(List<Condition> conditions) {
+        this.conditions = conditions;
     }
 }

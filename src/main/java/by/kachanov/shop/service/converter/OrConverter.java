@@ -1,6 +1,5 @@
 package by.kachanov.shop.service.converter;
 
-import by.kachanov.shop.dto.condition.Expression;
 import by.kachanov.shop.dto.condition.Or;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
@@ -18,13 +17,12 @@ public class OrConverter implements Converter<Or, Criterion> {
 
     @Autowired
     @Qualifier("conditionConverter")
-    private ConversionService expressionConverter;
+    private ConversionService conditionConverter;
 
     @Override
     public Criterion convert(Or source) {
-        List<Criterion> subCriteria = source.getExpressions().stream()
-                .map(Expression::getActiveCondition)
-                .map(condition -> expressionConverter.convert(condition, Criterion.class))
+        List<Criterion> subCriteria = source.getConditions().stream()
+                .map(condition -> conditionConverter.convert(condition, Criterion.class))
                 .collect(Collectors.toList());
         return Restrictions.disjunction(subCriteria.toArray(new Criterion[]{}));
     }

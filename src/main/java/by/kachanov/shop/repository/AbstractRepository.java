@@ -1,4 +1,4 @@
-package by.kachanov.shop.dao;
+package by.kachanov.shop.repository;
 
 import by.kachanov.shop.dto.condition.Condition;
 import org.hibernate.Criteria;
@@ -16,7 +16,7 @@ public class AbstractRepository {
 
     @Autowired
     @Qualifier("conditionConverter")
-    private ConversionService expressionConverter;
+    private ConversionService conditionConverter;
 
     protected Session getCurrentSession() {
         return sessionFactory.getCurrentSession();
@@ -24,7 +24,7 @@ public class AbstractRepository {
 
     protected Criteria getCriteria(Class<?> type, Condition condition) {
         Criteria criteria = getCurrentSession().createCriteria(type);
-        Criterion criterion = expressionConverter.convert(condition, Criterion.class);
+        Criterion criterion = conditionConverter.convert(condition, Criterion.class);
         if (criterion != null) {
             return criteria.add(criterion);
         } else {

@@ -1,13 +1,13 @@
 package by.kachanov.shop.service;
 
 import by.kachanov.shop.dto.User;
-import by.kachanov.shop.dto.condition.Expression;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
-import by.kachanov.shop.dao.UserRepository;
+import by.kachanov.shop.repository.UserRepository;
+import by.kachanov.shop.dto.condition.Condition;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -21,7 +21,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getUsers(Expression selector) {
+    public List<User> getUsers(Condition selector) {
         return userRepository.getUsers(selector);
     }
 

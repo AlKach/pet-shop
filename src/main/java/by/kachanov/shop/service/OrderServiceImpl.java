@@ -1,13 +1,13 @@
 package by.kachanov.shop.service;
 
 import by.kachanov.shop.dto.Order;
-import by.kachanov.shop.dto.condition.Expression;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
-import by.kachanov.shop.dao.OrderRepository;
+import by.kachanov.shop.repository.OrderRepository;
+import by.kachanov.shop.dto.condition.Condition;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -26,7 +26,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<Order> getOrders(Expression selector) {
+    public List<Order> getOrders(Condition selector) {
         return orderRepository.getOrders(selector);
     }
 

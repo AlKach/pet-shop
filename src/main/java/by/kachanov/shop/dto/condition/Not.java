@@ -2,13 +2,20 @@ package by.kachanov.shop.dto.condition;
 
 public class Not implements Condition {
 
-    private Expression expression;
+    private Condition condition;
 
-    public Expression getExpression() {
-        return expression;
+    public Not() {
     }
 
-    public void setExpression(Expression expression) {
-        this.expression = expression;
+    public Not(Condition condition) {
+        this.condition = condition;
+    }
+
+    public Condition getCondition() {
+        return condition;
+    }
+
+    public void setCondition(Condition condition) {
+        this.condition = condition;
     }
 }

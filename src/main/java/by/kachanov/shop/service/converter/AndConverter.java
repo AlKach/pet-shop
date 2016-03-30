@@ -1,7 +1,6 @@
 package by.kachanov.shop.service.converter;
 
 import by.kachanov.shop.dto.condition.And;
-import by.kachanov.shop.dto.condition.Expression;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,13 +17,12 @@ public class AndConverter implements Converter<And, Criterion> {
 
     @Autowired
     @Qualifier("conditionConverter")
-    private ConversionService expressionConverter;
+    private ConversionService conditionConverter;
 
     @Override
     public Criterion convert(And source) {
-        List<Criterion> subCriteria = source.getExpressions().stream()
-                .map(Expression::getActiveCondition)
-                .map(condition -> expressionConverter.convert(condition, Criterion.class))
+        List<Criterion> subCriteria = source.getConditions().stream()
+                .map(condition -> conditionConverter.convert(condition, Criterion.class))
                 .collect(Collectors.toList());
         return Restrictions.conjunction(subCriteria.toArray(new Criterion[]{}));
     }

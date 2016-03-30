@@ -1,13 +1,13 @@
 package by.kachanov.shop.service;
 
 import by.kachanov.shop.dto.Category;
-import by.kachanov.shop.dto.condition.Expression;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
-import by.kachanov.shop.dao.CategoryRepository;
+import by.kachanov.shop.repository.CategoryRepository;
+import by.kachanov.shop.dto.condition.Condition;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
@@ -26,7 +26,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public List<Category> getCategories(Expression selector) {
+    public List<Category> getCategories(Condition selector) {
         return categoryRepository.getCategories(selector);
     }
 

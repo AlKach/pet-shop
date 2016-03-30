@@ -4,12 +4,7 @@ import by.kachanov.shop.SpringTest;
 import by.kachanov.shop.dto.User;
 import by.kachanov.shop.dto.condition.*;
 import org.junit.*;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.Rollback;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -50,17 +45,12 @@ public class ConditionConversionServiceTest extends SpringTest {
         String login = "test_login4";
         String password = "test_password4";
 
-        Expression eqName = createEqExpr("name", name);
-        Expression eqLogin = createEqExpr("login", login);
-        Expression eqPassword = createEqExpr("password", password);
+        And and = new And(Arrays.asList(
+                new Equals("name", name),
+                new Equals("login", login),
+                new Equals("password", password)));
 
-        And and = new And();
-        and.setExpressions(Arrays.asList(eqName, eqLogin, eqPassword));
-
-        Expression expr = new Expression();
-        expr.setAnd(and);
-
-        List<User> users = userService.getUsers(expr);
+        List<User> users = userService.getUsers(and);
 
         assertEquals(1, users.size());
 
@@ -75,14 +65,9 @@ public class ConditionConversionServiceTest extends SpringTest {
     public void testBetween() {
         String nameLo = "test_name3";
         String nameHi = "test_name6";
-        Between between = new Between();
-        between.setField("name");
-        between.setValues(Arrays.asList(nameLo, nameHi));
+        Between between = new Between("name", nameLo, nameHi);
 
-        Expression expr = new Expression();
-        expr.setBetween(between);
-
-        List<User> users = userService.getUsers(expr);
+        List<User> users = userService.getUsers(between);
 
         assertEquals(4, users.size());
         users.stream()
@@ -96,14 +81,9 @@ public class ConditionConversionServiceTest extends SpringTest {
     public void testEq() {
         String name = "test_name5";
 
-        Equals eq = new Equals();
-        eq.setField("name");
-        eq.setValue(name);
+        Equals eq = new Equals("name", name);
 
-        Expression expr = new Expression();
-        expr.setEq(eq);
-
-        List<User> users = userService.getUsers(expr);
+        List<User> users = userService.getUsers(eq);
 
         assertEquals(1, users.size());
         assertEquals(name, users.get(0).getName());
@@ -112,14 +92,9 @@ public class ConditionConversionServiceTest extends SpringTest {
     @Test
     public void testGreater() {
         String testPassword = "test_password8";
-        Greater greater = new Greater();
-        greater.setField("password");
-        greater.setValue(testPassword);
+        Greater greater = new Greater("password", testPassword);
 
-        Expression expr = new Expression();
-        expr.setGt(greater);
-
-        List<User> users = userService.getUsers(expr);
+        List<User> users = userService.getUsers(greater);
 
         assertTrue(users.size() >= 1);
         users.stream()
@@ -132,14 +107,9 @@ public class ConditionConversionServiceTest extends SpringTest {
     @Test
     public void testIn() {
         List<String> logins = Arrays.asList("test_login3", "test_login5", "test_login7", "test_login1");
-        In in = new In();
-        in.setField("login");
-        in.setValues(logins);
+        In in = new In("login", logins);
 
-        Expression expr = new Expression();
-        expr.setIn(in);
-
-        List<User> users = userService.getUsers(expr);
+        List<User> users = userService.getUsers(in);
 
         assertEquals(logins.size(), users.size());
         users.stream()
@@ -152,14 +122,9 @@ public class ConditionConversionServiceTest extends SpringTest {
     @Test
     public void testLess() {
         String testLogin = "test_login3";
-        Less less = new Less();
-        less.setField("login");
-        less.setValue(testLogin);
+        Less less = new Less("login", testLogin);
 
-        Expression expr = new Expression();
-        expr.setLt(less);
-
-        List<User> users = userService.getUsers(expr);
+        List<User> users = userService.getUsers(less);
 
         assertTrue(users.size() >= 1);
         users.stream()
@@ -171,14 +136,9 @@ public class ConditionConversionServiceTest extends SpringTest {
 
     @Test
     public void testLike() {
-        Like like = new Like();
-        like.setField("password");
-        like.setValue("%st_pa%");
+        Like like = new Like("password", "%st_pa%");
 
-        Expression expr = new Expression();
-        expr.setLike(like);
-
-        List<User> users = userService.getUsers(expr);
+        List<User> users = userService.getUsers(like);
 
         assertNotEquals(0, users.size());
         users.stream()
@@ -191,15 +151,9 @@ public class ConditionConversionServiceTest extends SpringTest {
     @Test
     public void testNot() {
         String name = "test_name3";
-        Expression eqName = createEqExpr("name", name);
+        Not not = new Not(new Equals("name", name));
 
-        Not not = new Not();
-        not.setExpression(eqName);
-
-        Expression expr = new Expression();
-        expr.setNot(not);
-
-        List<User> users = userService.getUsers(expr);
+        List<User> users = userService.getUsers(not);
 
         assertNotEquals(0, users.size());
         users.stream()
@@ -212,16 +166,11 @@ public class ConditionConversionServiceTest extends SpringTest {
     @Test
     public void testOr() {
         List<String> names = Arrays.asList("test_name2", "test_name5", "test_name1");
-        List<Expression> expressions = new ArrayList<>();
-        names.forEach(name -> expressions.add(createEqExpr("name", name)));
+        List<Condition> conditions = new ArrayList<>();
+        names.forEach(name -> conditions.add(new Equals("name", name)));
+        Or or = new Or(conditions);
 
-        Or or = new Or();
-        or.setExpressions(expressions);
-
-        Expression expr = new Expression();
-        expr.setOr(or);
-
-        List<User> users = userService.getUsers(expr);
+        List<User> users = userService.getUsers(or);
 
         assertEquals(names.size(), users.size());
         users.stream()
@@ -237,16 +186,5 @@ public class ConditionConversionServiceTest extends SpringTest {
         user.setLogin(login);
         user.setPassword(password);
         return user;
-    }
-
-    private Expression createEqExpr(String field, String value) {
-        Equals eq = new Equals();
-        eq.setField(field);
-        eq.setValue(value);
-
-        Expression expr = new Expression();
-        expr.setEq(eq);
-
-        return expr;
     }
 }

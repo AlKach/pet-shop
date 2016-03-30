@@ -6,6 +6,14 @@ public abstract class SingleValueCondition implements Condition {
 
     protected String value;
 
+    public SingleValueCondition() {
+    }
+
+    public SingleValueCondition(String field, String value) {
+        this.field = field;
+        this.value = value;
+    }
+
     public String getField() {
         return field;
     }

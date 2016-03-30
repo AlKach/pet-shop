@@ -8,6 +8,14 @@ public abstract class MultiValueCondition implements Condition {
 
     protected List<String> values;
 
+    public MultiValueCondition() {
+    }
+
+    public MultiValueCondition(String field, List<String> values) {
+        this.field = field;
+        this.values = values;
+    }
+
     public String getField() {
         return field;
     }

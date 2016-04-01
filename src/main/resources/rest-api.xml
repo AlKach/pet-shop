@@ -16,7 +16,6 @@
         </mvc:message-converters>
     </mvc:annotation-driven>
 
-    <mvc:resources mapping="/swagger-ui.html" location="classpath:/META-INF/resources/"/>
-    <mvc:resources mapping="/webjars/**" location="classpath:/META-INF/resources/webjars/"/>
+    <mvc:resources mapping="/**" location="/rest/"/>
 
 </beans>

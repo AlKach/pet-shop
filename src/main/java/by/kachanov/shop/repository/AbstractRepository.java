@@ -1,6 +1,7 @@
 package by.kachanov.shop.repository;
 
 import by.kachanov.shop.dto.condition.Condition;
+import by.kachanov.shop.service.converter.ConversionContextHolder;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -24,7 +25,13 @@ public class AbstractRepository {
 
     protected Criteria getCriteria(Class<?> type, Condition condition) {
         Criteria criteria = getCurrentSession().createCriteria(type);
-        Criterion criterion = conditionConverter.convert(condition, Criterion.class);
+        Criterion criterion;
+        try {
+            ConversionContextHolder.getInstance().setCurrentType(type);
+            criterion = conditionConverter.convert(condition, Criterion.class);
+        } finally {
+            ConversionContextHolder.getInstance().setCurrentType(null);
+        }
         if (criterion != null) {
             return criteria.add(criterion);
         } else {

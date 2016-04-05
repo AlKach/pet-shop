@@ -7,10 +7,12 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 @Component
-public class GreaterConverter implements Converter<Greater, Criterion> {
+public class GreaterConverter extends AbstractConditionConverter implements Converter<Greater, Criterion> {
 
     @Override
     public Criterion convert(Greater source) {
-        return Restrictions.gt(source.getField(), source.getValue());
+        String field = source.getField();
+        Object value = convertType(field, source.getValue());
+        return Restrictions.gt(field, value);
     }
 }

@@ -6,6 +6,7 @@ import by.kachanov.shop.dto.condition.*;
 import org.junit.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -18,6 +19,10 @@ public class ConditionConversionServiceTest extends SpringTest {
     private UserService userService;
 
     private List<User> users = new ArrayList<>();
+
+    private BigDecimal firstUserId = null;
+
+    private BigDecimal lastUserId = null;
 
     @Before
     public void setUp() throws Exception {
@@ -32,6 +37,9 @@ public class ConditionConversionServiceTest extends SpringTest {
         users.add(createUser("test_name9", "test_login9", "test_password9"));
 
         users.forEach(userService::saveUser);
+
+        firstUserId = users.get(0).getId();
+        lastUserId = users.get(users.size() - 1).getId();
     }
 
     @After
@@ -106,16 +114,21 @@ public class ConditionConversionServiceTest extends SpringTest {
 
     @Test
     public void testIn() {
-        List<String> logins = Arrays.asList("test_login3", "test_login5", "test_login7", "test_login1");
-        In in = new In("login", logins);
+        List<String> ids = new ArrayList<>();
+        ids.add(firstUserId.toString());
+        ids.add(firstUserId.add(BigDecimal.ONE).toString());
+        ids.add(lastUserId.toString());
+        ids.add(lastUserId.subtract(BigDecimal.ONE).toString());
+        In in = new In("id", ids);
 
         List<User> users = userService.getUsers(in);
 
-        assertEquals(logins.size(), users.size());
+        assertEquals(ids.size(), users.size());
         users.stream()
-                .map(User::getLogin)
+                .map(User::getId)
+                .map(BigDecimal::toString)
                 .map(String::toLowerCase)
-                .map(logins::contains)
+                .map(ids::contains)
                 .forEach(Assert::assertTrue);
     }
 
@@ -136,7 +149,7 @@ public class ConditionConversionServiceTest extends SpringTest {
 
     @Test
     public void testLike() {
-        Like like = new Like("password", "%st_pa%");
+        Like like = new Like("password", "*st_pa*");
 
         List<User> users = userService.getUsers(like);
 

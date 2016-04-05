@@ -7,10 +7,13 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 @Component
-public class BetweenConverter implements Converter<Between, Criterion> {
+public class BetweenConverter extends AbstractConditionConverter implements Converter<Between, Criterion> {
 
     @Override
     public Criterion convert(Between source) {
-        return Restrictions.between(source.getField(), source.getLow(), source.getHigh());
+        String field = source.getField();
+        Object low = convertType(field, source.getLow());
+        Object high = convertType(field, source.getHigh());
+        return Restrictions.between(field, low, high);
     }
 }

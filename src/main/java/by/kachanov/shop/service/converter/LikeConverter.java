@@ -7,10 +7,12 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 @Component
-public class LikeConverter implements Converter<Like, Criterion> {
+public class LikeConverter extends AbstractConditionConverter implements Converter<Like, Criterion> {
 
     @Override
     public Criterion convert(Like source) {
-        return Restrictions.like(source.getField(), source.getValue());
+        String field = source.getField();
+        String value = source.getValue().replaceAll("\\*", "%");
+        return Restrictions.like(field, value);
     }
 }

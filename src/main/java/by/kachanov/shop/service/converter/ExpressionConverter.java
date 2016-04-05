@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
  * @author Aliaksandr_Kachanov
  */
 @Component
-public class ExpressionConverter implements Converter<Expression, Criterion> {
+public class ExpressionConverter extends AbstractConditionConverter implements Converter<Expression, Criterion> {
 
     @Autowired
     private ConversionService conversionService;

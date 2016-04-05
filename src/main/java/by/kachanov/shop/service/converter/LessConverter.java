@@ -7,10 +7,12 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 @Component
-public class LessConverter implements Converter<Less, Criterion> {
+public class LessConverter extends AbstractConditionConverter implements Converter<Less, Criterion> {
 
     @Override
     public Criterion convert(Less source) {
-        return Restrictions.lt(source.getField(), source.getValue());
+        String field = source.getField();
+        Object value = convertType(field, source.getValue());
+        return Restrictions.lt(field, value);
     }
 }

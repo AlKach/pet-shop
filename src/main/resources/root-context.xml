@@ -9,5 +9,6 @@
     <context:component-scan base-package="by.kachanov.shop.service"/>
 
     <import resource="dao.xml"/>
+    <import resource="security.xml"/>
 
 </beans>

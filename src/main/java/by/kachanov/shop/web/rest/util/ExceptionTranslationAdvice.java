@@ -11,17 +11,17 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class ExceptionTranslationAdvice {
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
-    public ResponseEntity<?> handleHttpMessageNotReadableException(HttpMessageNotReadableException ex) {
+    public ResponseEntity<ExceptionMessage> handleHttpMessageNotReadableException(HttpMessageNotReadableException ex) {
         return new ResponseEntity<>(new ExceptionMessage(ex), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(ObjectNotFoundException.class)
-    public ResponseEntity<?> handleObjectNotFoundException(ObjectNotFoundException ex) {
+    public ResponseEntity<ExceptionMessage> handleObjectNotFoundException(ObjectNotFoundException ex) {
         return new ResponseEntity<>(new ExceptionMessage(ex), HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<?> handleException(Exception ex) {
+    public ResponseEntity<ExceptionMessage> handleException(Exception ex) {
         return new ResponseEntity<>(new ExceptionMessage(ex), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 

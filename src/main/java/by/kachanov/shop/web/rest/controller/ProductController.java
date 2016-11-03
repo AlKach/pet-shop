@@ -58,9 +58,9 @@ public class ProductController {
     @ApiOperation("Delete product")
     @RequestMapping(value = "/{productId}", method = RequestMethod.DELETE)
     @ResponseBody
-    public ResponseEntity<?> deleteProduct(@PathVariable("productId") BigDecimal productId) {
+    public ResponseEntity deleteProduct(@PathVariable("productId") BigDecimal productId) {
         productService.deleteProduct(productId);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
 }

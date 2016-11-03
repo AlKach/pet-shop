@@ -33,6 +33,10 @@ public final class TestConstants {
     public static final String TEST_PASSWORD_7 = "test_password7";
     public static final String TEST_PASSWORD_8 = "test_password8";
     public static final String TEST_PASSWORD_9 = "test_password9";
+    
+    public static final String PARAM_NAME = "name";
+    public static final String PARAM_LOGIN = "login";
+    public static final String PARAM_PASSWORD = "password";
 
     private TestConstants() {
 

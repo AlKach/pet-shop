@@ -55,9 +55,9 @@ public class ConditionConversionServiceTest extends SpringTest {
         String password = TEST_PASSWORD_4;
 
         And and = new And(Arrays.asList(
-                new Equals("name", name),
-                new Equals("login", login),
-                new Equals("password", password)));
+                new Equals(PARAM_NAME, name),
+                new Equals(PARAM_LOGIN, login),
+                new Equals(PARAM_PASSWORD, password)));
 
         List<User> userList = userService.getUsers(and);
 
@@ -74,7 +74,7 @@ public class ConditionConversionServiceTest extends SpringTest {
     public void testBetween() {
         String nameLo = TEST_NAME_3;
         String nameHi = TEST_NAME_6;
-        Between between = new Between("name", nameLo, nameHi);
+        Between between = new Between(PARAM_NAME, nameLo, nameHi);
 
         List<User> userList = userService.getUsers(between);
 
@@ -90,7 +90,7 @@ public class ConditionConversionServiceTest extends SpringTest {
     public void testEq() {
         String name = TEST_NAME_5;
 
-        Equals eq = new Equals("name", name);
+        Equals eq = new Equals(PARAM_NAME, name);
 
         List<User> userList = userService.getUsers(eq);
 
@@ -101,7 +101,7 @@ public class ConditionConversionServiceTest extends SpringTest {
     @Test
     public void testGreater() {
         String testPassword = TEST_PASSWORD_8;
-        Greater greater = new Greater("password", testPassword);
+        Greater greater = new Greater(PARAM_PASSWORD, testPassword);
 
         List<User> userList = userService.getUsers(greater);
 
@@ -136,7 +136,7 @@ public class ConditionConversionServiceTest extends SpringTest {
     @Test
     public void testLess() {
         String testLogin = TEST_LOGIN_3;
-        Less less = new Less("login", testLogin);
+        Less less = new Less(PARAM_LOGIN, testLogin);
 
         List<User> userList = userService.getUsers(less);
 
@@ -150,7 +150,7 @@ public class ConditionConversionServiceTest extends SpringTest {
 
     @Test
     public void testLike() {
-        Like like = new Like("password", "*st_pa*");
+        Like like = new Like(PARAM_PASSWORD, "*st_pa*");
 
         List<User> userList = userService.getUsers(like);
 
@@ -165,7 +165,7 @@ public class ConditionConversionServiceTest extends SpringTest {
     @Test
     public void testNot() {
         String name = TEST_NAME_3;
-        Not not = new Not(new Equals("name", name));
+        Not not = new Not(new Equals(PARAM_NAME, name));
 
         List<User> userList = userService.getUsers(not);
 
@@ -181,7 +181,7 @@ public class ConditionConversionServiceTest extends SpringTest {
     public void testOr() {
         List<String> names = Arrays.asList(TEST_NAME_2, TEST_NAME_5, TEST_NAME_1);
         List<Condition> conditions = new ArrayList<>();
-        names.forEach(name -> conditions.add(new Equals("name", name)));
+        names.forEach(name -> conditions.add(new Equals(PARAM_NAME, name)));
         Or or = new Or(conditions);
 
         List<User> userList = userService.getUsers(or);

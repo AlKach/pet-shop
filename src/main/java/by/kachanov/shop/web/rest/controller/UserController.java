@@ -58,9 +58,9 @@ public class UserController {
     @ApiOperation("Delete user")
     @RequestMapping(value = "/{userId}", method = RequestMethod.DELETE)
     @ResponseBody
-    public ResponseEntity<?> deleteUser(@PathVariable("userId") BigDecimal userId) {
+    public ResponseEntity deleteUser(@PathVariable("userId") BigDecimal userId) {
         userService.deleteUser(userId);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
 }

@@ -58,9 +58,9 @@ public class CategoryController {
     @ApiOperation("Delete category")
     @RequestMapping(value = "/{categoryId}", method = RequestMethod.DELETE)
     @ResponseBody
-    public ResponseEntity<?> deleteCategory(@PathVariable("categoryId") BigDecimal categoryId) {
+    public ResponseEntity deleteCategory(@PathVariable("categoryId") BigDecimal categoryId) {
         categoryService.deleteCategory(categoryId);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
 }

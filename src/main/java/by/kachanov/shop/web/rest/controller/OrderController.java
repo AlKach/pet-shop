@@ -58,9 +58,9 @@ public class OrderController {
     @ApiOperation("Delete order")
     @RequestMapping(value = "/{orderId}", method = RequestMethod.DELETE)
     @ResponseBody
-    public ResponseEntity<?> deleteOrder(@PathVariable("orderId") BigDecimal orderId) {
+    public ResponseEntity deleteOrder(@PathVariable("orderId") BigDecimal orderId) {
         orderService.deleteOrder(orderId);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
 }

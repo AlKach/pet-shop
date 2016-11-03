@@ -4,10 +4,6 @@ public final class TestConstants {
 
     public static final String NUMBER_STRING = "12345";
 
-    private TestConstants() {
-
-    }
-
     public static final String TEST_NAME_1 = "test_name1";
     public static final String TEST_NAME_2 = "test_name2";
     public static final String TEST_NAME_3 = "test_name3";
@@ -37,5 +33,9 @@ public final class TestConstants {
     public static final String TEST_PASSWORD_7 = "test_password7";
     public static final String TEST_PASSWORD_8 = "test_password8";
     public static final String TEST_PASSWORD_9 = "test_password9";
+
+    private TestConstants() {
+
+    }
 
 }

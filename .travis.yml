@@ -14,6 +14,7 @@ before_script:
   - psql -c "create user shop_test with password 'password';" -U postgres
   - psql -c "grant all privileges on database shop_test to shop_test;" -U postgres
 script:
+  - mvn test
   - sonar-scanner -Dsonar.login=$SONAR_TOKEN
 notifications:
   email: false

@@ -1,0 +1,10 @@
+language: java
+sudo: false
+jdk:
+  - oraclejdk8
+services:
+  - postgresql
+before_script:
+  - psql -c 'create database shop_test;' -U postgres
+  - psql -c 'create user shop_test with password "password";'  -U postgres
+  - psql -c 'grant all privileges on database "shop_test" to shop_test;'  -U postgres

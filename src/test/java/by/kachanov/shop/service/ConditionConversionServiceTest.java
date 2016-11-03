@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static by.kachanov.shop.TestConstants.*;
 import static org.junit.Assert.*;
 
 public class ConditionConversionServiceTest extends SpringTest {
@@ -26,15 +27,15 @@ public class ConditionConversionServiceTest extends SpringTest {
 
     @Before
     public void setUp() throws Exception {
-        users.add(createUser("test_name1", "test_login1", "test_password1"));
-        users.add(createUser("test_name2", "test_login2", "test_password2"));
-        users.add(createUser("test_name3", "test_login3", "test_password3"));
-        users.add(createUser("test_name4", "test_login4", "test_password4"));
-        users.add(createUser("test_name5", "test_login5", "test_password5"));
-        users.add(createUser("test_name6", "test_login6", "test_password6"));
-        users.add(createUser("test_name7", "test_login7", "test_password7"));
-        users.add(createUser("test_name8", "test_login8", "test_password8"));
-        users.add(createUser("test_name9", "test_login9", "test_password9"));
+        users.add(createUser(TEST_NAME_1, TEST_LOGIN_1, TEST_PASSWORD_1));
+        users.add(createUser(TEST_NAME_2, TEST_LOGIN_2, TEST_PASSWORD_2));
+        users.add(createUser(TEST_NAME_3, TEST_LOGIN_3, TEST_PASSWORD_3));
+        users.add(createUser(TEST_NAME_4, TEST_LOGIN_4, TEST_PASSWORD_4));
+        users.add(createUser(TEST_NAME_5, TEST_LOGIN_5, TEST_PASSWORD_5));
+        users.add(createUser(TEST_NAME_6, TEST_LOGIN_6, TEST_PASSWORD_6));
+        users.add(createUser(TEST_NAME_7, TEST_LOGIN_7, TEST_PASSWORD_7));
+        users.add(createUser(TEST_NAME_8, TEST_LOGIN_8, TEST_PASSWORD_8));
+        users.add(createUser(TEST_NAME_9, TEST_LOGIN_9, TEST_PASSWORD_9));
 
         users.forEach(userService::saveUser);
 
@@ -49,9 +50,9 @@ public class ConditionConversionServiceTest extends SpringTest {
 
     @Test
     public void testAnd() {
-        String name = "test_name4";
-        String login = "test_login4";
-        String password = "test_password4";
+        String name = TEST_NAME_4;
+        String login = TEST_LOGIN_4;
+        String password = TEST_PASSWORD_4;
 
         And and = new And(Arrays.asList(
                 new Equals("name", name),
@@ -71,8 +72,8 @@ public class ConditionConversionServiceTest extends SpringTest {
 
     @Test
     public void testBetween() {
-        String nameLo = "test_name3";
-        String nameHi = "test_name6";
+        String nameLo = TEST_NAME_3;
+        String nameHi = TEST_NAME_6;
         Between between = new Between("name", nameLo, nameHi);
 
         List<User> userList = userService.getUsers(between);
@@ -87,7 +88,7 @@ public class ConditionConversionServiceTest extends SpringTest {
 
     @Test
     public void testEq() {
-        String name = "test_name5";
+        String name = TEST_NAME_5;
 
         Equals eq = new Equals("name", name);
 
@@ -99,7 +100,7 @@ public class ConditionConversionServiceTest extends SpringTest {
 
     @Test
     public void testGreater() {
-        String testPassword = "test_password8";
+        String testPassword = TEST_PASSWORD_8;
         Greater greater = new Greater("password", testPassword);
 
         List<User> userList = userService.getUsers(greater);
@@ -134,7 +135,7 @@ public class ConditionConversionServiceTest extends SpringTest {
 
     @Test
     public void testLess() {
-        String testLogin = "test_login3";
+        String testLogin = TEST_LOGIN_3;
         Less less = new Less("login", testLogin);
 
         List<User> userList = userService.getUsers(less);
@@ -163,7 +164,7 @@ public class ConditionConversionServiceTest extends SpringTest {
 
     @Test
     public void testNot() {
-        String name = "test_name3";
+        String name = TEST_NAME_3;
         Not not = new Not(new Equals("name", name));
 
         List<User> userList = userService.getUsers(not);
@@ -178,7 +179,7 @@ public class ConditionConversionServiceTest extends SpringTest {
 
     @Test
     public void testOr() {
-        List<String> names = Arrays.asList("test_name2", "test_name5", "test_name1");
+        List<String> names = Arrays.asList(TEST_NAME_2, TEST_NAME_5, TEST_NAME_1);
         List<Condition> conditions = new ArrayList<>();
         names.forEach(name -> conditions.add(new Equals("name", name)));
         Or or = new Or(conditions);

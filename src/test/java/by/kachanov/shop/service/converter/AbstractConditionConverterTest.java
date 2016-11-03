@@ -12,6 +12,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
 
+import static by.kachanov.shop.TestConstants.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
@@ -23,37 +24,37 @@ public class AbstractConditionConverterTest extends SpringTest {
 
     @Test
     public void testStringConverter() throws Exception {
-        testTypeConversion(User.class, "name", "12345", String.class);
+        testTypeConversion(User.class, "name", NUMBER_STRING, String.class);
     }
 
     @Test
     public void testBigDecimalConverter() throws Exception {
-        testTypeConversion(User.class, "id", "12345", BigDecimal.class);
+        testTypeConversion(User.class, "id", NUMBER_STRING, BigDecimal.class);
     }
 
     @Test
     public void testNestedStringConverter() throws Exception {
-        testTypeConversion(Order.class, "user.name", "12345", String.class);
+        testTypeConversion(Order.class, "user.name", NUMBER_STRING, String.class);
     }
 
     @Test
     public void testNestedBigDecimalConverter() throws Exception {
-        testTypeConversion(Order.class, "user.id", "12345", BigDecimal.class);
+        testTypeConversion(Order.class, "user.id", NUMBER_STRING, BigDecimal.class);
     }
 
     @Test
     public void testCollectionStringConverter() throws Exception {
-        testTypeConversion(Product.class, "categories.name", "12345", String.class);
+        testTypeConversion(Product.class, "categories.name", NUMBER_STRING, String.class);
     }
 
     @Test
     public void testCollectionBigDecimalConverter() throws Exception {
-        testTypeConversion(Product.class, "categories.id", "12345", BigDecimal.class);
+        testTypeConversion(Product.class, "categories.id", NUMBER_STRING, BigDecimal.class);
     }
 
     @Test
     public void testNestedCollectionBigDecimalConverter() throws Exception {
-        testTypeConversion(Order.class, "orderPositions.product.categories.id", "12345", BigDecimal.class);
+        testTypeConversion(Order.class, "orderPositions.product.categories.id", NUMBER_STRING, BigDecimal.class);
     }
 
     private void testTypeConversion(Class targetClass, String propertyName, Object propertyValue, Class expectedClass) {

@@ -9,7 +9,7 @@ public class ConversionContextHolder {
     }
 
     private static class ConversionContextHolderInternal {
-        private static ConversionContextHolder INSTANCE = new ConversionContextHolder();
+        private static final ConversionContextHolder INSTANCE = new ConversionContextHolder();
     }
 
     public static ConversionContextHolder getInstance() {

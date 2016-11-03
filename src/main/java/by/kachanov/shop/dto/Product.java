@@ -73,17 +73,22 @@ public class Product {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
 
         Product product = (Product) o;
 
-        if (getId() != null ? !getId().equals(product.getId()) : product.getId() != null) return false;
-        if (getName() != null ? !getName().equals(product.getName()) : product.getName() != null) return false;
-        if (getDescription() != null ? !getDescription().equals(product.getDescription()) : product.getDescription() != null)
+        if (getId() != null ? !getId().equals(product.getId()) : product.getId() != null)
+            return false;
+        if (getName() != null ? !getName().equals(product.getName()) : product.getName() != null)
+            return false;
+        if (getDescription() != null
+                ? !getDescription().equals(product.getDescription())
+                : product.getDescription() != null)
             return false;
         return getPrice() != null ? getPrice().equals(product.getPrice()) : product.getPrice() == null;
-
     }
 
     @Override

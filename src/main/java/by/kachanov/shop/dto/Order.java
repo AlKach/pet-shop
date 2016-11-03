@@ -63,15 +63,18 @@ public class Order {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
 
         Order order = (Order) o;
 
-        if (getId() != null ? !getId().equals(order.getId()) : order.getId() != null) return false;
-        if (getUser() != null ? !getUser().equals(order.getUser()) : order.getUser() != null) return false;
+        if (getId() != null ? !getId().equals(order.getId()) : order.getId() != null)
+            return false;
+        if (getUser() != null ? !getUser().equals(order.getUser()) : order.getUser() != null)
+            return false;
         return getDate() != null ? getDate().equals(order.getDate()) : order.getDate() == null;
-
     }
 
     @Override

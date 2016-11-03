@@ -4,9 +4,6 @@ import java.util.List;
 
 public class Or extends JunctionCondition {
 
-    public Or() {
-    }
-
     public Or(List<Condition> conditions) {
         super(conditions);
     }

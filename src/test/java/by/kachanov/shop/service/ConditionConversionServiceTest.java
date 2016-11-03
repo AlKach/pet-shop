@@ -58,11 +58,11 @@ public class ConditionConversionServiceTest extends SpringTest {
                 new Equals("login", login),
                 new Equals("password", password)));
 
-        List<User> users = userService.getUsers(and);
+        List<User> userList = userService.getUsers(and);
 
-        assertEquals(1, users.size());
+        assertEquals(1, userList.size());
 
-        User user = users.get(0);
+        User user = userList.get(0);
 
         assertEquals(name, user.getName());
         assertEquals(login, user.getLogin());
@@ -75,10 +75,10 @@ public class ConditionConversionServiceTest extends SpringTest {
         String nameHi = "test_name6";
         Between between = new Between("name", nameLo, nameHi);
 
-        List<User> users = userService.getUsers(between);
+        List<User> userList = userService.getUsers(between);
 
-        assertEquals(4, users.size());
-        users.stream()
+        assertEquals(4, userList.size());
+        userList.stream()
                 .map(User::getName)
                 .map(String::toLowerCase)
                 .map(name -> name.compareTo(nameLo) >= 0 && name.compareTo(nameHi) <= 0)
@@ -91,10 +91,10 @@ public class ConditionConversionServiceTest extends SpringTest {
 
         Equals eq = new Equals("name", name);
 
-        List<User> users = userService.getUsers(eq);
+        List<User> userList = userService.getUsers(eq);
 
-        assertEquals(1, users.size());
-        assertEquals(name, users.get(0).getName());
+        assertEquals(1, userList.size());
+        assertEquals(name, userList.get(0).getName());
     }
 
     @Test
@@ -102,10 +102,10 @@ public class ConditionConversionServiceTest extends SpringTest {
         String testPassword = "test_password8";
         Greater greater = new Greater("password", testPassword);
 
-        List<User> users = userService.getUsers(greater);
+        List<User> userList = userService.getUsers(greater);
 
-        assertTrue(users.size() >= 1);
-        users.stream()
+        assertTrue(!userList.isEmpty());
+        userList.stream()
                 .map(User::getPassword)
                 .map(String::toLowerCase)
                 .map(pass -> pass.compareTo(testPassword) > 0)
@@ -121,10 +121,10 @@ public class ConditionConversionServiceTest extends SpringTest {
         ids.add(lastUserId.subtract(BigDecimal.ONE).toString());
         In in = new In("id", ids);
 
-        List<User> users = userService.getUsers(in);
+        List<User> userList = userService.getUsers(in);
 
-        assertEquals(ids.size(), users.size());
-        users.stream()
+        assertEquals(ids.size(), userList.size());
+        userList.stream()
                 .map(User::getId)
                 .map(BigDecimal::toString)
                 .map(String::toLowerCase)
@@ -137,10 +137,10 @@ public class ConditionConversionServiceTest extends SpringTest {
         String testLogin = "test_login3";
         Less less = new Less("login", testLogin);
 
-        List<User> users = userService.getUsers(less);
+        List<User> userList = userService.getUsers(less);
 
-        assertTrue(users.size() >= 1);
-        users.stream()
+        assertTrue(!userList.isEmpty());
+        userList.stream()
                 .map(User::getLogin)
                 .map(String::toLowerCase)
                 .map(login -> login.compareTo(testLogin) < 0)
@@ -151,10 +151,10 @@ public class ConditionConversionServiceTest extends SpringTest {
     public void testLike() {
         Like like = new Like("password", "*st_pa*");
 
-        List<User> users = userService.getUsers(like);
+        List<User> userList = userService.getUsers(like);
 
-        assertNotEquals(0, users.size());
-        users.stream()
+        assertNotEquals(0, userList.size());
+        userList.stream()
                 .map(User::getPassword)
                 .map(String::toLowerCase)
                 .map(pass -> pass.matches(".*st_pa.*"))
@@ -166,10 +166,10 @@ public class ConditionConversionServiceTest extends SpringTest {
         String name = "test_name3";
         Not not = new Not(new Equals("name", name));
 
-        List<User> users = userService.getUsers(not);
+        List<User> userList = userService.getUsers(not);
 
-        assertNotEquals(0, users.size());
-        users.stream()
+        assertNotEquals(0, userList.size());
+        userList.stream()
                 .map(User::getName)
                 .map(String::toLowerCase)
                 .map(name::equals)
@@ -183,10 +183,10 @@ public class ConditionConversionServiceTest extends SpringTest {
         names.forEach(name -> conditions.add(new Equals("name", name)));
         Or or = new Or(conditions);
 
-        List<User> users = userService.getUsers(or);
+        List<User> userList = userService.getUsers(or);
 
-        assertEquals(names.size(), users.size());
-        users.stream()
+        assertEquals(names.size(), userList.size());
+        userList.stream()
                 .map(User::getName)
                 .map(String::toLowerCase)
                 .map(names::contains)

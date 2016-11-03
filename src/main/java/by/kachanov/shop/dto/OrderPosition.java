@@ -61,16 +61,20 @@ public class OrderPosition {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
 
         OrderPosition that = (OrderPosition) o;
 
-        if (getId() != null ? !getId().equals(that.getId()) : that.getId() != null) return false;
-        if (getOrder() != null ? !getOrder().equals(that.getOrder()) : that.getOrder() != null) return false;
-        if (getProduct() != null ? !getProduct().equals(that.getProduct()) : that.getProduct() != null) return false;
+        if (getId() != null ? !getId().equals(that.getId()) : that.getId() != null)
+            return false;
+        if (getOrder() != null ? !getOrder().equals(that.getOrder()) : that.getOrder() != null)
+            return false;
+        if (getProduct() != null ? !getProduct().equals(that.getProduct()) : that.getProduct() != null)
+            return false;
         return getQuantity() != null ? getQuantity().equals(that.getQuantity()) : that.getQuantity() == null;
-
     }
 
     @Override

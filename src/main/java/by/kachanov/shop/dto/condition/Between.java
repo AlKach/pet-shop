@@ -5,9 +5,6 @@ import java.util.List;
 
 public class Between extends MultiValueCondition {
 
-    public Between() {
-    }
-
     public Between(String field, String low, String high) {
         super(field, Arrays.asList(low, high));
         checkValues(Arrays.asList(low, high));
@@ -27,7 +24,7 @@ public class Between extends MultiValueCondition {
         super.setValues(values);
     }
 
-    private void checkValues(List<String> values) throws IllegalArgumentException {
+    private void checkValues(List<String> values) {
         if (values.size() != 2) {
             throw new IllegalArgumentException("Between condition accepts excatly two values");
         }

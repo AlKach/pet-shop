@@ -36,7 +36,7 @@ public abstract class AbstractConditionConverter {
     }
 
     private Class<?> resolvePropertyType(Class<?> targetClass, String propertyName) {
-        int dotPosition = propertyName.indexOf(".");
+        int dotPosition = propertyName.indexOf('.');
         String directPropertyName = dotPosition == -1 ? propertyName : propertyName.substring(0, dotPosition);
         Class<?> directPropertyType = resolveDirectPropertyType(targetClass, directPropertyName);
         if (directPropertyType.isArray()) {

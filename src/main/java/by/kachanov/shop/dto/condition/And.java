@@ -4,9 +4,6 @@ import java.util.List;
 
 public class And extends JunctionCondition {
 
-    public And() {
-    }
-
     public And(List<Condition> conditions) {
         super(conditions);
     }

@@ -4,9 +4,6 @@ public class Not implements Condition {
 
     private Condition condition;
 
-    public Not() {
-    }
-
     public Not(Condition condition) {
         this.condition = condition;
     }

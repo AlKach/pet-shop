@@ -4,9 +4,16 @@ jdk:
   - oraclejdk8
 services:
   - postgresql
+addons:
+  sonarqube: true
+env:
+  global:
+    - secure: H367GF5Rzr8z4y6O2+JhlYSSEwNd7fL9aymHiqfYhk0xAYfk4fW8HwPnH1AcYWurR/Y3lursAvqs2na8BfC+fOt1O6qtvj69z8N4qGz/j3gW2wlmtgFAbEOft63R6D0TkKcUUSEe4+hAwrTjuBvJsgjP4cELwe3zY3FL5ubr3bma4dpSEkSVYfTonjRXmURcTzP3vvtPZgQxLX3GAUBoxlyu2vCKHqQgIBA7GcHvMnV20LjH3eYYTgKfU2bOq/1A7WANX2Ctgbo6j1Tnk+nt2WyK23mmO/5Q53LeVEA3f2B3n6YsBypX41d8DMRAHrCJPJkI10iYIrE3woPkCvhrwrcrAfAa7M8Iz/jGRlbRZbM2HytNBWoldzB0qUD6Vy6cAOirxxXhI2dzKqLWRZdYDuF3fI/UIDvktQFXe5/8xn/LjqzY9i8hzvKIo7q1M8AJ00/Is1rn7fZNWPjrFD/rqVCjJUe9lNaiecr9aMOC5BD1t8G/Zu2OJ/uLtRavGXSZ/SoS84Qr/zUt2P39/2mOiEpoVdV5w1R62RkDiR5X7ebI6zVe3v8Zkg6coy09WSf4fxnV0OW4w1fQSI1eAMGAObOu/G3oKIcga1KqZEa8bxcRdVVuR05rNyfdhLQVnfe9FJzUebp0hSEGBuIkAzGGec42rGRYanDDvYrSOdnXjZk=
 before_script:
   - psql -c "create database shop_test;" -U postgres
   - psql -c "create user shop_test with password 'password';" -U postgres
   - psql -c "grant all privileges on database shop_test to shop_test;" -U postgres
+script:
+  - sonar-scanner -Dsonar.login=$SONAR_TOKEN
 notifications:
   email: false

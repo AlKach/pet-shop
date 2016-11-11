@@ -1,0 +1,6 @@
+applications:
+  - name: pet-shop
+    memory: 512m
+    disk_quota: 512m
+    instances: 1
+    path: target/shop.war

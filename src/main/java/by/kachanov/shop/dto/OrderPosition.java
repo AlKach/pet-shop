@@ -1,5 +1,7 @@
 package by.kachanov.shop.dto;
 
+import by.kachanov.shop.dto.security.Identifiable;
+import by.kachanov.shop.dto.security.Ownable;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
@@ -7,7 +9,7 @@ import java.math.BigDecimal;
 
 @Entity
 @Table(name = "orders_products")
-public class OrderPosition {
+public class OrderPosition implements Identifiable, Ownable {
 
     @Id
     @Column(name = "id")
@@ -57,6 +59,11 @@ public class OrderPosition {
 
     public void setQuantity(BigDecimal quantity) {
         this.quantity = quantity;
+    }
+
+    @Override
+    public BigDecimal getOwnerId() {
+        return order != null ? order.getOwnerId() : null;
     }
 
     @Override

@@ -1,5 +1,7 @@
 package by.kachanov.shop.dto;
 
+import by.kachanov.shop.dto.security.Identifiable;
+import by.kachanov.shop.dto.security.Ownable;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -10,7 +12,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "orders")
-public class Order {
+public class Order implements Identifiable, Ownable {
 
     @Id
     @Column(name = "id")
@@ -59,6 +61,11 @@ public class Order {
 
     public void setOrderPositions(Set<OrderPosition> orderPositions) {
         this.orderPositions = orderPositions;
+    }
+
+    @Override
+    public BigDecimal getOwnerId() {
+        return user != null ? user.getId() : null;
     }
 
     @Override

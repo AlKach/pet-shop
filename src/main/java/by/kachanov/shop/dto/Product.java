@@ -1,5 +1,7 @@
 package by.kachanov.shop.dto;
 
+import by.kachanov.shop.dto.security.Identifiable;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.HashSet;
@@ -7,7 +9,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "products")
-public class Product {
+public class Product implements Identifiable {
 
     @Id
     @Column(name = "id")

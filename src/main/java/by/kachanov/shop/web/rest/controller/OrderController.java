@@ -27,6 +27,7 @@ public class OrderController {
     @RequestMapping(value = "", method = RequestMethod.POST)
     @ResponseBody
     public BigDecimal addOrder(@RequestBody Order order) {
+        order.setId(null);
         orderService.saveOrder(order);
         return order.getId();
     }

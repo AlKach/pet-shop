@@ -27,6 +27,7 @@ public class CategoryController {
     @RequestMapping(value = "", method = RequestMethod.POST)
     @ResponseBody
     public BigDecimal addCategory(@RequestBody Category category) {
+        category.setId(null);
         categoryService.saveCategory(category);
         return category.getId();
     }

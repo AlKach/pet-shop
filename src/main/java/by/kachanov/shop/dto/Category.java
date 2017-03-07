@@ -1,11 +1,13 @@
 package by.kachanov.shop.dto;
 
+import by.kachanov.shop.dto.security.Identifiable;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
 @Table(name = "categories")
-public class Category {
+public class Category implements Identifiable {
 
     @Id
     @Column(name = "id")

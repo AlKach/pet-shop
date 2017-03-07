@@ -8,11 +8,12 @@ import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.vote.AbstractAccessDecisionManager;
 import org.springframework.security.authentication.InsufficientAuthenticationException;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 import java.util.List;
+
+import static org.springframework.security.access.AccessDecisionVoter.ACCESS_GRANTED;
 
 @Component("decisionManager")
 public class DecisionManager extends AbstractAccessDecisionManager {
@@ -31,8 +32,9 @@ public class DecisionManager extends AbstractAccessDecisionManager {
             return;
         }
 
-        for (ConfigAttribute attribute : configAttributes) {
-            if (authentication.getAuthorities().contains(new SimpleGrantedAuthority(attribute.toString()))) {
+        for (AccessDecisionVoter voter : getDecisionVoters()) {
+            int decision = voter.vote(authentication, object, configAttributes);
+            if (decision == ACCESS_GRANTED) {
                 return;
             }
         }

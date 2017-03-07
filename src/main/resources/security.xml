@@ -13,7 +13,7 @@
     </sec:http>
 
     <sec:authentication-manager>
-        <sec:authentication-provider user-service-ref="userDetailsService" />
+        <sec:authentication-provider ref="authenticationProvider" />
     </sec:authentication-manager>
 
     <sec:global-method-security access-decision-manager-ref="decisionManager" secured-annotations="enabled"/>

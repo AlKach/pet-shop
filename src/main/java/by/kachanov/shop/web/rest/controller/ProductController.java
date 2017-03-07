@@ -27,6 +27,7 @@ public class ProductController {
     @RequestMapping(value = "", method = RequestMethod.POST)
     @ResponseBody
     public BigDecimal addProduct(@RequestBody Product product) {
+        product.setId(null);
         productService.saveProduct(product);
         return product.getId();
     }

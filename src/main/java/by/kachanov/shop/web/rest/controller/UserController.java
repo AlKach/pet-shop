@@ -27,6 +27,7 @@ public class UserController {
     @RequestMapping(value = "", method = RequestMethod.POST)
     @ResponseBody
     public BigDecimal createUser(@RequestBody User user) {
+        user.setId(null);
         userService.saveUser(user);
         return user.getId();
     }

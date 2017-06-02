@@ -13,6 +13,6 @@ public class InConverter extends AbstractConditionConverter implements Converter
     public Criterion convert(In source) {
         String field = source.getField();
         Object[] values = source.getValues().stream().map(val -> convertType(field, val)).toArray();
-        return Restrictions.in(field, values);
+        return Restrictions.in(getFieldAlias(field), values);
     }
 }

@@ -1,6 +1,8 @@
 package by.kachanov.shop.dto.condition;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public abstract class JunctionCondition implements Condition {
 
@@ -19,5 +21,13 @@ public abstract class JunctionCondition implements Condition {
 
     public void setConditions(List<Condition> conditions) {
         this.conditions = conditions;
+    }
+
+    @Override
+    public Collection<String> getFields() {
+        return conditions.stream()
+                .map(Condition::getFields)
+                .flatMap(Collection::stream)
+                .collect(Collectors.toList());
     }
 }

@@ -14,6 +14,6 @@ public class BetweenConverter extends AbstractConditionConverter implements Conv
         String field = source.getField();
         Object low = convertType(field, source.getLow());
         Object high = convertType(field, source.getHigh());
-        return Restrictions.between(field, low, high);
+        return Restrictions.between(getFieldAlias(field), low, high);
     }
 }

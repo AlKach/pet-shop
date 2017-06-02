@@ -29,14 +29,15 @@ public class AbstractRepository {
         try {
             ConversionContextHolder.getInstance().setCurrentType(type);
             criterion = conditionConverter.convert(condition, Criterion.class);
+            if (criterion != null) {
+                ConversionContextHolder.getInstance().getRegisteredAliases().forEach(criteria::createAlias);
+                criteria.add(criterion);
+            }
         } finally {
             ConversionContextHolder.getInstance().setCurrentType(null);
         }
-        if (criterion != null) {
-            return criteria.add(criterion);
-        } else {
-            return criteria;
-        }
+
+        return criteria;
     }
 
 }

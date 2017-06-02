@@ -1,5 +1,8 @@
 package by.kachanov.shop.dto.condition;
 
+import java.util.Collection;
+import java.util.Collections;
+
 public abstract class SingleValueCondition implements Condition {
 
     protected String field;
@@ -28,5 +31,10 @@ public abstract class SingleValueCondition implements Condition {
 
     public void setValue(String value) {
         this.value = value;
+    }
+
+    @Override
+    public Collection<String> getFields() {
+        return Collections.singletonList(field);
     }
 }

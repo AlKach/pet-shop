@@ -39,12 +39,8 @@ public class ConversionContextHolder {
             aliasCount.set(0);
         }
 
-        if (aliases.containsKey(field)) {
-            return aliases.get(field);
-        }
-
         if (field.contains(".")) {
-            int firstDotPosition = 0;
+            int firstDotPosition;
             int secondDotPosition = field.indexOf(".");
             while (secondDotPosition != -1) {
                 String fieldForAlias = field.substring(0, secondDotPosition);
@@ -54,6 +50,8 @@ public class ConversionContextHolder {
                     String alias = "alias" + count;
                     aliases.put(fieldForAlias, alias);
                     field = alias + field.substring(secondDotPosition);
+                } else {
+                    field = field.replace(fieldForAlias, aliases.get(fieldForAlias));
                 }
 
                 firstDotPosition = field.indexOf(".");
@@ -61,12 +59,16 @@ public class ConversionContextHolder {
             }
         }
 
-
         return field;
     }
 
     public Map<String, String> getRegisteredAliases() {
         return registeredAliases.get();
+    }
+
+    public void resetAliases() {
+        registeredAliases.set(null);
+        aliasCount.set(0);
     }
 
 }

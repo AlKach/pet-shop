@@ -85,7 +85,10 @@ public class AbstractRepositoryTest extends SpringTest {
     }
 
     @Test
-    public void testNestedFieldAccess() throws Exception {
+    public void testNestedFieldCriteria() throws Exception {
+        assertNotEquals(repository.getCriteria(User.class, new Equals("name", "user_name")).list().size(), 0);
+        assertNotEquals(repository.getCriteria(Product.class, new Equals("categories.name", "category_name")).list().size(), 0);
+        assertNotEquals(repository.getCriteria(Order.class, new Equals("orderPositions.product.name", "product_name")).list().size(), 0);
         assertNotEquals(repository.getCriteria(Order.class, new Equals("orderPositions.product.categories.name", "category_name")).list().size(), 0);
     }
 

@@ -1,14 +1,10 @@
 package by.kachanov.shop;
 
-import by.kachanov.shop.service.ConditionConversionServiceTest;
-import by.kachanov.shop.service.converter.AbstractConditionConverterTest;
+import com.googlecode.junittoolbox.SuiteClasses;
+import com.googlecode.junittoolbox.WildcardPatternSuite;
 import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
 
-@RunWith(Suite.class)
-@Suite.SuiteClasses({
-        ConditionConversionServiceTest.class,
-        AbstractConditionConverterTest.class
-})
+@RunWith(WildcardPatternSuite.class)
+@SuiteClasses({"**/*Test.class", "!**/SpringTest.class"})
 public class Tests {
 }

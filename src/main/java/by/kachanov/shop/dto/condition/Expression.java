@@ -2,6 +2,8 @@ package by.kachanov.shop.dto.condition;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import java.util.Collection;
+
 public class Expression implements Condition {
 
     private And and;
@@ -108,6 +110,11 @@ public class Expression implements Condition {
 
     public Condition getActiveCondition() {
         return activeCondition;
+    }
+
+    @Override
+    public Collection<String> getFields() {
+        return activeCondition.getFields();
     }
 
     private void setActiveCondition(Condition activeCondition) {

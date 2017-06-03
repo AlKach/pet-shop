@@ -13,6 +13,6 @@ public class LikeConverter extends AbstractConditionConverter implements Convert
     public Criterion convert(Like source) {
         String field = source.getField();
         String value = source.getValue().replaceAll("\\*", "%");
-        return Restrictions.like(field, value);
+        return Restrictions.like(getFieldAlias(field), value);
     }
 }

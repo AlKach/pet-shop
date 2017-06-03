@@ -19,6 +19,10 @@ public abstract class AbstractConditionConverter {
         return converter;
     }
 
+    protected String getFieldAlias(String field) {
+        return ConversionContextHolder.getInstance().getAlias(field);
+    }
+
     protected Object convertType(String propertyName, Object originalValue) {
         Class<?> objectType = ConversionContextHolder.getInstance().getCurrentType();
         if (objectType != null) {

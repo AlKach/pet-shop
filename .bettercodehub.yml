@@ -1,0 +1,8 @@
+exclude:
+- /src/main/webapp/rest/.*
+- /src/main/webapp/web/js/lib/.*
+- /src/main/webapp/web/js/require.js
+component_depth: 1
+languages:
+- java
+- javascript

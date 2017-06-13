@@ -2,7 +2,7 @@ exclude:
 - /src/main/webapp/rest/.*
 - /src/main/webapp/web/js/lib/.*
 - /src/main/webapp/web/js/require.js
-component_depth: 6
+component_depth: 7
 languages:
 - java
 - javascript

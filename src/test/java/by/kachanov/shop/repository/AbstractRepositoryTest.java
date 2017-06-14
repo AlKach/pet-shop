@@ -25,6 +25,12 @@ import static org.junit.Assert.*;
 
 public class AbstractRepositoryTest extends SpringTest {
 
+    private static final String USER_NAME = "user_name";
+    private static final String USER_LOGIN = "user_login";
+    private static final String USER_PASSWORD = "user_password";
+    private static final String CATEGORY_NAME = "category_name";
+    private static final String PRODUCT_NAME = "product_name";
+    private static final String PRODUCT_DESCRIPTION = "product_description";
     @Autowired
     @Qualifier("dummyRepository")
     private AbstractRepository repository;
@@ -49,18 +55,18 @@ public class AbstractRepositoryTest extends SpringTest {
     @Before
     public void setUp() throws Exception {
         user = new User();
-        user.setName("user_name");
-        user.setLogin("user_login");
-        user.setPassword("user_password");
+        user.setName(USER_NAME);
+        user.setLogin(USER_LOGIN);
+        user.setPassword(USER_PASSWORD);
         userService.saveUser(user);
 
         category = new Category();
-        category.setName("category_name");
+        category.setName(CATEGORY_NAME);
         categoryService.saveCategory(category);
 
         product = new Product();
-        product.setName("product_name");
-        product.setDescription("product_description");
+        product.setName(PRODUCT_NAME);
+        product.setDescription(PRODUCT_DESCRIPTION);
         product.setPrice(BigDecimal.ZERO);
         product.setCategories(Collections.singleton(category));
         productService.saveProduct(product);
@@ -86,10 +92,10 @@ public class AbstractRepositoryTest extends SpringTest {
 
     @Test
     public void testNestedFieldCriteria() throws Exception {
-        assertNotEquals(repository.getCriteria(User.class, new Equals("name", "user_name")).list().size(), 0);
-        assertNotEquals(repository.getCriteria(Product.class, new Equals("categories.name", "category_name")).list().size(), 0);
-        assertNotEquals(repository.getCriteria(Order.class, new Equals("orderPositions.product.name", "product_name")).list().size(), 0);
-        assertNotEquals(repository.getCriteria(Order.class, new Equals("orderPositions.product.categories.name", "category_name")).list().size(), 0);
+        assertNotEquals(repository.getCriteria(User.class, new Equals("name", USER_NAME)).list().size(), 0);
+        assertNotEquals(repository.getCriteria(Product.class, new Equals("categories.name", CATEGORY_NAME)).list().size(), 0);
+        assertNotEquals(repository.getCriteria(Order.class, new Equals("orderPositions.product.name", PRODUCT_NAME)).list().size(), 0);
+        assertNotEquals(repository.getCriteria(Order.class, new Equals("orderPositions.product.categories.name", CATEGORY_NAME)).list().size(), 0);
     }
 
 }

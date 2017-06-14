@@ -16,6 +16,8 @@ public class ConversionContextHolder {
     }
 
     private static class ConversionContextHolderInternal {
+        private ConversionContextHolderInternal() {}
+
         private static final ConversionContextHolder INSTANCE = new ConversionContextHolder();
     }
 
@@ -32,6 +34,7 @@ public class ConversionContextHolder {
     }
 
     public String getAlias(String field) {
+        String resolvedAlias = field;
         Map<String, String> aliases = registeredAliases.get();
         if (aliases == null) {
             aliases = new LinkedHashMap<>();
@@ -39,27 +42,27 @@ public class ConversionContextHolder {
             aliasCount.set(0);
         }
 
-        if (field.contains(".")) {
+        if (resolvedAlias.contains(".")) {
             int firstDotPosition;
-            int secondDotPosition = field.indexOf(".");
+            int secondDotPosition = resolvedAlias.indexOf('.');
             while (secondDotPosition != -1) {
-                String fieldForAlias = field.substring(0, secondDotPosition);
+                String fieldForAlias = resolvedAlias.substring(0, secondDotPosition);
                 if (!aliases.containsKey(fieldForAlias)) {
                     Integer count = aliasCount.get();
                     aliasCount.set(count + 1);
                     String alias = "alias" + count;
                     aliases.put(fieldForAlias, alias);
-                    field = alias + field.substring(secondDotPosition);
+                    resolvedAlias = alias + resolvedAlias.substring(secondDotPosition);
                 } else {
-                    field = field.replace(fieldForAlias, aliases.get(fieldForAlias));
+                    resolvedAlias = resolvedAlias.replace(fieldForAlias, aliases.get(fieldForAlias));
                 }
 
-                firstDotPosition = field.indexOf(".");
-                secondDotPosition = field.indexOf(".", firstDotPosition + 1);
+                firstDotPosition = resolvedAlias.indexOf('.');
+                secondDotPosition = resolvedAlias.indexOf('.', firstDotPosition + 1);
             }
         }
 
-        return field;
+        return resolvedAlias;
     }
 
     public Map<String, String> getRegisteredAliases() {

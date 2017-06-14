@@ -12,19 +12,21 @@ import static org.junit.Assert.*;
 
 public class ConversionContextHolderTest extends SpringTest {
 
+    private static final String FIELD_NAME = "field";
+
     private ConversionContextHolder holder = ConversionContextHolder.getInstance();
 
     @Test
     public void testGetAliasPlain() throws Exception {
-        assertEquals(holder.getAlias("field"), "field");
+        assertEquals(holder.getAlias(FIELD_NAME), FIELD_NAME);
     }
 
     @Test
     public void testGetAliasNested() throws Exception {
         for (int i = 1; i < 10; i++) {
-            String field = IntStream.range(0, i + 1).mapToObj(n -> "field" + n).collect(Collectors.joining("."));
+            String field = IntStream.range(0, i + 1).mapToObj(n -> FIELD_NAME + n).collect(Collectors.joining("."));
             holder.resetAliases();
-            assertEquals(holder.getAlias(field), "alias" + (i - 1) + ".field" + i);
+            assertEquals(holder.getAlias(field), "alias" + (i - 1) + "." + FIELD_NAME + i);
         }
     }
 
@@ -32,7 +34,7 @@ public class ConversionContextHolderTest extends SpringTest {
     public void testRegisteredAliases() throws Exception {
         String field = "a.b.c.d.e.f.g.h";
         holder.resetAliases();
-        String alias = holder.getAlias(field);
+        String fieldAlias = holder.getAlias(field);
         Map<String, String> registeredAliases = holder.getRegisteredAliases();
         assertEquals(registeredAliases.size(), 7);
 
@@ -42,19 +44,20 @@ public class ConversionContextHolderTest extends SpringTest {
         boolean replaced;
         do {
             replaced = false;
-            for (String key : reversedAliases.keySet()) {
-                replaced = replaced || alias.contains(key);
-                alias = alias.replace(key, reversedAliases.get(key));
+            for (Map.Entry<String, String> entry : reversedAliases.entrySet()) {
+                String alias = entry.getKey();
+                String originalField = entry.getValue();
+                replaced = replaced || fieldAlias.contains(alias);
+                fieldAlias = fieldAlias.replace(alias, originalField);
             }
         } while (replaced);
 
-        assertEquals(field, alias);
+        assertEquals(field, fieldAlias);
     }
 
     @Test
     public void testRepeatingAliases() throws Exception {
-        String field = "field";
-        testRepeatingAliases(field);
+        testRepeatingAliases(FIELD_NAME);
     }
 
     @Test

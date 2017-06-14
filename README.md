@@ -1,4 +1,4 @@
-# pet-shop ![CI status](https://travis-ci.org/AlKach/pet-shop.svg?branch=master)
+# pet-shop [![CI status](https://travis-ci.org/AlKach/pet-shop.svg?branch=master)](https://travis-ci.org/AlKach/pet-shop) [![BCH compliance](https://bettercodehub.com/edge/badge/AlKach/pet-shop?branch=master)](https://bettercodehub.com/)
 
 Simple internet shop application. Created for practicing in developing web application from scratch.
 

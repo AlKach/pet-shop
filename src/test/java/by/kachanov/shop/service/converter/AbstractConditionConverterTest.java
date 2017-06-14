@@ -59,21 +59,9 @@ public class AbstractConditionConverterTest extends SpringTest {
 
     private void testTypeConversion(Class targetClass, String propertyName, Object propertyValue, Class expectedClass) {
         ConversionContextHolder.getInstance().setCurrentType(targetClass);
-        Object result = convertType(propertyName, propertyValue);
+        Object result = dummyConverter.convertType(propertyName, propertyValue);
         assertEquals(expectedClass, result.getClass());
         ConversionContextHolder.getInstance().setCurrentType(null);
-    }
-
-    private Object convertType(String propertyName, Object propertyValue) {
-        try {
-            Method method = AbstractConditionConverter.class
-                    .getDeclaredMethod("convertType", String.class, Object.class);
-            method.setAccessible(true);
-            return method.invoke(dummyConverter, propertyName, propertyValue);
-        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException ex) {
-            fail();
-            return null;
-        }
     }
 
 }

@@ -2,7 +2,7 @@ package by.kachanov.shop.dto.condition;
 
 import java.util.Collection;
 
-public class Not implements Condition {
+public class Not extends AbstractCondition {
 
     private Condition condition;
 

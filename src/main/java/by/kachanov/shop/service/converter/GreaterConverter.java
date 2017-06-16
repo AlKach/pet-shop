@@ -12,7 +12,7 @@ public class GreaterConverter extends AbstractConditionConverter implements Conv
     @Override
     public Criterion convert(Greater source) {
         String field = source.getField();
-        Object value = convertType(field, source.getValue());
+        Object value = convertType(source.getRootType(), field, source.getValue());
         return Restrictions.gt(getFieldAlias(field), value);
     }
 }

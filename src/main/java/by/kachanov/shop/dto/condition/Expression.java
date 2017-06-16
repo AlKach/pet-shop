@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.Collection;
 
-public class Expression implements Condition {
+public class Expression extends AbstractCondition {
 
     private And and;
 

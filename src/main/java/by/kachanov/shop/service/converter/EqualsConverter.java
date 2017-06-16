@@ -12,7 +12,7 @@ public class EqualsConverter extends AbstractConditionConverter implements Conve
     @Override
     public Criterion convert(Equals source) {
         String field = source.getField();
-        Object value = convertType(field, source.getValue());
+        Object value = convertType(source.getRootType(), field, source.getValue());
         return Restrictions.eq(getFieldAlias(field), value);
     }
 }

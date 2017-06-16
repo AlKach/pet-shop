@@ -3,7 +3,7 @@ package by.kachanov.shop.dto.condition;
 import java.util.Collection;
 import java.util.Collections;
 
-public abstract class SingleValueCondition implements Condition {
+public abstract class SingleValueCondition extends AbstractCondition {
 
     protected String field;
 

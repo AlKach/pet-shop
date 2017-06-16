@@ -23,10 +23,9 @@ public abstract class AbstractConditionConverter {
         return ConversionContextHolder.getInstance().getAlias(field);
     }
 
-    protected Object convertType(String propertyName, Object originalValue) {
-        Class<?> objectType = ConversionContextHolder.getInstance().getCurrentType();
-        if (objectType != null) {
-            Class<?> propertyType = resolvePropertyType(objectType, propertyName);
+    protected Object convertType(Class<?> rootType, String propertyName, Object originalValue) {
+        if (rootType != null) {
+            Class<?> propertyType = resolvePropertyType(rootType, propertyName);
             if (!Object.class.equals(propertyType)) {
                 try {
                     return converter.convert(originalValue, propertyType);

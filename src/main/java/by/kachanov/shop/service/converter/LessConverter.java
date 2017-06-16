@@ -12,7 +12,7 @@ public class LessConverter extends AbstractConditionConverter implements Convert
     @Override
     public Criterion convert(Less source) {
         String field = source.getField();
-        Object value = convertType(field, source.getValue());
+        Object value = convertType(source.getRootType(), field, source.getValue());
         return Restrictions.lt(getFieldAlias(field), value);
     }
 }

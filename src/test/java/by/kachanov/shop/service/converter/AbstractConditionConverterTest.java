@@ -55,10 +55,8 @@ public class AbstractConditionConverterTest extends SpringTest {
     }
 
     private void testTypeConversion(Class targetClass, String propertyName, Object propertyValue, Class expectedClass) {
-        ConversionContextHolder.getInstance().setCurrentType(targetClass);
-        Object result = dummyConverter.convertType(propertyName, propertyValue);
+        Object result = dummyConverter.convertType(targetClass, propertyName, propertyValue);
         assertEquals(expectedClass, result.getClass());
-        ConversionContextHolder.getInstance().setCurrentType(null);
     }
 
 }

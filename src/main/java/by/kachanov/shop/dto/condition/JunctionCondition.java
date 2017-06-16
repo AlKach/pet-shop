@@ -4,9 +4,9 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public abstract class JunctionCondition implements Condition {
+public abstract class JunctionCondition extends AbstractCondition {
 
-    protected List<Condition> conditions;
+    private List<Condition> conditions;
 
     public JunctionCondition() {
     }

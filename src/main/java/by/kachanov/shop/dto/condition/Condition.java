@@ -6,4 +6,8 @@ public interface Condition {
 
     Collection<String> getFields();
 
+    Condition withRootType(Class<?> rootType);
+
+    Class<?> getRootType();
+
 }

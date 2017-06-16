@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-public abstract class MultiValueCondition implements Condition {
+public abstract class MultiValueCondition extends AbstractCondition {
 
     protected String field;
 

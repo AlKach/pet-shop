@@ -18,41 +18,45 @@ public class ConversionContextHolderTest extends SpringTest {
 
     @Test
     public void testGetAliasPlain() throws Exception {
-        assertEquals(holder.getAlias(FIELD_NAME), FIELD_NAME);
+        try (ConversionContextHolder holder = ConversionContextHolder.getInstance()) {
+            assertEquals(holder.getAlias(FIELD_NAME), FIELD_NAME);
+        }
     }
 
     @Test
     public void testGetAliasNested() throws Exception {
         for (int i = 1; i < 10; i++) {
             String field = IntStream.range(0, i + 1).mapToObj(n -> FIELD_NAME + n).collect(Collectors.joining("."));
-            holder.resetAliases();
-            assertEquals(holder.getAlias(field), "alias" + (i - 1) + "." + FIELD_NAME + i);
+            try (ConversionContextHolder holder = ConversionContextHolder.getInstance()) {
+                assertEquals(holder.getAlias(field), "alias" + (i - 1) + "." + FIELD_NAME + i);
+            }
         }
     }
 
     @Test
     public void testRegisteredAliases() throws Exception {
         String field = "a.b.c.d.e.f.g.h";
-        holder.resetAliases();
-        String fieldAlias = holder.getAlias(field);
-        Map<String, String> registeredAliases = holder.getRegisteredAliases();
-        assertEquals(registeredAliases.size(), 7);
+        try (ConversionContextHolder holder = ConversionContextHolder.getInstance()) {
+            String fieldAlias = holder.getAlias(field);
+            Map<String, String> registeredAliases = holder.getRegisteredAliases();
+            assertEquals(registeredAliases.size(), 7);
 
-        Map<String, String> reversedAliases = new HashMap<>();
-        registeredAliases.forEach((k, v) -> reversedAliases.put(v, k));
+            Map<String, String> reversedAliases = new HashMap<>();
+            registeredAliases.forEach((k, v) -> reversedAliases.put(v, k));
 
-        boolean replaced;
-        do {
-            replaced = false;
-            for (Map.Entry<String, String> entry : reversedAliases.entrySet()) {
-                String alias = entry.getKey();
-                String originalField = entry.getValue();
-                replaced = replaced || fieldAlias.contains(alias);
-                fieldAlias = fieldAlias.replace(alias, originalField);
-            }
-        } while (replaced);
+            boolean replaced;
+            do {
+                replaced = false;
+                for (Map.Entry<String, String> entry : reversedAliases.entrySet()) {
+                    String alias = entry.getKey();
+                    String originalField = entry.getValue();
+                    replaced = replaced || fieldAlias.contains(alias);
+                    fieldAlias = fieldAlias.replace(alias, originalField);
+                }
+            } while (replaced);
 
-        assertEquals(field, fieldAlias);
+            assertEquals(field, fieldAlias);
+        }
     }
 
     @Test
@@ -67,14 +71,15 @@ public class ConversionContextHolderTest extends SpringTest {
     }
 
     private void testRepeatingAliases(String field) {
-        holder.resetAliases();
+        try (ConversionContextHolder holder = ConversionContextHolder.getInstance()) {
+            String alias1 = holder.getAlias(field);
+            String alias2 = holder.getAlias(field);
+            String alias3 = holder.getAlias(field);
 
-        String alias1 = holder.getAlias(field);
-        String alias2 = holder.getAlias(field);
-        String alias3 = holder.getAlias(field);
+            assertEquals(alias1, alias2);
+            assertEquals(alias1, alias3);
+            assertEquals(alias2, alias3);
+        }
 
-        assertEquals(alias1, alias2);
-        assertEquals(alias1, alias3);
-        assertEquals(alias2, alias3);
     }
 }

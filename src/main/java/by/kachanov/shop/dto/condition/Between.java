@@ -5,6 +5,9 @@ import java.util.List;
 
 public class Between extends MultiValueCondition {
 
+    public Between() {
+    }
+
     public Between(String field, String low, String high) {
         super(field, Arrays.asList(low, high));
         checkValues(Arrays.asList(low, high));

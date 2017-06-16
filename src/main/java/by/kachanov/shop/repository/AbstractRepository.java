@@ -25,18 +25,12 @@ public class AbstractRepository {
 
     protected Criteria getCriteria(Class<?> type, Condition condition) {
         Criteria criteria = getCurrentSession().createCriteria(type);
-        Criterion criterion;
-        ConversionContextHolder conversionContextHolder = ConversionContextHolder.getInstance();
-        try {
-            conversionContextHolder.resetAliases();
-            conversionContextHolder.setCurrentType(type);
-            criterion = conditionConverter.convert(condition, Criterion.class);
+        try (ConversionContextHolder conversionContextHolder = ConversionContextHolder.getInstance()) {
+            Criterion criterion = conditionConverter.convert(condition.withRootType(type), Criterion.class);
             if (criterion != null) {
                 conversionContextHolder.getRegisteredAliases().forEach(criteria::createAlias);
                 criteria.add(criterion);
             }
-        } finally {
-            conversionContextHolder.setCurrentType(null);
         }
 
         return criteria;

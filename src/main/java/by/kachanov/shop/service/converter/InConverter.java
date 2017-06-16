@@ -12,7 +12,7 @@ public class InConverter extends AbstractConditionConverter implements Converter
     @Override
     public Criterion convert(In source) {
         String field = source.getField();
-        Object[] values = source.getValues().stream().map(val -> convertType(field, val)).toArray();
+        Object[] values = source.getValues().stream().map(val -> convertType(source.getRootType(), field, val)).toArray();
         return Restrictions.in(getFieldAlias(field), values);
     }
 }

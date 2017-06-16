@@ -3,9 +3,7 @@ package by.kachanov.shop.service.converter;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class ConversionContextHolder {
-
-    private ThreadLocal<Class<?>> currentType = new ThreadLocal<>();
+public class ConversionContextHolder implements AutoCloseable {
 
     private ThreadLocal<Map<String, String>> registeredAliases = new ThreadLocal<>();
 
@@ -17,20 +15,11 @@ public class ConversionContextHolder {
 
     private static class ConversionContextHolderInternal {
         private ConversionContextHolderInternal() {}
-
         private static final ConversionContextHolder INSTANCE = new ConversionContextHolder();
     }
 
     public static ConversionContextHolder getInstance() {
         return ConversionContextHolderInternal.INSTANCE;
-    }
-
-    public void setCurrentType(Class<?> currentType) {
-        this.currentType.set(currentType);
-    }
-
-    public Class<?> getCurrentType() {
-        return this.currentType.get();
     }
 
     public String getAlias(String field) {
@@ -69,7 +58,8 @@ public class ConversionContextHolder {
         return registeredAliases.get();
     }
 
-    public void resetAliases() {
+    @Override
+    public void close() {
         registeredAliases.set(null);
         aliasCount.set(0);
     }

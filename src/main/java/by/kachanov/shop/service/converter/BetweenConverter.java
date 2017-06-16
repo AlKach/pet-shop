@@ -12,8 +12,8 @@ public class BetweenConverter extends AbstractConditionConverter implements Conv
     @Override
     public Criterion convert(Between source) {
         String field = source.getField();
-        Object low = convertType(field, source.getLow());
-        Object high = convertType(field, source.getHigh());
+        Object low = convertType(source.getRootType(), field, source.getLow());
+        Object high = convertType(source.getRootType(), field, source.getHigh());
         return Restrictions.between(getFieldAlias(field), low, high);
     }
 }

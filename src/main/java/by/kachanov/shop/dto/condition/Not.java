@@ -1,8 +1,6 @@
 package by.kachanov.shop.dto.condition;
 
-import java.util.Collection;
-
-public class Not extends AbstractCondition {
+public class Not implements Condition {
 
     private Condition condition;
 
@@ -18,8 +16,4 @@ public class Not extends AbstractCondition {
         this.condition = condition;
     }
 
-    @Override
-    public Collection<String> getFields() {
-        return condition.getFields();
-    }
 }

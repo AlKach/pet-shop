@@ -19,7 +19,7 @@ pet-shop includes scripts for automating environment setup.
 
 #### Database
 
-pet-shop uses PostgreSQL DB to store its data. It is recommended to run DB on separate VM. Envirnoment setup scripts (stored in `/env` folder) automate running, resetting and configuring VM in VirtualBox.
+pet-shop uses PostgreSQL DB to store its data. It is recommended to run DB on separate VM. Environment setup scripts (stored in `/env` folder) automate running, resetting and configuring VM in VirtualBox.
 
 In order to set up development DB, perform following steps:
  1. Create VM in VirtualBox.

@@ -25,6 +25,7 @@ public class ProductRepositoryImpl extends AbstractRepository implements Product
 
     @Override
     @Transactional
+    @SuppressWarnings("unchecked")
     public List<Product> getProducts(Condition selector) {
         return getCriteria(Product.class, selector).list();
     }

@@ -19,6 +19,7 @@ public class UserRepositoryImpl extends AbstractRepository implements UserReposi
 
     @Override
     @Transactional
+    @SuppressWarnings("unchecked")
     public List<User> getUsers(Condition selector) {
         return getCriteria(User.class, selector).list();
     }

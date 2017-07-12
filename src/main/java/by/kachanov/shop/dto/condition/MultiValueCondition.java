@@ -1,10 +1,8 @@
 package by.kachanov.shop.dto.condition;
 
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
-public abstract class MultiValueCondition extends AbstractCondition {
+public abstract class MultiValueCondition implements Condition {
 
     protected String field;
 
@@ -32,10 +30,5 @@ public abstract class MultiValueCondition extends AbstractCondition {
 
     public void setValues(List<String> values) {
         this.values = values;
-    }
-
-    @Override
-    public Collection<String> getFields() {
-        return Collections.singletonList(field);
     }
 }

@@ -2,9 +2,7 @@ package by.kachanov.shop.dto.condition;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import java.util.Collection;
-
-public class Expression extends AbstractCondition {
+public class Expression implements Condition {
 
     private And and;
 
@@ -110,11 +108,6 @@ public class Expression extends AbstractCondition {
 
     public Condition getActiveCondition() {
         return activeCondition;
-    }
-
-    @Override
-    public Collection<String> getFields() {
-        return activeCondition.getFields();
     }
 
     private void setActiveCondition(Condition activeCondition) {

@@ -14,7 +14,7 @@ public class OrderRepositoryImpl extends AbstractRepository implements OrderRepo
     @Override
     @Transactional
     public void saveOrder(Order order) {
-        order.getOrderPositions().stream().forEach(orderPosition -> orderPosition.setOrder(order));
+        order.getOrderPositions().forEach(orderPosition -> orderPosition.setOrder(order));
         getCurrentSession().save(order);
     }
 
@@ -26,6 +26,7 @@ public class OrderRepositoryImpl extends AbstractRepository implements OrderRepo
 
     @Override
     @Transactional
+    @SuppressWarnings("unchecked")
     public List<Order> getOrders(Condition selector) {
         return getCriteria(Order.class, selector).list();
     }

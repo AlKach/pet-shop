@@ -25,6 +25,7 @@ public class CategoryRepositoryImpl extends AbstractRepository implements Catego
 
     @Override
     @Transactional
+    @SuppressWarnings("unchecked")
     public List<Category> getCategories(Condition selector) {
         return getCriteria(Category.class, selector).list();
     }

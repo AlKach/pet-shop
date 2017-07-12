@@ -29,7 +29,7 @@ public class Between extends MultiValueCondition {
 
     private void checkValues(List<String> values) {
         if (values.size() != 2) {
-            throw new IllegalArgumentException("Between condition accepts excatly two values");
+            throw new IllegalArgumentException("Between condition accepts exactly two values");
         }
     }
 

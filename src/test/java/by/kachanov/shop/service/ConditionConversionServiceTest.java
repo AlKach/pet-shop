@@ -99,6 +99,47 @@ public class ConditionConversionServiceTest extends SpringTest {
     }
 
     @Test
+    public void testExpressionActiveCondition() {
+        Expression expression = new Expression();
+        In in = new In();
+        expression.setIn(in);
+        assertEquals(in, expression.getActiveCondition());
+    }
+
+    @Test
+    public void testExpressionEq() {
+        String name = TEST_NAME_1;
+        Expression expression = new Expression();
+        expression.setEq(new Equals(PARAM_NAME, name));
+        List<User> userList = userService.getUsers(expression);
+
+        assertEquals(1, userList.size());
+        assertEquals(name, userList.get(0).getName());
+    }
+
+    @Test
+    public void testExpressionGreater() {
+        String login = TEST_LOGIN_8;
+        Expression expression = new Expression();
+        expression.setGt(new Greater(PARAM_LOGIN, login));
+        List<User> userList = userService.getUsers(expression);
+
+        assertTrue(!userList.isEmpty());
+        userList.stream()
+                .map(User::getLogin)
+                .map(String::toLowerCase)
+                .map(pass -> pass.compareTo(login) > 0)
+                .forEach(Assert::assertTrue);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testExpressionMultiple() {
+        Expression expression = new Expression();
+        expression.setIn(new In());
+        expression.setLt(new Less());
+    }
+
+    @Test
     public void testGreater() {
         String testPassword = TEST_PASSWORD_8;
         Greater greater = new Greater(PARAM_PASSWORD, testPassword);

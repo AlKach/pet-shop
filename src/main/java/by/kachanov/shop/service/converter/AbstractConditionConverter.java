@@ -1,72 +1,45 @@
 package by.kachanov.shop.service.converter;
 
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.hibernate.criterion.Criterion;
 import org.springframework.core.convert.ConversionService;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.ParameterizedType;
-import java.util.Collection;
+public abstract class AbstractConditionConverter<SourceClass> implements ContextAwareConverter {
 
-public abstract class AbstractConditionConverter {
+    private ConversionContext conversionContext;
 
-    @Autowired
-    @Qualifier("conditionConverter")
-    private ConversionService converter;
+    @Override
+    public ContextAwareConverter withContext(ConversionContext conversionContext) {
+        try {
+            AbstractConditionConverter converter = this.getClass().newInstance();
+            converter.conversionContext = conversionContext;
+            return converter;
+        } catch (InstantiationException | IllegalAccessException e) {
+            throw new IllegalStateException(e);
+        }
+    }
 
-    protected ConversionService getConverter() {
-        return converter;
+    @Override
+    @SuppressWarnings("unchecked")
+    public final Object convert(Object source) {
+        return doConvert((SourceClass) source);
+    }
+
+    protected abstract Criterion doConvert(SourceClass source);
+
+    protected ConversionService getConversionService() {
+        return conversionContext.getConversionService();
+    }
+
+    protected Class<?> getRootType() {
+        return conversionContext.getRootType();
     }
 
     protected String getFieldAlias(String field) {
-        return ConversionContextHolder.getInstance().getAlias(field);
+        return ConversionUtils.getFieldAlias(field, conversionContext);
     }
 
     protected Object convertType(Class<?> rootType, String propertyName, Object originalValue) {
-        if (rootType != null) {
-            Class<?> propertyType = resolvePropertyType(rootType, propertyName);
-            if (!Object.class.equals(propertyType)) {
-                try {
-                    return converter.convert(originalValue, propertyType);
-                } catch (Exception ex) {
-                    return originalValue;
-                }
-            }
-        }
-
-        return originalValue;
-    }
-
-    private Class<?> resolvePropertyType(Class<?> targetClass, String propertyName) {
-        int dotPosition = propertyName.indexOf('.');
-        String directPropertyName = dotPosition == -1 ? propertyName : propertyName.substring(0, dotPosition);
-        Class<?> directPropertyType = resolveDirectPropertyType(targetClass, directPropertyName);
-        if (directPropertyType.isArray()) {
-            directPropertyType = directPropertyType.getComponentType();
-        } else if (Collection.class.isAssignableFrom(directPropertyType)) {
-            directPropertyType = resolveCollectionType(targetClass, directPropertyName);
-        }
-
-        if (dotPosition != -1) {
-            return resolvePropertyType(directPropertyType, propertyName.substring(dotPosition + 1));
-        } else {
-            return directPropertyType;
-        }
-    }
-
-    private Class<?> resolveDirectPropertyType(Class<?> targetClass, String propertyName) {
-        return BeanUtils.findPropertyType(propertyName, targetClass);
-    }
-
-    private Class<?> resolveCollectionType(Class<?> targetClass, String propertyName) {
-        try {
-            Field field = targetClass.getDeclaredField(propertyName);
-            ParameterizedType parameterizedType = (ParameterizedType) field.getGenericType();
-            return (Class<?>) parameterizedType.getActualTypeArguments()[0];
-        } catch (NoSuchFieldException | ClassCastException e) {
-            return Object.class;
-        }
+        return ConversionUtils.convertType(rootType, propertyName, originalValue);
     }
 
 }

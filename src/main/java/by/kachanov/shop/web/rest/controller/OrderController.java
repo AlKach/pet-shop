@@ -26,9 +26,9 @@ public class OrderController {
     @ApiOperation("Create order")
     @RequestMapping(value = "", method = RequestMethod.POST)
     @ResponseBody
-    public BigDecimal addOrder(@RequestBody Order order) {
+    public ResponseEntity<BigDecimal> addOrder(@RequestBody Order order) {
         orderService.saveOrder(order);
-        return order.getId();
+        return new ResponseEntity<>(order.getId(), HttpStatus.CREATED);
     }
 
     @ApiOperation("Modify order")

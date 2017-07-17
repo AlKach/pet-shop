@@ -26,9 +26,9 @@ public class UserController {
     @ApiOperation("Create user")
     @RequestMapping(value = "", method = RequestMethod.POST)
     @ResponseBody
-    public BigDecimal createUser(@RequestBody User user) {
+    public ResponseEntity<BigDecimal> createUser(@RequestBody User user) {
         userService.saveUser(user);
-        return user.getId();
+        return new ResponseEntity<>(user.getId(), HttpStatus.CREATED);
     }
 
     @ApiOperation("Modify user")

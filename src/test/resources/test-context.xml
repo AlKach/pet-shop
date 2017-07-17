@@ -9,5 +9,6 @@
     <context:component-scan base-package="by.kachanov.shop.service"/>
 
     <import resource="test-dao.xml"/>
+    <import resource="test-rest-api.xml"/>
 
 </beans>

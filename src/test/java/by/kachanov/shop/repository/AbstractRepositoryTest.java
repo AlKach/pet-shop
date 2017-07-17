@@ -85,9 +85,6 @@ public class AbstractRepositoryTest extends SpringTest {
     @After
     public void tearDown() throws Exception {
         orderService.deleteOrder(order.getId());
-        productService.deleteProduct(product.getId());
-        categoryService.deleteCategory(category.getId());
-        userService.deleteUser(user.getId());
     }
 
     @Test

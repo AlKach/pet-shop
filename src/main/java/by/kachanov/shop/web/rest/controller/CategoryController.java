@@ -26,9 +26,9 @@ public class CategoryController {
     @ApiOperation("Create category")
     @RequestMapping(value = "", method = RequestMethod.POST)
     @ResponseBody
-    public BigDecimal addCategory(@RequestBody Category category) {
+    public ResponseEntity<BigDecimal> addCategory(@RequestBody Category category) {
         categoryService.saveCategory(category);
-        return category.getId();
+        return new ResponseEntity<>(category.getId(), HttpStatus.CREATED);
     }
 
     @ApiOperation("Modify category")

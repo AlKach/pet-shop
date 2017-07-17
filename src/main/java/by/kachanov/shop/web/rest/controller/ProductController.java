@@ -26,9 +26,9 @@ public class ProductController {
     @ApiOperation("Create product")
     @RequestMapping(value = "", method = RequestMethod.POST)
     @ResponseBody
-    public BigDecimal addProduct(@RequestBody Product product) {
+    public ResponseEntity<BigDecimal> addProduct(@RequestBody Product product) {
         productService.saveProduct(product);
-        return product.getId();
+        return new ResponseEntity<>(product.getId(), HttpStatus.CREATED);
     }
 
     @ApiOperation("Modify product")

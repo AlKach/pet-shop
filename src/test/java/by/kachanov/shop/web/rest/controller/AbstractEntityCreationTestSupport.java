@@ -1,6 +1,6 @@
 package by.kachanov.shop.web.rest.controller;
 
-import by.kachanov.shop.SpringWebTest;
+import by.kachanov.shop.SpringWebTestSupport;
 import org.flywaydb.core.internal.util.Pair;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MvcResult;
@@ -13,7 +13,7 @@ import static org.junit.Assert.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-public abstract class AbstractEntityCreationTest extends SpringWebTest {
+public abstract class AbstractEntityCreationTestSupport extends SpringWebTestSupport {
 
     protected void doTestEntityCreation() throws Exception {
         Object entity = getEntity();

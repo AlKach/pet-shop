@@ -1,6 +1,6 @@
 package by.kachanov.shop.service.converter;
 
-import by.kachanov.shop.SpringTest;
+import by.kachanov.shop.SpringTestSupport;
 import org.hibernate.criterion.Criterion;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +9,7 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-public class ConverterInstantiationTest extends SpringTest {
+public class ConverterInstantiationTest extends SpringTestSupport {
 
     @Autowired
     private List<ContextAwareConverter> converters;

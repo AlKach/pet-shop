@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class ProductCreationTest extends AbstractEntityCreationTest {
+public class ProductCreationTest extends AbstractEntityCreationTestSupport {
 
     private static final String TEST_PRODUCT_NAME = "test product";
 

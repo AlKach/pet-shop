@@ -7,7 +7,7 @@ import org.junit.Test;
 import java.util.Collections;
 import java.util.List;
 
-public class CategoryCreationTest extends AbstractEntityCreationTest {
+public class CategoryCreationTest extends AbstractEntityCreationTestSupport {
 
     private static final String CATEGORY_NAME = "test category";
 

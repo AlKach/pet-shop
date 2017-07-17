@@ -7,7 +7,7 @@ import org.junit.Test;
 import java.util.Arrays;
 import java.util.List;
 
-public class UserCreationTest extends AbstractEntityCreationTest {
+public class UserCreationTest extends AbstractEntityCreationTestSupport {
     
     private static final String TEST_LOGIN = "test login";
     

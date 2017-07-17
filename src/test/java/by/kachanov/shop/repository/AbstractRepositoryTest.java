@@ -1,6 +1,6 @@
 package by.kachanov.shop.repository;
 
-import by.kachanov.shop.SpringTest;
+import by.kachanov.shop.SpringTestSupport;
 import by.kachanov.shop.dto.Category;
 import by.kachanov.shop.dto.Order;
 import by.kachanov.shop.dto.OrderPosition;
@@ -23,7 +23,7 @@ import java.util.Date;
 
 import static org.junit.Assert.*;
 
-public class AbstractRepositoryTest extends SpringTest {
+public class AbstractRepositoryTest extends SpringTestSupport {
 
     private static final String USER_NAME = "user_name";
     private static final String USER_LOGIN = "user_login";

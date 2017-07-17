@@ -14,7 +14,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-public class OrderCreationTest extends AbstractEntityCreationTest {
+public class OrderCreationTest extends AbstractEntityCreationTestSupport {
 
     private static final String TEST_USER_NAME = "test user";
 

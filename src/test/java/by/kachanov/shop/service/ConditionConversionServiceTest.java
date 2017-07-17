@@ -1,6 +1,6 @@
 package by.kachanov.shop.service;
 
-import by.kachanov.shop.SpringTest;
+import by.kachanov.shop.SpringTestSupport;
 import by.kachanov.shop.dto.User;
 import by.kachanov.shop.dto.condition.*;
 import org.junit.*;
@@ -14,7 +14,7 @@ import java.util.List;
 import static by.kachanov.shop.TestConstants.*;
 import static org.junit.Assert.*;
 
-public class ConditionConversionServiceTest extends SpringTest {
+public class ConditionConversionServiceTest extends SpringTestSupport {
 
     @Autowired
     private UserService userService;

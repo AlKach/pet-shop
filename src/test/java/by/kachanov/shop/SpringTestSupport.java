@@ -12,6 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:test-context.xml")
 @WebAppConfiguration
-public abstract class SpringTest {
+public abstract class SpringTestSupport {
 
 }

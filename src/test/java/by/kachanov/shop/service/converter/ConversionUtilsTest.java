@@ -1,6 +1,6 @@
 package by.kachanov.shop.service.converter;
 
-import by.kachanov.shop.SpringTest;
+import by.kachanov.shop.SpringTestSupport;
 import by.kachanov.shop.dto.Order;
 import by.kachanov.shop.dto.Product;
 import by.kachanov.shop.dto.User;
@@ -15,7 +15,7 @@ import java.util.stream.IntStream;
 import static by.kachanov.shop.TestConstants.NUMBER_STRING;
 import static org.junit.Assert.*;
 
-public class ConversionUtilsTest extends SpringTest {
+public class ConversionUtilsTest extends SpringTestSupport {
 
     private static final String FIELD_NAME = "field";
 

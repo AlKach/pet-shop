@@ -24,24 +24,18 @@ repositories {
     mavenCentral()
 }
 
-ext {
-    springVersion = '4.2.4.RELEASE'
-    slf4jVersion = '1.7.16'
-    swaggerVersion = '2.2.2'
-}
-
 dependencies {
     compile "org.springframework:spring-webmvc:${springVersion}"
     compile "org.springframework:spring-jdbc:${springVersion}"
     compile "org.springframework:spring-orm:${springVersion}"
     compile "org.springframework:spring-tx:${springVersion}"
-    compile "org.hibernate:hibernate-core:5.0.8.Final"
-    compile "org.hibernate.common:hibernate-commons-annotations:5.0.1.Final"
+    compile "org.hibernate:hibernate-core:${hibernateVersion}"
+    compile "org.hibernate.common:hibernate-commons-annotations:${hibernateVersion}"
     compile "org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Final"
     compile "postgresql:postgresql:9.1-901-1.jdbc4"
-    compile "org.flywaydb:flyway-core:3.2.1"
+    compile "org.flywaydb:flyway-core:${flywayVersion}"
     compile "org.slf4j:slf4j-api:${slf4jVersion}"
-    compile "org.slf4j:slf4j-log4j12:1.7.16"
+    compile "org.slf4j:slf4j-log4j12:${slf4jVersion}"
     compile "com.fasterxml.jackson.core:jackson-databind:2.7.1-1"
     compile "com.fasterxml.jackson.datatype:jackson-datatype-hibernate5:2.7.1"
     compile "io.springfox:springfox-swagger2:${swaggerVersion}"
@@ -53,28 +47,30 @@ dependencies {
     testCompile "javax.servlet:javax.servlet-api:3.0.1"
 }
 
-task pullDbImage(type: DockerPullImage) {
-    repository 'postgres'
-    tag 'alpine'
-}
+if (project.hasProperty('testProfile') && project.testProfile == 'docker') {
+    task pullDbImage(type: DockerPullImage) {
+        repository 'postgres'
+        tag 'alpine'
+    }
 
-task createTestDb(type: DockerCreateContainer, dependsOn: pullDbImage) {
-    imageId = 'postgres:alpine'
-    portBindings = ['5432:5432']
-    env = ['POSTGRES_DB=shop_test', 'POSTGRES_USER=shop_test', 'POSTGRES_PASSWORD=password']
-}
+    task createTestDb(type: DockerCreateContainer, dependsOn: pullDbImage) {
+        imageId = 'postgres:alpine'
+        portBindings = ['5432:5432']
+        env = ['POSTGRES_DB=shop_test', 'POSTGRES_USER=shop_test', 'POSTGRES_PASSWORD=password']
+    }
 
-task startTestDb(type: DockerStartContainer, dependsOn: createTestDb) {
-    targetContainerId { createTestDb.getContainerId() }
-}
+    task startTestDb(type: DockerStartContainer, dependsOn: createTestDb) {
+        targetContainerId { createTestDb.getContainerId() }
+    }
 
-task stopTestDb(type: DockerStopContainer) {
-    targetContainerId { createTestDb.getContainerId() }
-}
+    task stopTestDb(type: DockerStopContainer) {
+        targetContainerId { createTestDb.getContainerId() }
+    }
 
-task destroyTestDb(type: DockerRemoveContainer, dependsOn: stopTestDb) {
-    targetContainerId { createTestDb.getContainerId() }
-}
+    task destroyTestDb(type: DockerRemoveContainer, dependsOn: stopTestDb) {
+        targetContainerId { createTestDb.getContainerId() }
+    }
 
-test.dependsOn startTestDb
-test.finalizedBy destroyTestDb
+    test.dependsOn startTestDb
+    test.finalizedBy destroyTestDb
+}

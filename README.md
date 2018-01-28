@@ -15,11 +15,30 @@ Frameworks and libraries:
  
 ## Environment setup
 
+pet-shop uses PostgreSQL DB to store its data. It is recommended to run DB on separate machine.
+
+### Docker
+
+The easiest way to get PostgreSQL DB up and running for development and testing is to use Docker image:
+
+    docker run --name pg-test \
+               -p 5432:5432 \
+               -e POSTGRES_USER=shop_test \
+               -e POSTGRES_PASSWORD=password \
+               -e POSTGRES_DB=shop_test \
+               -d postgres:alpine
+
+This will start Docker container with PostgreSQL instance with DB `shop_test`, user `shop_test` and password `password`.
+
+This approach is used in the build script. By default task `test` will start PostgreSQL for tests in Docker container. If you want to run tests on your own DB, comment out property `testProfile` in `gradle.properties`.
+
+### VirtualBox
+
 pet-shop includes scripts for automating environment setup.
 
 #### Database
 
-pet-shop uses PostgreSQL DB to store its data. It is recommended to run DB on separate VM. Environment setup scripts (stored in `/env` folder) automate running, resetting and configuring VM in VirtualBox.
+Environment setup scripts (stored in `/env` folder) automate running, resetting and configuring VM in VirtualBox.
 
 In order to set up development DB, perform following steps:
  1. Create VM in VirtualBox.

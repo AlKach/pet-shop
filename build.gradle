@@ -1,4 +1,5 @@
 apply plugin: 'war'
+apply plugin: 'jacoco'
 
 group = 'by.kachanov'
 version = 1.0

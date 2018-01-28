@@ -47,24 +47,21 @@ public class AbstractRepositoryTest extends SpringTestSupport {
     @Autowired
     private OrderService orderService;
 
-    private User user;
-    private Category category;
-    private Product product;
     private Order order;
 
     @Before
     public void setUp() throws Exception {
-        user = new User();
+        User user = new User();
         user.setName(USER_NAME);
         user.setLogin(USER_LOGIN);
         user.setPassword(USER_PASSWORD);
         userService.saveUser(user);
 
-        category = new Category();
+        Category category = new Category();
         category.setName(CATEGORY_NAME);
         categoryService.saveCategory(category);
 
-        product = new Product();
+        Product product = new Product();
         product.setName(PRODUCT_NAME);
         product.setDescription(PRODUCT_DESCRIPTION);
         product.setPrice(BigDecimal.ZERO);

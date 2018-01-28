@@ -3,16 +3,12 @@ sudo: false
 jdk:
   - oraclejdk8
 services:
-  - postgresql
+  - docker
 addons:
   sonarcloud:
     organization: alkach-github
     token:
       secure: hYKTl6OKzcX8NwkrHcA7/00SgaESn+3Zm1a3epVV52hNadkyF+VJAoeSd7AIFnSvCZyTQB3Z7b9zZLDTqEAUZRTg0zFenmf2HuK6pr/77KRLbMx2L/ZKfQaWmot4WTdFWA6t7ko1zbAxUQ9yDzoNOik5MzZWt150dcHvj5mvOyDX536L+u48KP1Si3A25AMDMuOkIbqPC8Lv3WHG0KdBxmp0cEPCZUSWXWzFpF1PcyLHJocfCBNs3FlCR+QhYJbWLwR9j/kHy4QZChtnB+e0aAsHzjgfAfushu4wWmylEVUJ/iygaZK9NiscziIL8QuN+xav/FIOBtVxMvl9QQZFGTGHsTJIHX41/bTBVg4WejaCszY/AWrAscapg5f4dSWMyNjTICfy3maPHAcnxiI8xGTNWraRTmYqpIGbpmnm5QLKnnha01xWCfwwfyHLrY0+QKoKPJX3YJmCmffaj+oxmGaOKjcEFEvXN/wQ2dfrT7zkXyBX+03r8WAtsFfUPzUJ6c5Mr3J7aPB3RjFRTLMHUa0C+tSJTFJjdfmZ5WhRTuI7AxyYkIoO9Ue5/L7mAm3ru+nz2kRLZ08ZFyZmaznCT0Jc7pOKLSwE/xC8DZsK8gEn3hYTIH3Hlols3O8xu9oAqeZNr7vvFqyPBlViA49qKMbYHJmSJWtwpC9vYgxraXc=
-before_script:
-  - psql -c "create database shop_test;" -U postgres
-  - psql -c "create user shop_test with password 'password';" -U postgres
-  - psql -c "grant all privileges on database shop_test to shop_test;" -U postgres
 before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
   - rm -fr $HOME/.gradle/caches/*/plugin-resolution/

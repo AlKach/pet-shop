@@ -1,5 +1,17 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.bmuschko:gradle-docker-plugin:3.2.3'
+    }
+}
+
 apply plugin: 'war'
 apply plugin: 'jacoco'
+apply plugin: 'com.bmuschko.docker-remote-api'
+
+import com.bmuschko.gradle.docker.tasks.container.*
 
 group = 'by.kachanov'
 version = 1.0
@@ -39,3 +51,26 @@ dependencies {
     testCompile "com.jayway.jsonpath:json-path:2.4.0"
     testCompile "javax.servlet:javax.servlet-api:3.0.1"
 }
+
+task createTestDb(type: DockerCreateContainer) {
+    imageId = 'postgres:alpine'
+    portBindings = ['5432:5432']
+    env = ['POSTGRES_DB=shop_test', 'POSTGRES_USER=shop_test', 'POSTGRES_PASSWORD=password']
+}
+
+task startTestDb(type: DockerStartContainer) {
+    dependsOn createTestDb
+    targetContainerId { createTestDb.getContainerId() }
+}
+
+task stopTestDb(type: DockerStopContainer) {
+    targetContainerId { createTestDb.getContainerId() }
+}
+
+task destroyTestDb(type: DockerRemoveContainer) {
+    dependsOn stopTestDb
+    targetContainerId { createTestDb.getContainerId() }
+}
+
+test.dependsOn startTestDb
+test.finalizedBy destroyTestDb

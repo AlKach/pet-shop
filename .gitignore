@@ -3,6 +3,9 @@
 
 target
 out
+build
+.gradle
+.directory
 
 nbactions.xml
 nb-configuration.xml

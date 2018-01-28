@@ -1,0 +1,44 @@
+apply plugin: 'war'
+
+group = 'by.kachanov'
+version = 1.0
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    springVersion = '4.2.4.RELEASE'
+    slf4jVersion = '1.7.16'
+    swaggerVersion = '2.2.2'
+}
+
+dependencies {
+    compile "org.springframework:spring-webmvc:${springVersion}"
+    compile "org.springframework:spring-jdbc:${springVersion}"
+    compile "org.springframework:spring-orm:${springVersion}"
+    compile "org.springframework:spring-tx:${springVersion}"
+    compile "org.hibernate:hibernate-core:5.0.8.Final"
+    compile "org.hibernate.common:hibernate-commons-annotations:5.0.1.Final"
+    compile "org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Final"
+    compile "postgresql:postgresql:9.1-901-1.jdbc4"
+    compile "org.flywaydb:flyway-core:3.2.1"
+    compile "org.slf4j:slf4j-api:${slf4jVersion}"
+    compile "org.slf4j:slf4j-log4j12:1.7.16"
+    compile "com.fasterxml.jackson.core:jackson-databind:2.7.1-1"
+    compile "com.fasterxml.jackson.datatype:jackson-datatype-hibernate5:2.7.1"
+    compile "io.springfox:springfox-swagger2:${swaggerVersion}"
+
+    testCompile "junit:junit:4.12"
+    testCompile "org.springframework:spring-test:${springVersion}"
+    testCompile "com.googlecode.junit-toolbox:junit-toolbox:1.5"
+    testCompile "com.jayway.jsonpath:json-path:2.4.0"
+    testCompile "javax.servlet:javax.servlet-api:3.0.1"
+}
+
+war {
+
+}

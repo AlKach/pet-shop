@@ -1,0 +1,11 @@
+dependencies {
+    compile "org.springframework:spring-context:${springVersion}"
+    compile "org.springframework:spring-tx:${springVersion}"
+    compile "org.hibernate:hibernate-core:${hibernateVersion}"
+    compile "org.springframework:spring-jdbc:${springVersion}"
+    compile "org.springframework:spring-orm:${springVersion}"
+    compile "postgresql:postgresql:9.1-901-1.jdbc4"
+
+    compile project(":pet-shop-repository:pet-shop-repository-api")
+    compile project(":pet-shop-service:pet-shop-converter")
+}

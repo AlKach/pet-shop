@@ -1,0 +1,11 @@
+rootProject.name = 'shop'
+
+include ':pet-shop-dto',
+        ':pet-shop-service:pet-shop-service-api',
+        ':pet-shop-service:pet-shop-service-impl',
+        ':pet-shop-service:pet-shop-converter',
+        ':pet-shop-repository:pet-shop-repository-api',
+        ':pet-shop-repository:pet-shop-repository-impl',
+        ':pet-shop-web',
+        ':pet-shop-web'
+

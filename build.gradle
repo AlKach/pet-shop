@@ -1,76 +1,15 @@
-buildscript {
+allprojects {
+    group = 'by.kachanov'
+    version = 1.0
+}
+
+subprojects {
+    apply plugin: 'java'
+
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
     repositories {
-        jcenter()
+        mavenCentral()
     }
-    dependencies {
-        classpath 'com.bmuschko:gradle-docker-plugin:3.2.3'
-    }
-}
-
-apply plugin: 'war'
-apply plugin: 'jacoco'
-apply plugin: 'com.bmuschko.docker-remote-api'
-
-import com.bmuschko.gradle.docker.tasks.container.*
-import com.bmuschko.gradle.docker.tasks.image.*
-
-group = 'by.kachanov'
-version = 1.0
-
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
-
-repositories {
-    mavenCentral()
-}
-
-dependencies {
-    compile "org.springframework:spring-webmvc:${springVersion}"
-    compile "org.springframework:spring-jdbc:${springVersion}"
-    compile "org.springframework:spring-orm:${springVersion}"
-    compile "org.springframework:spring-tx:${springVersion}"
-    compile "org.hibernate:hibernate-core:${hibernateVersion}"
-    compile "org.hibernate.common:hibernate-commons-annotations:${hibernateVersion}"
-    compile "org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Final"
-    compile "postgresql:postgresql:9.1-901-1.jdbc4"
-    compile "org.flywaydb:flyway-core:${flywayVersion}"
-    compile "org.slf4j:slf4j-api:${slf4jVersion}"
-    compile "org.slf4j:slf4j-log4j12:${slf4jVersion}"
-    compile "com.fasterxml.jackson.core:jackson-databind:2.7.1-1"
-    compile "com.fasterxml.jackson.datatype:jackson-datatype-hibernate5:2.7.1"
-    compile "io.springfox:springfox-swagger2:${swaggerVersion}"
-
-    testCompile "junit:junit:4.12"
-    testCompile "org.springframework:spring-test:${springVersion}"
-    testCompile "com.googlecode.junit-toolbox:junit-toolbox:1.5"
-    testCompile "com.jayway.jsonpath:json-path:2.4.0"
-    testCompile "javax.servlet:javax.servlet-api:3.0.1"
-}
-
-if (project.hasProperty('testProfile') && project.testProfile == 'docker') {
-    task pullDbImage(type: DockerPullImage) {
-        repository 'postgres'
-        tag 'alpine'
-    }
-
-    task createTestDb(type: DockerCreateContainer, dependsOn: pullDbImage) {
-        imageId = 'postgres:alpine'
-        portBindings = ['5432:5432']
-        env = ['POSTGRES_DB=shop_test', 'POSTGRES_USER=shop_test', 'POSTGRES_PASSWORD=password']
-    }
-
-    task startTestDb(type: DockerStartContainer, dependsOn: createTestDb) {
-        targetContainerId { createTestDb.getContainerId() }
-    }
-
-    task stopTestDb(type: DockerStopContainer) {
-        targetContainerId { createTestDb.getContainerId() }
-    }
-
-    task destroyTestDb(type: DockerRemoveContainer, dependsOn: stopTestDb) {
-        targetContainerId { createTestDb.getContainerId() }
-    }
-
-    test.dependsOn startTestDb
-    test.finalizedBy destroyTestDb
 }

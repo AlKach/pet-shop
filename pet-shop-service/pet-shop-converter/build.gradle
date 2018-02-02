@@ -3,4 +3,10 @@ dependencies {
     compile "org.hibernate:hibernate-core:${hibernateVersion}"
 
     compile project(":pet-shop-dto")
+
+    testCompile "junit:junit:4.12"
+    testCompile "org.springframework:spring-test:${springVersion}"
+    testCompile "org.hsqldb:hsqldb:2.3.3"
+
+    testCompile project(":pet-shop-service:pet-shop-service-impl")
 }

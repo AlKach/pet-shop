@@ -8,7 +8,6 @@ buildscript {
 }
 
 apply plugin: 'war'
-apply plugin: 'jacoco'
 apply plugin: 'com.bmuschko.docker-remote-api'
 
 import com.bmuschko.gradle.docker.tasks.container.*
@@ -26,11 +25,8 @@ dependencies {
 
     testCompile "junit:junit:4.12"
     testCompile "org.springframework:spring-test:${springVersion}"
-    testCompile "com.googlecode.junit-toolbox:junit-toolbox:1.5"
     testCompile "com.jayway.jsonpath:json-path:2.4.0"
     testCompile "javax.servlet:javax.servlet-api:3.0.1"
-
-//    testCompile project(":pet-shop-service:pet-shop-service-impl").sourceSets.main.output
 }
 
 if (project.hasProperty('testProfile') && project.testProfile == 'docker') {

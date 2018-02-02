@@ -1,23 +1,23 @@
 package by.kachanov.shop.service.converter;
 
-import by.kachanov.shop.SpringTestSupport;
 import by.kachanov.shop.dto.Order;
 import by.kachanov.shop.dto.Product;
 import by.kachanov.shop.dto.User;
 import org.junit.Test;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import static by.kachanov.shop.TestConstants.NUMBER_STRING;
 import static org.junit.Assert.*;
 
-public class ConversionUtilsTest extends SpringTestSupport {
+public class ConversionUtilsTest {
 
     private static final String FIELD_NAME = "field";
+    private static final String NUMBER_STRING = "123";
 
     @Test
     public void testStringConverter() throws Exception {
@@ -25,8 +25,8 @@ public class ConversionUtilsTest extends SpringTestSupport {
     }
 
     @Test
-    public void testBigDecimalConverter() throws Exception {
-        testTypeConversion(User.class, "id", NUMBER_STRING, BigDecimal.class);
+    public void testBigIntegerConverter() throws Exception {
+        testTypeConversion(User.class, "id", NUMBER_STRING, BigInteger.class);
     }
 
     @Test
@@ -35,8 +35,8 @@ public class ConversionUtilsTest extends SpringTestSupport {
     }
 
     @Test
-    public void testNestedBigDecimalConverter() throws Exception {
-        testTypeConversion(Order.class, "user.id", NUMBER_STRING, BigDecimal.class);
+    public void testNestedBigIntegerConverter() throws Exception {
+        testTypeConversion(Order.class, "user.id", NUMBER_STRING, BigInteger.class);
     }
 
     @Test
@@ -45,13 +45,13 @@ public class ConversionUtilsTest extends SpringTestSupport {
     }
 
     @Test
-    public void testCollectionBigDecimalConverter() throws Exception {
-        testTypeConversion(Product.class, "categories.id", NUMBER_STRING, BigDecimal.class);
+    public void testCollectionBigIntegerConverter() throws Exception {
+        testTypeConversion(Product.class, "categories.id", NUMBER_STRING, BigInteger.class);
     }
 
     @Test
-    public void testNestedCollectionBigDecimalConverter() throws Exception {
-        testTypeConversion(Order.class, "orderPositions.product.categories.id", NUMBER_STRING, BigDecimal.class);
+    public void testNestedCollectionBigIntegerConverter() throws Exception {
+        testTypeConversion(Order.class, "orderPositions.product.categories.id", NUMBER_STRING, BigInteger.class);
     }
 
     private void testTypeConversion(Class targetClass, String propertyName, Object propertyValue, Class expectedClass) {

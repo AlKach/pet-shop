@@ -1,15 +1,17 @@
 package by.kachanov.shop.service.converter;
 
-import by.kachanov.shop.SpringTestSupport;
 import org.hibernate.criterion.Criterion;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 
 import java.util.List;
 
 import static org.junit.Assert.*;
 
-public class ConverterInstantiationTest extends SpringTestSupport {
+@ContextConfiguration("classpath:context.xml")
+public class ConverterInstantiationTest extends AbstractJUnit4SpringContextTests {
 
     @Autowired
     private List<ContextAwareConverter> converters;

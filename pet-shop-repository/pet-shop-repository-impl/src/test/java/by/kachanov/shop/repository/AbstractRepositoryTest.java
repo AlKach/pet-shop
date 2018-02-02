@@ -1,6 +1,5 @@
 package by.kachanov.shop.repository;
 
-import by.kachanov.shop.SpringTestSupport;
 import by.kachanov.shop.dto.Category;
 import by.kachanov.shop.dto.Order;
 import by.kachanov.shop.dto.OrderPosition;
@@ -16,6 +15,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 
 import java.math.BigDecimal;
 import java.util.Collections;
@@ -23,7 +24,8 @@ import java.util.Date;
 
 import static org.junit.Assert.*;
 
-public class AbstractRepositoryTest extends SpringTestSupport {
+@ContextConfiguration("classpath:context.xml")
+public class AbstractRepositoryTest extends AbstractTransactionalJUnit4SpringContextTests {
 
     private static final String USER_NAME = "user_name";
     private static final String USER_LOGIN = "user_login";
@@ -31,6 +33,7 @@ public class AbstractRepositoryTest extends SpringTestSupport {
     private static final String CATEGORY_NAME = "category_name";
     private static final String PRODUCT_NAME = "product_name";
     private static final String PRODUCT_DESCRIPTION = "product_description";
+
     @Autowired
     @Qualifier("dummyRepository")
     private AbstractRepository repository;

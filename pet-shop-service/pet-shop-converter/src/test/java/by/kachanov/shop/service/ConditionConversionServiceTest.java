@@ -1,12 +1,13 @@
 package by.kachanov.shop.service;
 
-import by.kachanov.shop.SpringTestSupport;
 import by.kachanov.shop.dto.User;
 import by.kachanov.shop.dto.condition.*;
 import org.junit.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 
-import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -14,16 +15,17 @@ import java.util.List;
 import static by.kachanov.shop.TestConstants.*;
 import static org.junit.Assert.*;
 
-public class ConditionConversionServiceTest extends SpringTestSupport {
+@ContextConfiguration("classpath:context.xml")
+public class ConditionConversionServiceTest extends AbstractJUnit4SpringContextTests {
 
     @Autowired
     private UserService userService;
 
     private List<User> users = new ArrayList<>();
 
-    private BigDecimal firstUserId = null;
+    private BigInteger firstUserId = null;
 
-    private BigDecimal lastUserId = null;
+    private BigInteger lastUserId = null;
 
     @Before
     public void setUp() throws Exception {
@@ -158,9 +160,9 @@ public class ConditionConversionServiceTest extends SpringTestSupport {
     public void testIn() {
         List<String> ids = new ArrayList<>();
         ids.add(firstUserId.toString());
-        ids.add(firstUserId.add(BigDecimal.ONE).toString());
+        ids.add(firstUserId.add(BigInteger.ONE).toString());
         ids.add(lastUserId.toString());
-        ids.add(lastUserId.subtract(BigDecimal.ONE).toString());
+        ids.add(lastUserId.subtract(BigInteger.ONE).toString());
         In in = new In("id", ids);
 
         List<User> userList = userService.getUsers(in);
@@ -168,7 +170,7 @@ public class ConditionConversionServiceTest extends SpringTestSupport {
         assertEquals(ids.size(), userList.size());
         userList.stream()
                 .map(User::getId)
-                .map(BigDecimal::toString)
+                .map(BigInteger::toString)
                 .map(String::toLowerCase)
                 .map(ids::contains)
                 .forEach(Assert::assertTrue);

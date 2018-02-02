@@ -4,7 +4,7 @@ import by.kachanov.shop.dto.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.List;
 import by.kachanov.shop.repository.OrderRepository;
 import by.kachanov.shop.dto.condition.Condition;
@@ -21,7 +21,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order getOrder(BigDecimal orderId) {
+    public Order getOrder(BigInteger orderId) {
         return orderRepository.getOrder(orderId);
     }
 
@@ -31,7 +31,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void deleteOrder(BigDecimal orderId) {
+    public void deleteOrder(BigInteger orderId) {
         Order order = getOrder(orderId);
         orderRepository.deleteOrder(order);
     }

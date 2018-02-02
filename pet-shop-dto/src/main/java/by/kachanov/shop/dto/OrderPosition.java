@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 
 @Entity
 @Table(name = "orders_products")
@@ -13,7 +14,7 @@ public class OrderPosition {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk")
     @SequenceGenerator(name = "pk", sequenceName = "pk_seq", allocationSize = 1)
-    private BigDecimal id;
+    private BigInteger id;
 
     @ManyToOne
     @JoinColumn(name = "order_id")
@@ -26,11 +27,11 @@ public class OrderPosition {
     @Column(name = "quantity")
     private BigDecimal quantity;
 
-    public BigDecimal getId() {
+    public BigInteger getId() {
         return id;
     }
 
-    public void setId(BigDecimal id) {
+    public void setId(BigInteger id) {
         this.id = id;
     }
 

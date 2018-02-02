@@ -5,7 +5,7 @@ import by.kachanov.shop.dto.condition.Condition;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.List;
 
 @Repository
@@ -19,7 +19,7 @@ public class ProductRepositoryImpl extends AbstractRepository implements Product
 
     @Override
     @Transactional
-    public Product getProduct(BigDecimal productId) {
+    public Product getProduct(BigInteger productId) {
         return getCurrentSession().load(Product.class, productId);
     }
 

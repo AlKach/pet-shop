@@ -3,14 +3,14 @@ package by.kachanov.shop.repository;
 import by.kachanov.shop.dto.Category;
 import by.kachanov.shop.dto.condition.Condition;
 
-import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.List;
 
 public interface CategoryRepository {
 
     void saveCategory(Category category);
 
-    Category getCategory(BigDecimal categoryId);
+    Category getCategory(BigInteger categoryId);
 
     List<Category> getCategories(Condition selector);
 

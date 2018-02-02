@@ -2,6 +2,7 @@ package by.kachanov.shop.dto;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 
 @Entity
 @Table(name = "categories")
@@ -11,16 +12,16 @@ public class Category {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk")
     @SequenceGenerator(name = "pk", sequenceName = "pk_seq", allocationSize = 1)
-    private BigDecimal id;
+    private BigInteger id;
 
     @Column(name = "name")
     private String name;
 
-    public BigDecimal getId() {
+    public BigInteger getId() {
         return id;
     }
 
-    public void setId(BigDecimal id) {
+    public void setId(BigInteger id) {
         this.id = id;
     }
 

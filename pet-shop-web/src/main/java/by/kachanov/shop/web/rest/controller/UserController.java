@@ -12,7 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.List;
 
 @Controller
@@ -26,7 +26,7 @@ public class UserController {
     @ApiOperation("Create user")
     @RequestMapping(value = "", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<BigDecimal> createUser(@RequestBody User user) {
+    public ResponseEntity<BigInteger> createUser(@RequestBody User user) {
         userService.saveUser(user);
         return new ResponseEntity<>(user.getId(), HttpStatus.CREATED);
     }
@@ -34,7 +34,7 @@ public class UserController {
     @ApiOperation("Modify user")
     @RequestMapping(value = "/{userId}", method = RequestMethod.PUT)
     @ResponseBody
-    public BigDecimal modifyUser(@PathVariable("userId") BigDecimal userId, @RequestBody User user) {
+    public BigInteger modifyUser(@PathVariable("userId") BigInteger userId, @RequestBody User user) {
         User oldUser = userService.getUser(userId);
         BeanUtils.copyProperties(user, oldUser, "id");
         userService.saveUser(oldUser);
@@ -44,7 +44,7 @@ public class UserController {
     @ApiOperation("Get user")
     @RequestMapping(value = "/{userId}", method = RequestMethod.GET)
     @ResponseBody
-    public User getUser(@PathVariable("userId") BigDecimal userId) {
+    public User getUser(@PathVariable("userId") BigInteger userId) {
         return userService.getUser(userId);
     }
 
@@ -58,7 +58,7 @@ public class UserController {
     @ApiOperation("Delete user")
     @RequestMapping(value = "/{userId}", method = RequestMethod.DELETE)
     @ResponseBody
-    public ResponseEntity deleteUser(@PathVariable("userId") BigDecimal userId) {
+    public ResponseEntity deleteUser(@PathVariable("userId") BigInteger userId) {
         userService.deleteUser(userId);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }

@@ -5,7 +5,7 @@ import by.kachanov.shop.dto.condition.Condition;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.List;
 
 @Repository
@@ -19,7 +19,7 @@ public class CategoryRepositoryImpl extends AbstractRepository implements Catego
 
     @Override
     @Transactional
-    public Category getCategory(BigDecimal categoryId) {
+    public Category getCategory(BigInteger categoryId) {
         return getCurrentSession().load(Category.class, categoryId);
     }
 

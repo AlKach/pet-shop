@@ -2,6 +2,7 @@ package by.kachanov.shop.dto;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,7 +14,7 @@ public class Product {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk")
     @SequenceGenerator(name = "pk", sequenceName = "pk_seq", allocationSize = 1)
-    private BigDecimal id;
+    private BigInteger id;
 
     @Column(name = "name")
     private String name;
@@ -31,11 +32,11 @@ public class Product {
             inverseJoinColumns = { @JoinColumn(name = "category_id") })
     private Set<Category> categories = new HashSet<>();
 
-    public BigDecimal getId() {
+    public BigInteger getId() {
         return id;
     }
 
-    public void setId(BigDecimal id) {
+    public void setId(BigInteger id) {
         this.id = id;
     }
 

@@ -4,7 +4,7 @@ import by.kachanov.shop.dto.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.List;
 import by.kachanov.shop.repository.ProductRepository;
 import by.kachanov.shop.dto.condition.Condition;
@@ -21,7 +21,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product getProduct(BigDecimal productId) {
+    public Product getProduct(BigInteger productId) {
         return productRepository.getProduct(productId);
     }
 
@@ -31,7 +31,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void deleteProduct(BigDecimal productId) {
+    public void deleteProduct(BigInteger productId) {
         Product product = productRepository.getProduct(productId);
         productRepository.deleteProduct(product);
     }

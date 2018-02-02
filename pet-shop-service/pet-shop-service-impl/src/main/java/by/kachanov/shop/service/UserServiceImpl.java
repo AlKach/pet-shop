@@ -4,7 +4,7 @@ import by.kachanov.shop.dto.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.List;
 import by.kachanov.shop.repository.UserRepository;
 import by.kachanov.shop.dto.condition.Condition;
@@ -16,7 +16,7 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Override
-    public User getUser(BigDecimal userId) {
+    public User getUser(BigInteger userId) {
         return userRepository.getUser(userId);
     }
 
@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteUser(BigDecimal userId) {
+    public void deleteUser(BigInteger userId) {
         User user = getUser(userId);
         userRepository.deleteUser(user);
     }

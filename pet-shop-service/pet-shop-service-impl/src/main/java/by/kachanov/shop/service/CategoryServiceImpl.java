@@ -4,7 +4,7 @@ import by.kachanov.shop.dto.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.List;
 import by.kachanov.shop.repository.CategoryRepository;
 import by.kachanov.shop.dto.condition.Condition;
@@ -21,7 +21,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category getCategory(BigDecimal categoryId) {
+    public Category getCategory(BigInteger categoryId) {
         return categoryRepository.getCategory(categoryId);
     }
 
@@ -31,7 +31,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void deleteCategory(BigDecimal categoryId) {
+    public void deleteCategory(BigInteger categoryId) {
         Category category = getCategory(categoryId);
         categoryRepository.deleteCategory(category);
     }

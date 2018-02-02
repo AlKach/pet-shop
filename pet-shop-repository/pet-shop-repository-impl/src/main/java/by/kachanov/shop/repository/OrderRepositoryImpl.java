@@ -5,7 +5,7 @@ import by.kachanov.shop.dto.condition.Condition;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.List;
 
 @Repository
@@ -20,7 +20,7 @@ public class OrderRepositoryImpl extends AbstractRepository implements OrderRepo
 
     @Override
     @Transactional
-    public Order getOrder(BigDecimal orderId) {
+    public Order getOrder(BigInteger orderId) {
         return getCurrentSession().load(Order.class, orderId);
     }
 

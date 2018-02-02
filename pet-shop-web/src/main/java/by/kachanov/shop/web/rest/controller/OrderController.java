@@ -12,7 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.List;
 
 @Controller
@@ -26,7 +26,7 @@ public class OrderController {
     @ApiOperation("Create order")
     @RequestMapping(value = "", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<BigDecimal> addOrder(@RequestBody Order order) {
+    public ResponseEntity<BigInteger> addOrder(@RequestBody Order order) {
         orderService.saveOrder(order);
         return new ResponseEntity<>(order.getId(), HttpStatus.CREATED);
     }
@@ -34,7 +34,7 @@ public class OrderController {
     @ApiOperation("Modify order")
     @RequestMapping(value = "/{orderId}", method = RequestMethod.PUT)
     @ResponseBody
-    public BigDecimal modifyOrder(@PathVariable("orderId") BigDecimal orderId, @RequestBody Order order) {
+    public BigInteger modifyOrder(@PathVariable("orderId") BigInteger orderId, @RequestBody Order order) {
         Order oldOrder = orderService.getOrder(orderId);
         BeanUtils.copyProperties(order, oldOrder, "id");
         orderService.saveOrder(oldOrder);
@@ -44,7 +44,7 @@ public class OrderController {
     @ApiOperation("Get order")
     @RequestMapping(value = "/{orderId}", method = RequestMethod.GET)
     @ResponseBody
-    public Order getOrder(@PathVariable("orderId") BigDecimal orderId) {
+    public Order getOrder(@PathVariable("orderId") BigInteger orderId) {
         return orderService.getOrder(orderId);
     }
 
@@ -58,7 +58,7 @@ public class OrderController {
     @ApiOperation("Delete order")
     @RequestMapping(value = "/{orderId}", method = RequestMethod.DELETE)
     @ResponseBody
-    public ResponseEntity deleteOrder(@PathVariable("orderId") BigDecimal orderId) {
+    public ResponseEntity deleteOrder(@PathVariable("orderId") BigInteger orderId) {
         orderService.deleteOrder(orderId);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }

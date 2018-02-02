@@ -12,7 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.List;
 
 @Controller
@@ -26,7 +26,7 @@ public class ProductController {
     @ApiOperation("Create product")
     @RequestMapping(value = "", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<BigDecimal> addProduct(@RequestBody Product product) {
+    public ResponseEntity<BigInteger> addProduct(@RequestBody Product product) {
         productService.saveProduct(product);
         return new ResponseEntity<>(product.getId(), HttpStatus.CREATED);
     }
@@ -34,7 +34,7 @@ public class ProductController {
     @ApiOperation("Modify product")
     @RequestMapping(value = "/{productId}", method = RequestMethod.PUT)
     @ResponseBody
-    public BigDecimal modifyProduct(@PathVariable("productId") BigDecimal productId, @RequestBody Product product) {
+    public BigInteger modifyProduct(@PathVariable("productId") BigInteger productId, @RequestBody Product product) {
         Product oldProduct = productService.getProduct(productId);
         BeanUtils.copyProperties(product, oldProduct, "id");
         productService.saveProduct(oldProduct);
@@ -44,7 +44,7 @@ public class ProductController {
     @ApiOperation("Get product")
     @RequestMapping(value = "/{productId}", method = RequestMethod.GET)
     @ResponseBody
-    public Product getProduct(@PathVariable("productId") BigDecimal productId) {
+    public Product getProduct(@PathVariable("productId") BigInteger productId) {
         return productService.getProduct(productId);
     }
 
@@ -58,7 +58,7 @@ public class ProductController {
     @ApiOperation("Delete product")
     @RequestMapping(value = "/{productId}", method = RequestMethod.DELETE)
     @ResponseBody
-    public ResponseEntity deleteProduct(@PathVariable("productId") BigDecimal productId) {
+    public ResponseEntity deleteProduct(@PathVariable("productId") BigInteger productId) {
         productService.deleteProduct(productId);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }

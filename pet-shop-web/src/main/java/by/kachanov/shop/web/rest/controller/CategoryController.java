@@ -12,7 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.List;
 
 @Controller
@@ -26,7 +26,7 @@ public class CategoryController {
     @ApiOperation("Create category")
     @RequestMapping(value = "", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<BigDecimal> addCategory(@RequestBody Category category) {
+    public ResponseEntity<BigInteger> addCategory(@RequestBody Category category) {
         categoryService.saveCategory(category);
         return new ResponseEntity<>(category.getId(), HttpStatus.CREATED);
     }
@@ -34,7 +34,7 @@ public class CategoryController {
     @ApiOperation("Modify category")
     @RequestMapping(value = "/{categoryId}", method = RequestMethod.PUT)
     @ResponseBody
-    public BigDecimal modifyCategory(@PathVariable("categoryId") BigDecimal categoryId, @RequestBody Category category) {
+    public BigInteger modifyCategory(@PathVariable("categoryId") BigInteger categoryId, @RequestBody Category category) {
         Category oldCategory = categoryService.getCategory(categoryId);
         BeanUtils.copyProperties(category, oldCategory, "id");
         categoryService.saveCategory(oldCategory);
@@ -44,7 +44,7 @@ public class CategoryController {
     @ApiOperation("Get category")
     @RequestMapping(value = "/{categoryId}", method = RequestMethod.GET)
     @ResponseBody
-    public Category getCategory(@PathVariable("categoryId") BigDecimal categoryId) {
+    public Category getCategory(@PathVariable("categoryId") BigInteger categoryId) {
         return categoryService.getCategory(categoryId);
     }
 
@@ -58,7 +58,7 @@ public class CategoryController {
     @ApiOperation("Delete category")
     @RequestMapping(value = "/{categoryId}", method = RequestMethod.DELETE)
     @ResponseBody
-    public ResponseEntity deleteCategory(@PathVariable("categoryId") BigDecimal categoryId) {
+    public ResponseEntity deleteCategory(@PathVariable("categoryId") BigInteger categoryId) {
         categoryService.deleteCategory(categoryId);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }

@@ -5,7 +5,7 @@ import by.kachanov.shop.dto.condition.Condition;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.List;
 
 @Repository
@@ -13,7 +13,7 @@ public class UserRepositoryImpl extends AbstractRepository implements UserReposi
 
     @Override
     @Transactional
-    public User getUser(BigDecimal userId) {
+    public User getUser(BigInteger userId) {
         return getCurrentSession().load(User.class, userId);
     }
 

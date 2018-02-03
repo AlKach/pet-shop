@@ -1,7 +1,6 @@
 package by.kachanov.shop.dto;
 
 import javax.persistence.*;
-import java.math.BigInteger;
 
 @Entity
 @Table(name = "users")

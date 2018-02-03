@@ -6,7 +6,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 
-import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -29,16 +29,16 @@ public abstract class AbstractEntityCreationTestSupport extends SpringWebTestSup
         String contentAsString = result.getResponse().getContentAsString();
         assertNotNull(contentAsString);
 
-        BigDecimal categoryId = null;
+        BigInteger entityId = null;
         try {
-            categoryId = new BigDecimal(contentAsString);
+            entityId = new BigInteger(contentAsString);
         } catch (NumberFormatException ex) {
             fail("Returned value is not valid id: " + contentAsString);
         }
 
-        assertNotNull(categoryId);
+        assertNotNull(entityId);
         ResultActions resultActions =
-                mockMvc.perform(get(getBasePath() + "/{id}", categoryId).accept(MediaType.APPLICATION_JSON_UTF8))
+                mockMvc.perform(get(getBasePath() + "/{id}", entityId).accept(MediaType.APPLICATION_JSON_UTF8))
                         .andExpect(status().isOk());
         
         for (Pair<String, Object> validation : getValidations()) {

@@ -12,6 +12,8 @@ public class ConversionUtils {
 
     private static final DefaultConversionService defaultConversionService = new DefaultConversionService();
 
+    private ConversionUtils() {}
+
     public static String getFieldAlias(String field, ConversionContext conversionContext) {
         String resolvedAlias = field;
         Map<String, String> aliases = conversionContext.getRegisteredAliases();

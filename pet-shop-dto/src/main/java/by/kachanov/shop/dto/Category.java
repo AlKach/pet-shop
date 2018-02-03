@@ -1,7 +1,6 @@
 package by.kachanov.shop.dto;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.math.BigInteger;
 
 @Entity

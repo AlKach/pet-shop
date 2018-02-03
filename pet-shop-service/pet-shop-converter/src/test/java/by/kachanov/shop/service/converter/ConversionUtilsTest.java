@@ -5,7 +5,6 @@ import by.kachanov.shop.dto.Product;
 import by.kachanov.shop.dto.User;
 import org.junit.Test;
 
-import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
@@ -20,37 +19,37 @@ public class ConversionUtilsTest {
     private static final String NUMBER_STRING = "123";
 
     @Test
-    public void testStringConverter() throws Exception {
+    public void testStringConverter() {
         testTypeConversion(User.class, "name", NUMBER_STRING, String.class);
     }
 
     @Test
-    public void testBigIntegerConverter() throws Exception {
+    public void testBigIntegerConverter() {
         testTypeConversion(User.class, "id", NUMBER_STRING, BigInteger.class);
     }
 
     @Test
-    public void testNestedStringConverter() throws Exception {
+    public void testNestedStringConverter() {
         testTypeConversion(Order.class, "user.name", NUMBER_STRING, String.class);
     }
 
     @Test
-    public void testNestedBigIntegerConverter() throws Exception {
+    public void testNestedBigIntegerConverter() {
         testTypeConversion(Order.class, "user.id", NUMBER_STRING, BigInteger.class);
     }
 
     @Test
-    public void testCollectionStringConverter() throws Exception {
+    public void testCollectionStringConverter() {
         testTypeConversion(Product.class, "categories.name", NUMBER_STRING, String.class);
     }
 
     @Test
-    public void testCollectionBigIntegerConverter() throws Exception {
+    public void testCollectionBigIntegerConverter() {
         testTypeConversion(Product.class, "categories.id", NUMBER_STRING, BigInteger.class);
     }
 
     @Test
-    public void testNestedCollectionBigIntegerConverter() throws Exception {
+    public void testNestedCollectionBigIntegerConverter() {
         testTypeConversion(Order.class, "orderPositions.product.categories.id", NUMBER_STRING, BigInteger.class);
     }
 

@@ -59,13 +59,13 @@ public class ConversionUtilsTest {
     }
 
     @Test
-    public void testGetAliasPlain() throws Exception {
+    public void testGetAliasPlain() {
         ConversionContext conversionContext = new ConversionContext(null);
         assertEquals(ConversionUtils.getFieldAlias(FIELD_NAME, conversionContext), FIELD_NAME);
     }
 
     @Test
-    public void testGetAliasNested() throws Exception {
+    public void testGetAliasNested() {
         for (int i = 1; i < 10; i++) {
             String field = IntStream.range(0, i + 1).mapToObj(n -> FIELD_NAME + n).collect(Collectors.joining("."));
             ConversionContext conversionContext = new ConversionContext(null);
@@ -75,7 +75,7 @@ public class ConversionUtilsTest {
     }
 
     @Test
-    public void testRegisteredAliases() throws Exception {
+    public void testRegisteredAliases() {
         String field = "a.b.c.d.e.f.g.h";
         ConversionContext conversionContext = new ConversionContext(null);
         String fieldAlias = ConversionUtils.getFieldAlias(field, conversionContext);
@@ -100,12 +100,12 @@ public class ConversionUtilsTest {
     }
 
     @Test
-    public void testRepeatingAliases() throws Exception {
+    public void testRepeatingAliases() {
         testRepeatingAliases(FIELD_NAME);
     }
 
     @Test
-    public void testRepeatingNestedAlias() throws Exception {
+    public void testRepeatingNestedAlias() {
         String field = "outer.inner";
         testRepeatingAliases(field);
     }

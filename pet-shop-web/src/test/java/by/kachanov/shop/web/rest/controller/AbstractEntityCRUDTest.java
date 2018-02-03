@@ -13,9 +13,9 @@ import static org.junit.Assert.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-public abstract class AbstractEntityCreationTestSupport extends SpringWebTestSupport {
+public abstract class AbstractEntityCRUDTest extends SpringWebTestSupport {
 
-    protected void doTestEntityCreation() throws Exception {
+    protected void doTestEntityCRUDTest() throws Exception {
         Object entity = getEntity();
         assertNotNull(entity);
 
@@ -37,13 +37,33 @@ public abstract class AbstractEntityCreationTestSupport extends SpringWebTestSup
         }
 
         assertNotNull(entityId);
-        ResultActions resultActions =
+        ResultActions createdEntity =
                 mockMvc.perform(get(getBasePath() + "/{id}", entityId).accept(MediaType.APPLICATION_JSON_UTF8))
                         .andExpect(status().isOk());
         
         for (Pair<String, Object> validation : getValidations()) {
-            resultActions.andExpect(jsonPath(validation.getLeft()).value(validation.getRight()));
+            createdEntity.andExpect(jsonPath(validation.getLeft()).value(validation.getRight()));
         }
+
+        ResultActions allEntities = mockMvc.perform(post(getBasePath() + "/query").accept(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$").isArray())
+                .andExpect(jsonPath("$.length()").value(1))
+                .andExpect(jsonPath("$[0].id").value(entityId.intValue()));
+
+        for (Pair<String, Object> validation : getValidations()) {
+            allEntities.andExpect(jsonPath(validation.getLeft().replace("$", "$[0]")).value(validation.getRight()));
+        }
+
+        mockMvc.perform(delete(getBasePath() + "/{id}", entityId)).andExpect(status().isNoContent());
+
+        mockMvc.perform(get(getBasePath() + "/{id}", entityId).accept(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(status().isNotFound());
+
+        mockMvc.perform(post(getBasePath() + "/query").accept(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$").isArray())
+                .andExpect(jsonPath("$.length()").value(0));
     }
     
     protected abstract Object getEntity();

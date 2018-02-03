@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class ProductCreationTest extends AbstractEntityCreationTestSupport {
+public class ProductCRUDTest extends AbstractEntityCRUDTest {
 
     private static final String TEST_PRODUCT_NAME = "test product";
 
@@ -22,7 +22,7 @@ public class ProductCreationTest extends AbstractEntityCreationTestSupport {
 
     @Test
     public void testEntityCreation() throws Exception {
-        doTestEntityCreation();
+        doTestEntityCRUDTest();
     }
 
     @Override

@@ -14,7 +14,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-public class OrderCreationTest extends AbstractEntityCreationTestSupport {
+public class OrderCRUDTest extends AbstractEntityCRUDTest {
 
     private static final String TEST_USER_NAME = "test user";
 
@@ -34,7 +34,7 @@ public class OrderCreationTest extends AbstractEntityCreationTestSupport {
 
     @Test
     public void testEntityCreation() throws Exception {
-        doTestEntityCreation();
+        doTestEntityCRUDTest();
     }
 
     @Override

@@ -7,13 +7,13 @@ import org.junit.Test;
 import java.util.Collections;
 import java.util.List;
 
-public class CategoryCreationTest extends AbstractEntityCreationTestSupport {
+public class CategoryCRUDTest extends AbstractEntityCRUDTest {
 
     private static final String CATEGORY_NAME = "test category";
 
     @Test
     public void testEntityCreation() throws Exception {
-        doTestEntityCreation();
+        doTestEntityCRUDTest();
     }
 
     @Override

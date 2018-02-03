@@ -7,7 +7,7 @@ import org.junit.Test;
 import java.util.Arrays;
 import java.util.List;
 
-public class UserCreationTest extends AbstractEntityCreationTestSupport {
+public class UserCRUDTest extends AbstractEntityCRUDTest {
     
     private static final String TEST_LOGIN = "test login";
     
@@ -17,7 +17,7 @@ public class UserCreationTest extends AbstractEntityCreationTestSupport {
 
     @Test
     public void testCreation() throws Exception {
-        doTestEntityCreation();
+        doTestEntityCRUDTest();
     }
 
     @Override

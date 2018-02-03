@@ -1,7 +1,7 @@
 exclude:
-- /src/main/webapp/rest/.*
-- /src/main/webapp/web/js/lib/.*
-- /src/main/webapp/web/js/require.js
+- /pet-shop-ui/pet-shop-ui-rest/src/content/resources/rest/.*
+- /pet-shop-ui/pet-shop-ui-app/src/content/resources/web/js/lib/.*
+- /pet-shop-ui/pet-shop-ui-app/src/content/resources/web/js/require.js
 component_depth: 3
 languages:
 - java

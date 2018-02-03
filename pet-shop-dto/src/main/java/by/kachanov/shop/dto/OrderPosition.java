@@ -8,13 +8,7 @@ import java.math.BigInteger;
 
 @Entity
 @Table(name = "orders_products")
-public class OrderPosition {
-
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk")
-    @SequenceGenerator(name = "pk", sequenceName = "pk_seq", allocationSize = 1)
-    private BigInteger id;
+public class OrderPosition extends Item {
 
     @ManyToOne
     @JoinColumn(name = "order_id")
@@ -26,14 +20,6 @@ public class OrderPosition {
 
     @Column(name = "quantity")
     private BigDecimal quantity;
-
-    public BigInteger getId() {
-        return id;
-    }
-
-    public void setId(BigInteger id) {
-        this.id = id;
-    }
 
     @JsonBackReference
     public Order getOrder() {

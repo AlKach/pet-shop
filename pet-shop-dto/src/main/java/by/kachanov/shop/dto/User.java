@@ -5,13 +5,7 @@ import java.math.BigInteger;
 
 @Entity
 @Table(name = "users")
-public class User {
-
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk")
-    @SequenceGenerator(name = "pk", sequenceName = "pk_seq", allocationSize = 1)
-    private BigInteger id;
+public class User extends Item {
 
     @Column(name = "name")
     private String name;
@@ -21,14 +15,6 @@ public class User {
 
     @Column(name = "password")
     private String password;
-
-    public BigInteger getId() {
-        return id;
-    }
-
-    public void setId(BigInteger id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;

@@ -3,20 +3,13 @@ package by.kachanov.shop.dto;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
-import java.math.BigInteger;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "orders")
-public class Order {
-
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk")
-    @SequenceGenerator(name = "pk", sequenceName = "pk_seq", allocationSize = 1)
-    private BigInteger id;
+public class Order extends Item {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -27,14 +20,6 @@ public class Order {
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private Set<OrderPosition> orderPositions = new HashSet<>();
-
-    public BigInteger getId() {
-        return id;
-    }
-
-    public void setId(BigInteger id) {
-        this.id = id;
-    }
 
     public User getUser() {
         return user;

@@ -8,13 +8,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "products")
-public class Product {
-
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk")
-    @SequenceGenerator(name = "pk", sequenceName = "pk_seq", allocationSize = 1)
-    private BigInteger id;
+public class Product extends Item {
 
     @Column(name = "name")
     private String name;
@@ -31,14 +25,6 @@ public class Product {
             joinColumns = { @JoinColumn(name = "product_id") },
             inverseJoinColumns = { @JoinColumn(name = "category_id") })
     private Set<Category> categories = new HashSet<>();
-
-    public BigInteger getId() {
-        return id;
-    }
-
-    public void setId(BigInteger id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;

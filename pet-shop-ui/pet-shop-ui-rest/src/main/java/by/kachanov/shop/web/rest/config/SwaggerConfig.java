@@ -11,7 +11,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
 @EnableSwagger2
-@PropertySource("classpath:config.properties")
+@PropertySource("classpath:swagger.properties")
 public class SwaggerConfig {
 
     @Value("${springfox.documentation.swagger.v2.pathMapping}")

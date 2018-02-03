@@ -56,3 +56,9 @@ if (project.hasProperty('testProfile') && project.testProfile == 'docker') {
     test.dependsOn startTestDb
     test.finalizedBy destroyTestDb
 }
+
+war {
+    project(":pet-shop-ui").subprojects.each {
+        from files(it.sourceSets.main.resources)
+    }
+}

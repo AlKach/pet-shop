@@ -5,8 +5,12 @@ import by.kachanov.shop.dto.Order;
 import by.kachanov.shop.dto.OrderPosition;
 import by.kachanov.shop.dto.Product;
 import by.kachanov.shop.dto.User;
+import by.kachanov.shop.service.CategoryService;
+import by.kachanov.shop.service.ProductService;
+import by.kachanov.shop.service.UserService;
 import org.flywaydb.core.internal.util.Pair;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
@@ -32,9 +36,18 @@ public class OrderCRUDTest extends AbstractEntityCRUDTest {
 
     private static final BigDecimal TEST_QUANTITY = BigDecimal.TEN;
 
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private CategoryService categoryService;
+
+    @Autowired
+    private ProductService productService;
+
     @Test
     public void testEntityCreation() throws Exception {
-        doTestEntityCRUDTest();
+        doTestEntityCRUD();
     }
 
     @Override
@@ -43,15 +56,18 @@ public class OrderCRUDTest extends AbstractEntityCRUDTest {
         user.setLogin(TEST_USER_LOGIN);
         user.setPassword(TEST_USER_PASSWORD);
         user.setName(TEST_USER_NAME);
+        userService.saveUser(user);
+
+        Category category = new Category();
+        category.setName(TEST_CATEGORY_NAME);
+        categoryService.saveCategory(category);
 
         Product product = new Product();
         product.setName(TEST_PRODUCT_NAME);
         product.setDescription(TEST_PRODUCT_DESCRIPTION);
         product.setPrice(TEST_PRODUCT_PRICE);
-
-        Category category = new Category();
-        category.setName(TEST_CATEGORY_NAME);
         product.setCategories(Collections.singleton(category));
+        productService.saveProduct(product);
 
         OrderPosition orderPosition = new OrderPosition();
         orderPosition.setProduct(product);

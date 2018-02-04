@@ -11,7 +11,7 @@ import java.util.Set;
 @Table(name = "orders")
 public class Order extends Item {
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 

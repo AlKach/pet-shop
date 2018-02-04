@@ -2,8 +2,10 @@ package by.kachanov.shop.web.rest.controller;
 
 import by.kachanov.shop.dto.Category;
 import by.kachanov.shop.dto.Product;
+import by.kachanov.shop.service.CategoryService;
 import org.flywaydb.core.internal.util.Pair;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
@@ -20,9 +22,12 @@ public class ProductCRUDTest extends AbstractEntityCRUDTest {
 
     private static final String TEST_CATEGORY_NAME = "test category";
 
+    @Autowired
+    private CategoryService categoryService;
+
     @Test
     public void testEntityCreation() throws Exception {
-        doTestEntityCRUDTest();
+        doTestEntityCRUD();
     }
 
     @Override
@@ -33,6 +38,7 @@ public class ProductCRUDTest extends AbstractEntityCRUDTest {
         product.setPrice(TEST_PRODUCT_PRICE);
         Category category = new Category();
         category.setName(TEST_CATEGORY_NAME);
+        categoryService.saveCategory(category);
         product.setCategories(Collections.singleton(category));
         return product;
     }

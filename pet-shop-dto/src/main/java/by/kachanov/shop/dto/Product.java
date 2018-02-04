@@ -18,7 +18,7 @@ public class Product extends Item {
     @Column(name = "price")
     private BigDecimal price;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinTable(
             name = "products_categories",
             joinColumns = { @JoinColumn(name = "product_id") },

@@ -15,7 +15,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 public abstract class AbstractEntityCRUDTest extends SpringWebTestSupport {
 
-    protected void doTestEntityCRUDTest() throws Exception {
+    protected void doTestEntityCRUD() throws Exception {
         Object entity = getEntity();
         assertNotNull(entity);
 

@@ -13,7 +13,7 @@ public class OrderPosition extends Item {
     @JoinColumn(name = "order_id")
     private Order order;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 

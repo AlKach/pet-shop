@@ -17,7 +17,7 @@ public class UserCRUDTest extends AbstractEntityCRUDTest {
 
     @Test
     public void testCreation() throws Exception {
-        doTestEntityCRUDTest();
+        doTestEntityCRUD();
     }
 
     @Override

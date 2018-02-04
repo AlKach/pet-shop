@@ -13,7 +13,7 @@ public class CategoryCRUDTest extends AbstractEntityCRUDTest {
 
     @Test
     public void testEntityCreation() throws Exception {
-        doTestEntityCRUDTest();
+        doTestEntityCRUD();
     }
 
     @Override

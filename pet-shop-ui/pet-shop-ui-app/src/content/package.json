@@ -1,5 +1,5 @@
 {
-  "name": "pet-shop-ui-rest",
+  "name": "pet-shop-ui-app",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -16,9 +16,12 @@
     "html-webpack-plugin": "^3.0.4",
     "style-loader": "^0.20.2",
     "webpack": "^4.0.1",
-    "webpack-cli": "^2.0.9"
+    "webpack-cli": "^2.0.10"
   },
   "dependencies": {
-    "swagger-ui-dist": "^3.11.0"
+    "bootstrap": "^4.0.0",
+    "jquery": "^3.3.1",
+    "popper.js": "^1.12.9",
+    "vue": "^2.5.13"
   }
 }

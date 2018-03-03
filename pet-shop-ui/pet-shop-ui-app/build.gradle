@@ -1,3 +1,32 @@
+plugins {
+    id 'com.moowork.node' version '1.2.0'
+}
+
+def appContentBaseDir = "${project.projectDir}/src/content"
+
 sourceSets {
-    content
+    content {
+        resources {
+            srcDirs = ["${appContentBaseDir}/dist"]
+        }
+    }
+}
+
+node {
+    version = '6.9.5'
+    npmVersion = '5.7.1'
+    npmWorkDir = file("${project.buildDir}/npm")
+    nodeModulesDir = file(appContentBaseDir)
+}
+
+task installDeps(type: NpmTask) {
+    args = ['install']
+}
+
+task buildJs(type: NpmTask, dependsOn: installDeps) {
+    args = ['run', 'prod']
+}
+
+if (Boolean.valueOf(buildUi)) {
+    processResources.dependsOn buildJs
 }

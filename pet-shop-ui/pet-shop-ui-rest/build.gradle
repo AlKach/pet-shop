@@ -2,12 +2,12 @@ plugins {
     id 'com.moowork.node' version '1.2.0'
 }
 
-def contentBaseDir = "${project.projectDir}/src/content"
+def restContentBaseDir = "${project.projectDir}/src/content"
 
 sourceSets {
     content {
         resources {
-            srcDirs = ["${contentBaseDir}/dist"]
+            srcDirs = ["${restContentBaseDir}/dist"]
         }
     }
 }
@@ -21,7 +21,7 @@ node {
     version = '6.9.5'
     npmVersion = '5.7.1'
     npmWorkDir = file("${project.buildDir}/npm")
-    nodeModulesDir = file(contentBaseDir)
+    nodeModulesDir = file(restContentBaseDir)
 }
 
 task installDeps(type: NpmTask) {

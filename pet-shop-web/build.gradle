@@ -21,6 +21,7 @@ dependencies {
     compile "com.fasterxml.jackson.datatype:jackson-datatype-hibernate5:2.7.1"
 
     compile project(":pet-shop-service:pet-shop-service-impl")
+    compile project(":pet-shop-ui:pet-shop-ui-app")
     compile project(":pet-shop-ui:pet-shop-ui-rest")
 
     testCompile "junit:junit:4.12"

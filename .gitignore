@@ -10,3 +10,6 @@ build
 nbactions.xml
 nb-configuration.xml
 rebel.xml
+
+node_modules
+dist

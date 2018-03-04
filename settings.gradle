@@ -7,5 +7,4 @@ include ':pet-shop-dto',
         ':pet-shop-repository:pet-shop-repository-api',
         ':pet-shop-repository:pet-shop-repository-impl',
         ':pet-shop-web',
-        ':pet-shop-ui:pet-shop-ui-app',
-        ':pet-shop-ui:pet-shop-ui-rest'
+        ':pet-shop-ui'

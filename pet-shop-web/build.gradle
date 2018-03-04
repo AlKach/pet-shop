@@ -21,8 +21,7 @@ dependencies {
     compile "com.fasterxml.jackson.datatype:jackson-datatype-hibernate5:2.7.1"
 
     compile project(":pet-shop-service:pet-shop-service-impl")
-    compile project(":pet-shop-ui:pet-shop-ui-app")
-    compile project(":pet-shop-ui:pet-shop-ui-rest")
+    compile project(":pet-shop-ui")
 
     testCompile "junit:junit:4.12"
     testCompile "org.springframework:spring-test:${springVersion}"
@@ -58,14 +57,10 @@ if (project.hasProperty('testProfile') && project.testProfile == 'docker') {
     test.finalizedBy destroyTestDb
 }
 
-def uiProjectsGroup = project(":pet-shop-ui")
+def uiProject = project(":pet-shop-ui")
 
-uiProjectsGroup.subprojects.each {
-    project.evaluationDependsOn ":" + uiProjectsGroup.name + ":" + it.name
-}
+project.evaluationDependsOn ":" + uiProject.name
 
 war {
-    uiProjectsGroup.subprojects.each {
-        from files(it.sourceSets.content.resources)
-    }
+    from files(uiProject.sourceSets.content.resources)
 }

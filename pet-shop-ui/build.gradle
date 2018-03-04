@@ -2,12 +2,12 @@ plugins {
     id 'com.moowork.node' version '1.2.0'
 }
 
-def restContentBaseDir = "${project.projectDir}/src/content"
+def uiBaseDir = "${project.projectDir}/src/content"
 
 sourceSets {
     content {
         resources {
-            srcDirs = ["${restContentBaseDir}/dist"]
+            srcDirs = ["${uiBaseDir}/dist"]
         }
     }
 }
@@ -21,17 +21,22 @@ node {
     version = '6.9.5'
     npmVersion = '5.7.1'
     npmWorkDir = file("${project.buildDir}/npm")
-    nodeModulesDir = file(restContentBaseDir)
+    nodeModulesDir = file(uiBaseDir)
 }
 
 task installDeps(type: NpmTask) {
     args = ['install']
 }
 
-task buildJs(type: NpmTask, dependsOn: installDeps) {
-    args = ['run', 'prod']
+task buildAppUi(type: NpmTask, dependsOn: installDeps) {
+    args = ['run', "app-${buildUiProfile}"]
+}
+
+task buildRestUi(type: NpmTask, dependsOn: installDeps) {
+    args = ['run', "rest-${buildUiProfile}"]
 }
 
 if (Boolean.valueOf(buildUi)) {
-    processResources.dependsOn buildJs
+    processResources.dependsOn buildAppUi
+    processResources.dependsOn buildRestUi
 }

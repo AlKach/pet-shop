@@ -46,7 +46,7 @@ public abstract class AbstractEntityCRUDTest extends SpringWebTestSupport {
             createdEntity.andExpect(jsonPath(validation.getLeft()).value(validation.getRight()));
         }
 
-        ResultActions allEntities = mockMvc.perform(post(getBasePath() + "/query").accept(MediaType.APPLICATION_JSON_UTF8))
+        ResultActions allEntities = mockMvc.perform(get(getBasePath()).accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$").isArray())
                 .andExpect(jsonPath("$.length()").value(1))
@@ -61,7 +61,7 @@ public abstract class AbstractEntityCRUDTest extends SpringWebTestSupport {
         mockMvc.perform(get(entityUrl, entityId).accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isNotFound());
 
-        mockMvc.perform(post(getBasePath() + "/query").accept(MediaType.APPLICATION_JSON_UTF8))
+        mockMvc.perform(get(getBasePath()).accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$").isArray())
                 .andExpect(jsonPath("$.length()").value(0));

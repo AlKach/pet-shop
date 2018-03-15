@@ -28,7 +28,7 @@ public class ConditionConversionServiceTest extends AbstractJUnit4SpringContextT
     private BigInteger lastUserId = null;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         users.add(createUser(TEST_NAME_1, TEST_LOGIN_1, TEST_PASSWORD_1));
         users.add(createUser(TEST_NAME_2, TEST_LOGIN_2, TEST_PASSWORD_2));
         users.add(createUser(TEST_NAME_3, TEST_LOGIN_3, TEST_PASSWORD_3));
@@ -46,7 +46,7 @@ public class ConditionConversionServiceTest extends AbstractJUnit4SpringContextT
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         users.forEach(user -> userService.deleteUser(user.getId()));
     }
 
@@ -157,6 +157,24 @@ public class ConditionConversionServiceTest extends AbstractJUnit4SpringContextT
     }
 
     @Test
+    public void testGreaterOrEquals() {
+        String testLogin = TEST_LOGIN_5;
+        GreaterOrEquals ge = new GreaterOrEquals(PARAM_LOGIN, testLogin);
+
+        List<User> userList = userService.getUsers(ge);
+
+        assertTrue(!userList.isEmpty());
+        userList.stream()
+                .map(User::getLogin)
+                .map(login -> login.compareTo(testLogin) >= 0)
+                .forEach(Assert::assertTrue);
+        userList.stream()
+                .map(User::getLogin)
+                .map(login -> login.compareTo(testLogin) < 0)
+                .forEach(Assert::assertFalse);
+    }
+
+    @Test
     public void testIn() {
         List<String> ids = new ArrayList<>();
         ids.add(firstUserId.toString());
@@ -192,6 +210,24 @@ public class ConditionConversionServiceTest extends AbstractJUnit4SpringContextT
     }
 
     @Test
+    public void testLessOrEquals() {
+        String testName = TEST_NAME_4;
+        LessOrEquals le = new LessOrEquals(PARAM_NAME, testName);
+
+        List<User> userList = userService.getUsers(le);
+
+        assertTrue(!userList.isEmpty());
+        userList.stream()
+                .map(User::getName)
+                .map(login -> login.compareTo(testName) <= 0)
+                .forEach(Assert::assertTrue);
+        userList.stream()
+                .map(User::getName)
+                .map(login -> login.compareTo(testName) > 0)
+                .forEach(Assert::assertFalse);
+    }
+
+    @Test
     public void testLike() {
         Like like = new Like(PARAM_PASSWORD, "*st_pa*");
 
@@ -217,6 +253,20 @@ public class ConditionConversionServiceTest extends AbstractJUnit4SpringContextT
                 .map(User::getName)
                 .map(String::toLowerCase)
                 .map(name::equals)
+                .forEach(Assert::assertFalse);
+    }
+
+    @Test
+    public void testNe() {
+        String name = TEST_NAME_6;
+        NotEquals ne = new NotEquals(PARAM_NAME, name);
+
+        List<User> usersList = userService.getUsers(ne);
+
+        assertNotEquals(0, usersList.size());
+        usersList.stream()
+                .map(User::getName)
+                .map(name::equalsIgnoreCase)
                 .forEach(Assert::assertFalse);
     }
 

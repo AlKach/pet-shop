@@ -9,7 +9,7 @@ dependencies {
     compile project(":pet-shop-repository:pet-shop-repository-api")
     compile project(":pet-shop-service:pet-shop-converter")
 
-    testCompile "junit:junit:4.12"
+    testCompile "junit:junit:${junitVersion}"
     testCompile "org.springframework:spring-test:${springVersion}"
     testCompile "org.hsqldb:hsqldb:2.3.3"
 

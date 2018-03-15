@@ -15,17 +15,16 @@ import org.springframework.web.bind.annotation.*;
 import java.math.BigInteger;
 import java.util.List;
 
-@Controller
+@RestController
 @Api("Categories")
 @RequestMapping("/categories")
-public class CategoryController {
+public class CategoryController extends AbstractController {
 
     @Autowired
     private CategoryService categoryService;
 
     @ApiOperation("Create category")
     @RequestMapping(value = "", method = RequestMethod.POST)
-    @ResponseBody
     public ResponseEntity<BigInteger> addCategory(@RequestBody Category category) {
         categoryService.saveCategory(category);
         return new ResponseEntity<>(category.getId(), HttpStatus.CREATED);
@@ -33,7 +32,6 @@ public class CategoryController {
 
     @ApiOperation("Modify category")
     @RequestMapping(value = "/{categoryId}", method = RequestMethod.PUT)
-    @ResponseBody
     public BigInteger modifyCategory(@PathVariable("categoryId") BigInteger categoryId, @RequestBody Category category) {
         Category oldCategory = categoryService.getCategory(categoryId);
         BeanUtils.copyProperties(category, oldCategory, "id");
@@ -43,21 +41,24 @@ public class CategoryController {
 
     @ApiOperation("Get category")
     @RequestMapping(value = "/{categoryId}", method = RequestMethod.GET)
-    @ResponseBody
     public Category getCategory(@PathVariable("categoryId") BigInteger categoryId) {
         return categoryService.getCategory(categoryId);
     }
 
-    @ApiOperation("Get categories list")
-    @RequestMapping(value = "/query", method = RequestMethod.POST)
-    @ResponseBody
-    public List<Category> getCategories(@RequestBody(required = false) Expression selector) {
+    @ApiOperation("Get categories list by query")
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public List<Category> getCategories(@RequestParam(value = "q", required = false) String query) {
+        return categoryService.getCategories(parseQuery(query));
+    }
+
+    @ApiOperation("Get categories list by query AST")
+    @RequestMapping(value = "/ast", method = RequestMethod.POST)
+    public List<Category> getCategoriesAST(@RequestBody(required = false) Expression selector) {
         return categoryService.getCategories(selector);
     }
 
     @ApiOperation("Delete category")
     @RequestMapping(value = "/{categoryId}", method = RequestMethod.DELETE)
-    @ResponseBody
     public ResponseEntity deleteCategory(@PathVariable("categoryId") BigInteger categoryId) {
         categoryService.deleteCategory(categoryId);
         return new ResponseEntity(HttpStatus.NO_CONTENT);

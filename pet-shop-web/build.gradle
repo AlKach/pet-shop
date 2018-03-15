@@ -20,10 +20,11 @@ dependencies {
     compile "org.slf4j:slf4j-log4j12:${slf4jVersion}"
     compile "com.fasterxml.jackson.datatype:jackson-datatype-hibernate5:2.7.1"
 
+    compile project(":pet-shop-service:pet-shop-rsql")
     compile project(":pet-shop-service:pet-shop-service-impl")
     compile project(":pet-shop-ui")
 
-    testCompile "junit:junit:4.12"
+    testCompile "junit:junit:${junitVersion}"
     testCompile "org.springframework:spring-test:${springVersion}"
     testCompile "com.jayway.jsonpath:json-path:2.4.0"
     testCompile "javax.servlet:javax.servlet-api:3.0.1"

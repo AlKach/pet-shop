@@ -12,13 +12,19 @@ public class Expression implements Condition {
 
     private Greater gt;
 
+    private GreaterOrEquals ge;
+
     private In in;
 
     private Less lt;
 
+    private LessOrEquals le;
+
     private Like like;
 
     private Not not;
+
+    private NotEquals ne;
 
     private Or or;
 
@@ -61,6 +67,15 @@ public class Expression implements Condition {
         this.gt = gt;
     }
 
+    public GreaterOrEquals getGe() {
+        return ge;
+    }
+
+    public void setGe(GreaterOrEquals ge) {
+        setActiveCondition(ge);
+        this.ge = ge;
+    }
+
     public In getIn() {
         return in;
     }
@@ -79,6 +94,15 @@ public class Expression implements Condition {
         this.lt = lt;
     }
 
+    public LessOrEquals getLe() {
+        return le;
+    }
+
+    public void setLe(LessOrEquals le) {
+        setActiveCondition(le);
+        this.le = le;
+    }
+
     public Like getLike() {
         return like;
     }
@@ -95,6 +119,15 @@ public class Expression implements Condition {
     public void setNot(Not not) {
         setActiveCondition(not);
         this.not = not;
+    }
+
+    public NotEquals getNe() {
+        return ne;
+    }
+
+    public void setNe(NotEquals ne) {
+        setActiveCondition(ne);
+        this.ne = ne;
     }
 
     public Or getOr() {

@@ -15,17 +15,16 @@ import org.springframework.web.bind.annotation.*;
 import java.math.BigInteger;
 import java.util.List;
 
-@Controller
+@RestController
 @Api("Users")
 @RequestMapping("/users")
-public class UserController {
+public class UserController extends AbstractController {
 
     @Autowired
     private UserService userService;
 
     @ApiOperation("Create user")
     @RequestMapping(value = "", method = RequestMethod.POST)
-    @ResponseBody
     public ResponseEntity<BigInteger> createUser(@RequestBody User user) {
         userService.saveUser(user);
         return new ResponseEntity<>(user.getId(), HttpStatus.CREATED);
@@ -33,7 +32,6 @@ public class UserController {
 
     @ApiOperation("Modify user")
     @RequestMapping(value = "/{userId}", method = RequestMethod.PUT)
-    @ResponseBody
     public BigInteger modifyUser(@PathVariable("userId") BigInteger userId, @RequestBody User user) {
         User oldUser = userService.getUser(userId);
         BeanUtils.copyProperties(user, oldUser, "id");
@@ -43,21 +41,24 @@ public class UserController {
 
     @ApiOperation("Get user")
     @RequestMapping(value = "/{userId}", method = RequestMethod.GET)
-    @ResponseBody
     public User getUser(@PathVariable("userId") BigInteger userId) {
         return userService.getUser(userId);
     }
 
-    @ApiOperation("Get users list")
-    @RequestMapping(value = "/query", method = RequestMethod.POST)
-    @ResponseBody
-    public List<User> getUsers(@RequestBody(required = false) Expression selector) {
+    @ApiOperation("Get users list by query")
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public List<User> getUsers(@RequestParam(value = "q", required = false) String query) {
+        return userService.getUsers(parseQuery(query));
+    }
+
+    @ApiOperation("Get users list by query AST")
+    @RequestMapping(value = "/ast", method = RequestMethod.POST)
+    public List<User> getUsersAST(@RequestBody(required = false) Expression selector) {
         return userService.getUsers(selector);
     }
 
     @ApiOperation("Delete user")
     @RequestMapping(value = "/{userId}", method = RequestMethod.DELETE)
-    @ResponseBody
     public ResponseEntity deleteUser(@PathVariable("userId") BigInteger userId) {
         userService.deleteUser(userId);
         return new ResponseEntity(HttpStatus.NO_CONTENT);

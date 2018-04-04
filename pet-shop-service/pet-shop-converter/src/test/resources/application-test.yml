@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    driver-class-name: org.hsqldb.jdbcDriver
+    url: jdbc:hsqldb:mem:dataSource
+    username: shop_test
+    password: password
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.HSQLDialect
+        hbm2ddl.auto: update
+logging:
+  level:
+    root: trace

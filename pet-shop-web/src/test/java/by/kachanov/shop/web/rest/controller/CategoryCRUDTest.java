@@ -25,7 +25,7 @@ public class CategoryCRUDTest extends AbstractEntityCRUDTest {
 
     @Override
     protected String getBasePath() {
-        return "/categories";
+        return "/rest/categories";
     }
 
     @Override

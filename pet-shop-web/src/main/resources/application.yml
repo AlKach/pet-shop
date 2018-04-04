@@ -1,0 +1,25 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/shop
+    username: shop
+    password: password
+  flyway:
+    baseline-version: 1
+    locations: classpath:/database
+    out-of-order: false
+    sql-migration-prefix:
+    sql-migration-separator: _
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQL9Dialect
+        show_sql: true
+server:
+  port: 9090
+  servlet:
+    path: /shop
+logging:
+  level:
+    root: info
+    org.springframework.web: trace

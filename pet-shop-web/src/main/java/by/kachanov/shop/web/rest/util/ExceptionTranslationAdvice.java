@@ -4,6 +4,7 @@ import org.hibernate.ObjectNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.orm.hibernate5.HibernateObjectRetrievalFailureException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -15,7 +16,7 @@ public class ExceptionTranslationAdvice {
         return new ResponseEntity<>(new ExceptionMessage(ex), HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(ObjectNotFoundException.class)
+    @ExceptionHandler({ HibernateObjectRetrievalFailureException.class })
     public ResponseEntity<ExceptionMessage> handleObjectNotFoundException(ObjectNotFoundException ex) {
         return new ResponseEntity<>(new ExceptionMessage(ex), HttpStatus.NOT_FOUND);
     }

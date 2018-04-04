@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 public class ExpressionConverter extends AbstractConditionConverter<Expression> {
 
     @Override
-    public Criterion doConvert(Expression source) {
+    public Criterion convert(Expression source) {
         Condition activeCondition = source.getActiveCondition();
         return activeCondition != null ? getConversionService().convert(activeCondition, Criterion.class) : null;
     }

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 public class InConverter extends AbstractConditionConverter<In> {
 
     @Override
-    public Criterion doConvert(In source) {
+    public Criterion convert(In source) {
         String field = source.getField();
         Object[] values = source.getValues().stream().map(val -> convertType(getRootType(), field, val)).toArray();
         return Restrictions.in(getFieldAlias(field), values);

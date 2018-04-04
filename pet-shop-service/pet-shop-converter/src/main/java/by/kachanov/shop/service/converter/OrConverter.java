@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 public class OrConverter extends AbstractConditionConverter<Or> {
 
     @Override
-    public Criterion doConvert(Or source) {
+    public Criterion convert(Or source) {
         List<Criterion> subCriteria = source.getConditions().stream()
                 .map(condition -> getConversionService().convert(condition, Criterion.class))
                 .collect(Collectors.toList());

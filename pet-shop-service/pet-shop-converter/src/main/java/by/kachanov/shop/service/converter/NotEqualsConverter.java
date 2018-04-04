@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class NotEqualsConverter extends AbstractConditionConverter<NotEquals> {
     @Override
-    protected Criterion doConvert(NotEquals source) {
+    public Criterion convert(NotEquals source) {
         String field = source.getField();
         Object value = convertType(getRootType(), field, source.getValue());
         return Restrictions.ne(getFieldAlias(field), value);

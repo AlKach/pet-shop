@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class GreaterOrEqualsConverter extends AbstractConditionConverter<GreaterOrEquals> {
     @Override
-    protected Criterion doConvert(GreaterOrEquals source) {
+    public Criterion convert(GreaterOrEquals source) {
         String field = source.getField();
         Object value = convertType(getRootType(), field, source.getValue());
         return Restrictions.ge(getFieldAlias(field), value);

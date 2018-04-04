@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 public class BetweenConverter extends AbstractConditionConverter<Between> {
 
     @Override
-    public Criterion doConvert(Between source) {
+    public Criterion convert(Between source) {
         String field = source.getField();
         Object low = convertType(getRootType(), field, source.getLow());
         Object high = convertType(getRootType(), field, source.getHigh());

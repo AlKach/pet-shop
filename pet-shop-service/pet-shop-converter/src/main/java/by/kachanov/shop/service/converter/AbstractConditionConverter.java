@@ -1,9 +1,8 @@
 package by.kachanov.shop.service.converter;
 
-import org.hibernate.criterion.Criterion;
 import org.springframework.core.convert.ConversionService;
 
-public abstract class AbstractConditionConverter<SourceClass> implements ContextAwareConverter {
+public abstract class AbstractConditionConverter<SourceClass> implements ContextAwareConverter<SourceClass> {
 
     private ConversionContext conversionContext;
 
@@ -17,14 +16,6 @@ public abstract class AbstractConditionConverter<SourceClass> implements Context
             throw new IllegalStateException(e);
         }
     }
-
-    @Override
-    @SuppressWarnings("unchecked")
-    public final Object convert(Object source) {
-        return doConvert((SourceClass) source);
-    }
-
-    protected abstract Criterion doConvert(SourceClass source);
 
     protected ConversionService getConversionService() {
         return conversionContext.getConversionService();

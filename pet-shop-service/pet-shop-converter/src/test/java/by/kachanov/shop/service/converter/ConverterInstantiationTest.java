@@ -1,16 +1,30 @@
 package by.kachanov.shop.service.converter;
 
+import by.kachanov.shop.config.RepositoryConfig;
+import by.kachanov.shop.config.ServiceConfig;
 import org.hibernate.criterion.Criterion;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.data.jpa.JpaRepositoriesAutoConfiguration;
+import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 
 import java.util.List;
 
 import static org.junit.Assert.*;
 
-@ContextConfiguration("classpath:context.xml")
+@SpringBootTest(classes = {
+        RepositoryConfig.class,
+        ServiceConfig.class
+})
+@EnableAutoConfiguration(exclude = {
+        JpaRepositoriesAutoConfiguration.class,
+        HibernateJpaAutoConfiguration.class
+})
+@ActiveProfiles("test")
 public class ConverterInstantiationTest extends AbstractJUnit4SpringContextTests {
 
     @Autowired
@@ -39,7 +53,7 @@ public class ConverterInstantiationTest extends AbstractJUnit4SpringContextTests
         private UninstantiatableConverter() {}
 
         @Override
-        protected Criterion doConvert(Object source) {
+        public Criterion convert(Object source) {
             return null;
         }
     }

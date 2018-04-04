@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class LessOrEqualsConverter extends AbstractConditionConverter<LessOrEquals> {
     @Override
-    protected Criterion doConvert(LessOrEquals source) {
+    public Criterion convert(LessOrEquals source) {
         String field = source.getField();
         Object value = convertType(getRootType(), field, source.getValue());
         return Restrictions.le(getFieldAlias(field), value);

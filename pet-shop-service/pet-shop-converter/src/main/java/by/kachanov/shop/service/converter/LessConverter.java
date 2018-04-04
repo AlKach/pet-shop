@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 public class LessConverter extends AbstractConditionConverter<Less> {
 
     @Override
-    public Criterion doConvert(Less source) {
+    public Criterion convert(Less source) {
         String field = source.getField();
         Object value = convertType(getRootType(), field, source.getValue());
         return Restrictions.lt(getFieldAlias(field), value);

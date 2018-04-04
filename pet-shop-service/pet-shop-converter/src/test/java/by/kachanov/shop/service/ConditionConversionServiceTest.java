@@ -1,10 +1,16 @@
 package by.kachanov.shop.service;
 
+import by.kachanov.shop.config.ServiceConfig;
 import by.kachanov.shop.dto.User;
 import by.kachanov.shop.dto.condition.*;
+import by.kachanov.shop.config.RepositoryConfig;
 import org.junit.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.data.jpa.JpaRepositoriesAutoConfiguration;
+import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 
 import java.math.BigInteger;
@@ -15,7 +21,15 @@ import java.util.List;
 import static by.kachanov.shop.TestConstants.*;
 import static org.junit.Assert.*;
 
-@ContextConfiguration("classpath:context.xml")
+@SpringBootTest(classes = {
+        RepositoryConfig.class,
+        ServiceConfig.class
+})
+@EnableAutoConfiguration(exclude = {
+        JpaRepositoriesAutoConfiguration.class,
+        HibernateJpaAutoConfiguration.class
+})
+@ActiveProfiles("test")
 public class ConditionConversionServiceTest extends AbstractJUnit4SpringContextTests {
 
     @Autowired

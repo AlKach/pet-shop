@@ -31,7 +31,7 @@ public class UserCRUDTest extends AbstractEntityCRUDTest {
 
     @Override
     protected String getBasePath() {
-        return "/users";
+        return "/rest/users";
     }
 
     @Override

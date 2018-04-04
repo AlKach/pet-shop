@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 public class GreaterConverter extends AbstractConditionConverter<Greater> {
 
     @Override
-    public Criterion doConvert(Greater source) {
+    public Criterion convert(Greater source) {
         String field = source.getField();
         Object value = convertType(getRootType(), field, source.getValue());
         return Restrictions.gt(getFieldAlias(field), value);

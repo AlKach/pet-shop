@@ -83,7 +83,7 @@ public class OrderCRUDTest extends AbstractEntityCRUDTest {
 
     @Override
     protected String getBasePath() {
-        return "/orders";
+        return "/rest/orders";
     }
 
     @Override

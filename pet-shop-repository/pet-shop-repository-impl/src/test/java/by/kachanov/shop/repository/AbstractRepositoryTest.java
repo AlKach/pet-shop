@@ -1,5 +1,7 @@
 package by.kachanov.shop.repository;
 
+import by.kachanov.shop.config.RepositoryConfig;
+import by.kachanov.shop.config.ServiceConfig;
 import by.kachanov.shop.dto.Category;
 import by.kachanov.shop.dto.Order;
 import by.kachanov.shop.dto.OrderPosition;
@@ -15,7 +17,12 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.data.jpa.JpaRepositoriesAutoConfiguration;
+import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 
 import java.math.BigDecimal;
@@ -24,7 +31,16 @@ import java.util.Date;
 
 import static org.junit.Assert.*;
 
-@ContextConfiguration("classpath:context.xml")
+@SpringBootTest(classes = {
+        RepositoryConfig.class,
+        ServiceConfig.class
+})
+@ComponentScan("by.kachanov.shop.config")
+@EnableAutoConfiguration(exclude = {
+        JpaRepositoriesAutoConfiguration.class,
+        HibernateJpaAutoConfiguration.class
+})
+@ActiveProfiles("test")
 public class AbstractRepositoryTest extends AbstractTransactionalJUnit4SpringContextTests {
 
     private static final String USER_NAME = "user_name";
@@ -53,7 +69,7 @@ public class AbstractRepositoryTest extends AbstractTransactionalJUnit4SpringCon
     private Order order;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         User user = new User();
         user.setName(USER_NAME);
         user.setLogin(USER_LOGIN);
@@ -83,12 +99,12 @@ public class AbstractRepositoryTest extends AbstractTransactionalJUnit4SpringCon
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         orderService.deleteOrder(order.getId());
     }
 
     @Test
-    public void testNestedFieldCriteria() throws Exception {
+    public void testNestedFieldCriteria() {
         assertNotEquals(repository.getCriteria(User.class, new Equals("name", USER_NAME)).list().size(), 0);
         assertNotEquals(repository.getCriteria(Product.class, new Equals("categories.name", CATEGORY_NAME)).list().size(), 0);
         assertNotEquals(repository.getCriteria(Order.class, new Equals("orderPositions.product.name", PRODUCT_NAME)).list().size(), 0);

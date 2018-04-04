@@ -45,7 +45,7 @@ public class ProductCRUDTest extends AbstractEntityCRUDTest {
 
     @Override
     protected String getBasePath() {
-        return "/products";
+        return "/rest/products";
     }
 
     @Override

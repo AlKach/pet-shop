@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 public class LikeConverter extends AbstractConditionConverter<Like> {
 
     @Override
-    public Criterion doConvert(Like source) {
+    public Criterion convert(Like source) {
         String field = source.getField();
         String value = source.getValue().replaceAll("\\*", "%");
         return Restrictions.like(getFieldAlias(field), value);

@@ -7,27 +7,36 @@ buildscript {
     }
 }
 
-apply plugin: 'war'
-apply plugin: 'com.bmuschko.docker-remote-api'
+plugins {
+    id 'org.springframework.boot' version '2.0.0.RELEASE'
+    id 'com.bmuschko.docker-remote-api' version '3.2.3'
+}
 
 import com.bmuschko.gradle.docker.tasks.container.*
 import com.bmuschko.gradle.docker.tasks.image.*
 
+sourceSets {
+    main {
+        resources {
+            srcDir project(":pet-shop-ui").sourceSets.content.resources
+        }
+    }
+}
+
 dependencies {
-    compile "org.springframework:spring-webmvc:${springVersion}"
+    compile "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
+    compile "org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}"
     compile "org.flywaydb:flyway-core:${flywayVersion}"
     compile "org.slf4j:slf4j-api:${slf4jVersion}"
-    compile "org.slf4j:slf4j-log4j12:${slf4jVersion}"
-    compile "com.fasterxml.jackson.datatype:jackson-datatype-hibernate5:2.7.1"
+    compile "com.fasterxml.jackson.datatype:jackson-datatype-hibernate5:2.9.4"
 
     compile project(":pet-shop-service:pet-shop-rsql")
     compile project(":pet-shop-service:pet-shop-service-impl")
     compile project(":pet-shop-ui")
 
     testCompile "junit:junit:${junitVersion}"
-    testCompile "org.springframework:spring-test:${springVersion}"
+    testCompile "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
     testCompile "com.jayway.jsonpath:json-path:2.4.0"
-    testCompile "javax.servlet:javax.servlet-api:3.0.1"
 }
 
 if (project.hasProperty('testProfile') && project.testProfile == 'docker') {
@@ -56,12 +65,4 @@ if (project.hasProperty('testProfile') && project.testProfile == 'docker') {
 
     test.dependsOn startTestDb
     test.finalizedBy destroyTestDb
-}
-
-def uiProject = project(":pet-shop-ui")
-
-project.evaluationDependsOn ":" + uiProject.name
-
-war {
-    from files(uiProject.sourceSets.content.resources)
 }

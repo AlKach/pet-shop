@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 public class NotConverter extends AbstractConditionConverter<Not> {
 
     @Override
-    public Criterion doConvert(Not source) {
+    public Criterion convert(Not source) {
         return Restrictions.not(getConversionService().convert(source.getCondition(), Criterion.class));
     }
 }

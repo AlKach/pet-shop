@@ -17,7 +17,7 @@ import java.util.List;
 
 @RestController
 @Api("Products")
-@RequestMapping("/products")
+@RequestMapping("/rest/products")
 public class ProductController extends AbstractController {
 
     @Autowired

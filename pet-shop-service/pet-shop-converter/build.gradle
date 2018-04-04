@@ -5,8 +5,8 @@ dependencies {
     compile project(":pet-shop-dto")
 
     testCompile "junit:junit:${junitVersion}"
-    testCompile "org.springframework:spring-test:${springVersion}"
-    testCompile "org.hsqldb:hsqldb:2.3.3"
+    testCompile "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
+    testCompile "org.hsqldb:hsqldb:${hsqlVersion}"
 
     testCompile project(":pet-shop-service:pet-shop-service-impl")
 }

@@ -3,11 +3,13 @@ plugins {
 }
 
 def uiBaseDir = "${project.projectDir}/src/content"
+def uiOutputDir = "${uiBaseDir}/dist"
+def npmDir = "${uiBaseDir}/npm"
 
 sourceSets {
     content {
         resources {
-            srcDirs = ["${uiBaseDir}/dist"]
+            srcDirs = [uiOutputDir]
         }
     }
 }
@@ -20,23 +22,32 @@ dependencies {
 node {
     version = '6.9.5'
     npmVersion = '5.7.1'
-    npmWorkDir = file("${project.buildDir}/npm")
+    npmWorkDir = file(npmDir)
     nodeModulesDir = file(uiBaseDir)
 }
 
+npmSetup {
+    outputs.dir(npmDir)
+}
+
 task installDeps(type: NpmTask) {
+    inputs.file("${uiBaseDir}/package.json")
+    outputs.dir("${uiBaseDir}/node_modules")
     args = ['install']
 }
 
 task buildAppUi(type: NpmTask, dependsOn: installDeps) {
-    args = ['run', "app-${buildUiProfile}"]
+    inputs.dir("${uiBaseDir}/web")
+    outputs.dir("${uiOutputDir}/web")
+    args = ['run', "web-${buildUiProfile}"]
 }
 
 task buildRestUi(type: NpmTask, dependsOn: installDeps) {
+    inputs.dir("${uiBaseDir}/rest")
+    outputs.dir("${uiOutputDir}/rest")
     args = ['run', "rest-${buildUiProfile}"]
 }
 
-if (Boolean.valueOf(buildUi)) {
-    processResources.dependsOn buildAppUi
-    processResources.dependsOn buildRestUi
+processResources {
+    dependsOn(buildAppUi, buildRestUi)
 }

@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "rest-dev": "webpack --config webpack.rest.js --mode development",
-    "rest-prod": "webpack --config webpack.rest.js --mode production",
-    "app-dev": "webpack --config webpack.app.js --mode development",
-    "app-prod": "webpack --config webpack.app.js --mode production"
+    "rest-dev": "webpack --config rest/webpack.config.js --mode development",
+    "rest-prod": "webpack --config rest/webpack.config.js --mode production",
+    "web-dev": "webpack --config web/webpack.config.js --mode development",
+    "web-prod": "webpack --config web/webpack.config.js --mode production"
   },
   "author": "",
   "license": "ISC",

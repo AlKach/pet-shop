@@ -2,7 +2,7 @@ package by.kachanov.shop.service.converter;
 
 import org.springframework.core.convert.ConversionService;
 
-public abstract class AbstractConditionConverter<SourceClass> implements ContextAwareConverter<SourceClass> {
+public abstract class AbstractConditionConverter<S> implements ContextAwareConverter<S> {
 
     private ConversionContext conversionContext;
 

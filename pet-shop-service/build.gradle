@@ -1,0 +1,6 @@
+dependencies {
+    compile "org.springframework:spring-context:${springVersion}"
+
+    compile project(":pet-shop-rsql-specification")
+    compile project(":pet-shop-repository")
+}

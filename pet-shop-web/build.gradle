@@ -30,7 +30,7 @@ dependencies {
     compile "org.slf4j:slf4j-api:${slf4jVersion}"
     compile "com.fasterxml.jackson.datatype:jackson-datatype-hibernate5:2.9.4"
 
-    compile project(":pet-shop-service:pet-shop-service-impl")
+    compile project(":pet-shop-service")
     compile project(":pet-shop-ui")
 
     testCompile "junit:junit:${junitVersion}"

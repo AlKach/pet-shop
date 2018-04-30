@@ -1,7 +1,7 @@
 package by.kachanov.shop.web.rest.controller;
 
 import by.kachanov.shop.dto.Product;
-import by.kachanov.shop.service.ProductService;
+import by.kachanov.shop.service.api.ProductService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.BeanUtils;

@@ -1,0 +1,5 @@
+dependencies {
+    compile "org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}"
+    compile "org.postgresql:postgresql:${postgresqlDriverVersion}"
+    compile project(":pet-shop-dto")
+}

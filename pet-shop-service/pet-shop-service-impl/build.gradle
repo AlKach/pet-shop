@@ -2,5 +2,6 @@ dependencies {
     compile "org.springframework:spring-context:${springVersion}"
 
     compile project(":pet-shop-service:pet-shop-service-api")
-    compile project(":pet-shop-repository:pet-shop-repository-impl")
+    compile project(":pet-shop-service:pet-shop-rsql-specification")
+    compile project(":pet-shop-repository")
 }

@@ -1,7 +1,6 @@
 package by.kachanov.shop.service;
 
 import by.kachanov.shop.dto.Product;
-import by.kachanov.shop.dto.condition.Condition;
 
 import java.math.BigInteger;
 import java.util.List;
@@ -12,7 +11,7 @@ public interface ProductService {
 
     Product getProduct(BigInteger productId);
 
-    List<Product> getProducts(Condition selector);
+    List<Product> getProducts(String query);
 
     void deleteProduct(BigInteger productId);
 

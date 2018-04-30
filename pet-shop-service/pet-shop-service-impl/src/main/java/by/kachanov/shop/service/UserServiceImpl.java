@@ -1,5 +1,7 @@
 package by.kachanov.shop.service;
 
+import javax.persistence.EntityNotFoundException;
+
 import by.kachanov.shop.dto.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -7,32 +9,30 @@ import org.springframework.stereotype.Service;
 import java.math.BigInteger;
 import java.util.List;
 import by.kachanov.shop.repository.UserRepository;
-import by.kachanov.shop.dto.condition.Condition;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl extends BaseService<User> implements UserService {
 
     @Autowired
     private UserRepository userRepository;
 
     @Override
     public User getUser(BigInteger userId) {
-        return userRepository.getUser(userId);
+        return userRepository.findById(userId).orElseThrow(EntityNotFoundException::new);
     }
 
     @Override
-    public List<User> getUsers(Condition selector) {
-        return userRepository.getUsers(selector);
+    public List<User> getUsers(String query) {
+        return userRepository.findAll(buildSpecification(query));
     }
 
     @Override
     public void saveUser(User user) {
-        userRepository.saveUser(user);
+        userRepository.save(user);
     }
 
     @Override
     public void deleteUser(BigInteger userId) {
-        User user = getUser(userId);
-        userRepository.deleteUser(user);
+        userRepository.deleteById(userId);
     }
 }

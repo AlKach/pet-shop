@@ -1,7 +1,6 @@
 package by.kachanov.shop.web.rest.controller;
 
 import by.kachanov.shop.dto.Product;
-import by.kachanov.shop.dto.condition.Expression;
 import by.kachanov.shop.service.ProductService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -17,7 +16,7 @@ import java.util.List;
 @RestController
 @Api("Products")
 @RequestMapping("/rest/products")
-public class ProductController extends AbstractController {
+public class ProductController {
 
     @Autowired
     private ProductService productService;
@@ -47,13 +46,7 @@ public class ProductController extends AbstractController {
     @ApiOperation("Get products list by query")
     @RequestMapping(value = "", method = RequestMethod.GET)
     public List<Product> getProducts(@RequestParam(value = "q", required = false) String query) {
-        return productService.getProducts(parseQuery(query));
-    }
-
-    @ApiOperation("Get products list by query AST")
-    @RequestMapping(value = "/ast", method = RequestMethod.POST)
-    public List<Product> getProductsAST(@RequestBody(required = false) Expression selector) {
-        return productService.getProducts(selector);
+        return productService.getProducts(query);
     }
 
     @ApiOperation("Delete product")

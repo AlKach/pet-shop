@@ -1,5 +1,7 @@
 package by.kachanov.shop.service;
 
+import javax.persistence.EntityNotFoundException;
+
 import by.kachanov.shop.dto.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -7,32 +9,30 @@ import org.springframework.stereotype.Service;
 import java.math.BigInteger;
 import java.util.List;
 import by.kachanov.shop.repository.OrderRepository;
-import by.kachanov.shop.dto.condition.Condition;
 
 @Service
-public class OrderServiceImpl implements OrderService {
+public class OrderServiceImpl extends BaseService<Order> implements OrderService {
 
     @Autowired
     private OrderRepository orderRepository;
 
     @Override
     public void saveOrder(Order order) {
-        orderRepository.saveOrder(order);
+        orderRepository.save(order);
     }
 
     @Override
     public Order getOrder(BigInteger orderId) {
-        return orderRepository.getOrder(orderId);
+        return orderRepository.findById(orderId).orElseThrow(EntityNotFoundException::new);
     }
 
     @Override
-    public List<Order> getOrders(Condition selector) {
-        return orderRepository.getOrders(selector);
+    public List<Order> getOrders(String query) {
+        return orderRepository.findAll(buildSpecification(query));
     }
 
     @Override
     public void deleteOrder(BigInteger orderId) {
-        Order order = getOrder(orderId);
-        orderRepository.deleteOrder(order);
+        orderRepository.deleteById(orderId);
     }
 }

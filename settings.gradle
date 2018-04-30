@@ -3,11 +3,8 @@ rootProject.name = 'shop'
 include ':pet-shop-dto',
         ':pet-shop-service:pet-shop-service-api',
         ':pet-shop-service:pet-shop-service-impl',
-        ':pet-shop-service:pet-shop-converter',
-        ':pet-shop-service:pet-shop-rsql',
-        ':pet-shop-repository:pet-shop-repository-api',
-        ':pet-shop-repository:pet-shop-repository-impl',
+        ':pet-shop-service:pet-shop-rsql-specification',
+        ':pet-shop-repository',
         ':pet-shop-web',
-        ':pet-shop-ui',
-        ':pet-shop-rsql-jpa'
+        ':pet-shop-ui'
 

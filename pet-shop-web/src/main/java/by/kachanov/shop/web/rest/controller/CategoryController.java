@@ -1,7 +1,6 @@
 package by.kachanov.shop.web.rest.controller;
 
 import by.kachanov.shop.dto.Category;
-import by.kachanov.shop.dto.condition.Expression;
 import by.kachanov.shop.service.CategoryService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -17,7 +16,7 @@ import java.util.List;
 @RestController
 @Api("Categories")
 @RequestMapping("/rest/categories")
-public class CategoryController extends AbstractController {
+public class CategoryController {
 
     @Autowired
     private CategoryService categoryService;
@@ -47,13 +46,7 @@ public class CategoryController extends AbstractController {
     @ApiOperation("Get categories list by query")
     @RequestMapping(value = "", method = RequestMethod.GET)
     public List<Category> getCategories(@RequestParam(value = "q", required = false) String query) {
-        return categoryService.getCategories(parseQuery(query));
-    }
-
-    @ApiOperation("Get categories list by query AST")
-    @RequestMapping(value = "/ast", method = RequestMethod.POST)
-    public List<Category> getCategoriesAST(@RequestBody(required = false) Expression selector) {
-        return categoryService.getCategories(selector);
+        return categoryService.getCategories(query);
     }
 
     @ApiOperation("Delete category")

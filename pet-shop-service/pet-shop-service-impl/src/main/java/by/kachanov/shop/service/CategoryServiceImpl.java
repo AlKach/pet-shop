@@ -1,38 +1,37 @@
 package by.kachanov.shop.service;
 
+import javax.persistence.EntityNotFoundException;
+import java.math.BigInteger;
+import java.util.List;
+
 import by.kachanov.shop.dto.Category;
+import by.kachanov.shop.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.math.BigInteger;
-import java.util.List;
-import by.kachanov.shop.repository.CategoryRepository;
-import by.kachanov.shop.dto.condition.Condition;
-
 @Service
-public class CategoryServiceImpl implements CategoryService {
+public class CategoryServiceImpl extends BaseService<Category> implements CategoryService {
 
     @Autowired
     private CategoryRepository categoryRepository;
 
     @Override
     public void saveCategory(Category category) {
-        categoryRepository.saveCategory(category);
+        categoryRepository.save(category);
     }
 
     @Override
     public Category getCategory(BigInteger categoryId) {
-        return categoryRepository.getCategory(categoryId);
+        return categoryRepository.findById(categoryId).orElseThrow(EntityNotFoundException::new);
     }
 
     @Override
-    public List<Category> getCategories(Condition selector) {
-        return categoryRepository.getCategories(selector);
+    public List<Category> getCategories(String query) {
+        return categoryRepository.findAll(buildSpecification(query));
     }
 
     @Override
     public void deleteCategory(BigInteger categoryId) {
-        Category category = getCategory(categoryId);
-        categoryRepository.deleteCategory(category);
+        categoryRepository.deleteById(categoryId);
     }
 }

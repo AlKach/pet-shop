@@ -1,7 +1,6 @@
 package by.kachanov.shop.web.rest.controller;
 
 import by.kachanov.shop.dto.User;
-import by.kachanov.shop.dto.condition.Expression;
 import by.kachanov.shop.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -17,7 +16,7 @@ import java.util.List;
 @RestController
 @Api("Users")
 @RequestMapping("/rest/users")
-public class UserController extends AbstractController {
+public class UserController {
 
     @Autowired
     private UserService userService;
@@ -47,13 +46,7 @@ public class UserController extends AbstractController {
     @ApiOperation("Get users list by query")
     @RequestMapping(value = "", method = RequestMethod.GET)
     public List<User> getUsers(@RequestParam(value = "q", required = false) String query) {
-        return userService.getUsers(parseQuery(query));
-    }
-
-    @ApiOperation("Get users list by query AST")
-    @RequestMapping(value = "/ast", method = RequestMethod.POST)
-    public List<User> getUsersAST(@RequestBody(required = false) Expression selector) {
-        return userService.getUsers(selector);
+        return userService.getUsers(query);
     }
 
     @ApiOperation("Delete user")

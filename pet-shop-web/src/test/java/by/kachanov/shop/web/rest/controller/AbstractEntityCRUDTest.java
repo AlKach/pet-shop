@@ -46,15 +46,17 @@ public abstract class AbstractEntityCRUDTest extends SpringWebTestSupport {
             createdEntity.andExpect(jsonPath(validation.getLeft()).value(validation.getRight()));
         }
 
-        ResultActions allEntities = mockMvc.perform(get(getBasePath()).accept(MediaType.APPLICATION_JSON_UTF8))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$").isArray())
-                .andExpect(jsonPath("$.length()").value(1))
-                .andExpect(jsonPath("$[0].id").value(entityId.intValue()));
+        String query = "";
+        String queryUrl = getBasePath() + "?q=" + query;
+        ResultActions entitiesByQuery =
+                mockMvc.perform(get(queryUrl).accept(MediaType.APPLICATION_JSON_UTF8))
+                        .andExpect(status().isOk());
 
-        for (Pair<String, Object> validation : getValidations()) {
-            allEntities.andExpect(jsonPath(validation.getLeft().replace("$", "$[0]")).value(validation.getRight()));
-        }
+        ResultActions entitiesByUrl = mockMvc.perform(get(getBasePath()).accept(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(status().isOk());
+
+        validateEntitiesList(entitiesByQuery, entityId);
+        validateEntitiesList(entitiesByUrl, entityId);
 
         mockMvc.perform(delete(entityUrl, entityId)).andExpect(status().isNoContent());
 
@@ -65,6 +67,17 @@ public abstract class AbstractEntityCRUDTest extends SpringWebTestSupport {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$").isArray())
                 .andExpect(jsonPath("$.length()").value(0));
+    }
+
+    private void validateEntitiesList(ResultActions entitiesList, BigInteger entityId) throws Exception {
+        entitiesList
+                .andExpect(jsonPath("$").isArray())
+                .andExpect(jsonPath("$.length()").value(1))
+                .andExpect(jsonPath("$[0].id").value(entityId.intValue()));
+
+        for (Pair<String, Object> validation : getValidations()) {
+            entitiesList.andExpect(jsonPath(validation.getLeft().replace("$", "$[0]")).value(validation.getRight()));
+        }
     }
     
     protected abstract Object getEntity();

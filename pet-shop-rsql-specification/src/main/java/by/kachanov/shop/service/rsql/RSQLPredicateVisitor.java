@@ -27,7 +27,7 @@ public class RSQLPredicateVisitor extends NoArgRSQLVisitorAdapter<Predicate> {
     private TypeResolver typeResolver;
 
     @Autowired
-    private ConversionService conversionService;
+    private JpaParameterConversionService conversionService;
 
     private final Root root;
 

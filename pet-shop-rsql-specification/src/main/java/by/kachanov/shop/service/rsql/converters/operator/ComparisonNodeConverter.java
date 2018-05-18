@@ -31,6 +31,10 @@ public abstract class ComparisonNodeConverter implements NodeConverter {
         this.operator = operator;
     }
 
+    public ComparisonOperator getOperator() {
+        return operator;
+    }
+
     @Override
     public final boolean supports(Node node) {
         return node instanceof ComparisonNode && operator.equals(((ComparisonNode) node).getOperator());

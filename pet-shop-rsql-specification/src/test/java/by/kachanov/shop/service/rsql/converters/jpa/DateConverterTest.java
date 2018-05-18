@@ -1,4 +1,4 @@
-package by.kachanov.shop.service.rsql.converters;
+package by.kachanov.shop.service.rsql.converters.jpa;
 
 import java.time.LocalDate;
 import java.time.Month;
@@ -6,6 +6,7 @@ import java.time.ZoneId;
 import java.util.Date;
 
 import by.kachanov.shop.config.TestConfig;
+import by.kachanov.shop.service.rsql.converters.jpa.DateConverter;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

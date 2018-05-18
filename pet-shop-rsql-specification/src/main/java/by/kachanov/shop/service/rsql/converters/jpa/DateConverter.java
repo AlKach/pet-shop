@@ -1,4 +1,4 @@
-package by.kachanov.shop.service.rsql.converters;
+package by.kachanov.shop.service.rsql.converters.jpa;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

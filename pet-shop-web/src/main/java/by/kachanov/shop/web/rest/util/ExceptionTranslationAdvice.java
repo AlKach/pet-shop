@@ -27,7 +27,7 @@ public class ExceptionTranslationAdvice {
     }
 
     private static class ExceptionMessage {
-        private Exception ex;
+        private final Exception ex;
 
         public ExceptionMessage(Exception ex) {
             this.ex = ex;

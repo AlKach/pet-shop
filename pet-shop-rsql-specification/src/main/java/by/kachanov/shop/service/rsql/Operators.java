@@ -8,15 +8,15 @@ import java.util.Set;
 import cz.jirutka.rsql.parser.ast.ComparisonOperator;
 import cz.jirutka.rsql.parser.ast.RSQLOperators;
 
-final class Operators {
+public final class Operators {
 
     public static final ComparisonOperator
-            EQUALS = RSQLOperators.EQUAL,
-            NOT_EQUALS = RSQLOperators.NOT_EQUAL,
+            EQUAL = RSQLOperators.EQUAL,
+            NOT_EQUAL = RSQLOperators.NOT_EQUAL,
             GREATER = RSQLOperators.GREATER_THAN,
-            GREATER_OR_EQUALS = RSQLOperators.GREATER_THAN_OR_EQUAL,
+            GREATER_OR_EQUAL = RSQLOperators.GREATER_THAN_OR_EQUAL,
             LESS = RSQLOperators.LESS_THAN,
-            LESS_OR_EQUALS = RSQLOperators.LESS_THAN_OR_EQUAL,
+            LESS_OR_EQUAL = RSQLOperators.LESS_THAN_OR_EQUAL,
             IN = RSQLOperators.IN,
             NOT_IN = RSQLOperators.NOT_IN,
             LIKE = new ComparisonOperator("=lk="),
@@ -27,12 +27,12 @@ final class Operators {
     public static final Set<ComparisonOperator> ALL_OPERATORS = Collections.unmodifiableSet(
             new HashSet<>(
                     Arrays.asList(
-                            EQUALS,
-                            NOT_EQUALS,
+                            EQUAL,
+                            NOT_EQUAL,
                             GREATER,
-                            GREATER_OR_EQUALS,
+                            GREATER_OR_EQUAL,
                             LESS,
-                            LESS_OR_EQUALS,
+                            LESS_OR_EQUAL,
                             IN,
                             NOT_IN,
                             LIKE,

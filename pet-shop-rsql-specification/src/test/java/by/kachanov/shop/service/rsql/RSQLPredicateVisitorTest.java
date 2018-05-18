@@ -50,7 +50,7 @@ public class RSQLPredicateVisitorTest {
     }
 
     private ComparisonNode createComparison(String operator, String selector) {
-        return new ComparisonNode(new ComparisonOperator(operator), selector, Collections.singletonList("default"));
+        return createComparison(operator, selector, Collections.singletonList("default"));
     }
     
 }

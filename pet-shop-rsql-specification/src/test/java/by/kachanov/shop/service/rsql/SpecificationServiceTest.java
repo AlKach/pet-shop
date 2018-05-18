@@ -46,14 +46,14 @@ public class SpecificationServiceTest {
 
     @Test
     public void testSpecificationCreation() {
-        SpecificationService specificationService = spy(this.specificationService);
+        SpecificationService specificationServiceSpy = spy(this.specificationService);
         String query = "user.name == 'User 1'";
-        Specification<Order> specification = specificationService.buildSpecification(query);
+        Specification<Order> specification = specificationServiceSpy.buildSpecification(query);
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Order> criteriaQuery = criteriaBuilder.createQuery(Order.class);
         Root<Order> root = criteriaQuery.from(Order.class);
         specification.toPredicate(root, criteriaQuery, criteriaBuilder);
-        verify(specificationService).buildPredicate(query, root, criteriaBuilder);
+        verify(specificationServiceSpy).buildPredicate(query, root, criteriaBuilder);
     }
 
     @Test

@@ -7,15 +7,15 @@ import java.util.List;
 import java.util.Set;
 
 import by.kachanov.shop.config.TestConfig;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = TestConfig.class)
 public class TypeResolverTest {
 
@@ -67,19 +67,19 @@ public class TypeResolverTest {
         assertEquals(int.class, typeResolver.resolveType(RootEntity.class, "grandChildren.parents.id"));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testResolveNonExistentDirectProperty() {
-        typeResolver.resolveType(RootEntity.class, "nonExistent");
+        assertThrows(IllegalArgumentException.class, () -> typeResolver.resolveType(RootEntity.class, "nonExistent"));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testNonExistentNestedProperty() {
-        typeResolver.resolveType(RootEntity.class, "child.grandChild.nonExistent");
+        assertThrows(IllegalArgumentException.class, () -> typeResolver.resolveType(RootEntity.class, "child.grandChild.nonExistent"));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testNonExistentCollectionProperty() {
-        typeResolver.resolveType(RootEntity.class, "grandChildren.nonExistent.id");
+        assertThrows(IllegalArgumentException.class, () -> typeResolver.resolveType(RootEntity.class, "grandChildren.nonExistent.id"));
     }
 
     @Test

@@ -18,20 +18,20 @@ import by.kachanov.shop.dto.Order;
 import by.kachanov.shop.dto.OrderPosition;
 import by.kachanov.shop.dto.Product;
 import by.kachanov.shop.dto.User;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = TestConfig.class)
 @EnableAutoConfiguration
 @Transactional
@@ -192,14 +192,18 @@ public class SpecificationServiceTest {
         }
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testIllegalOperator() {
-        buildCriteriaQuery("name =illegal= 'Category 1'", Category.class, entityManager);
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> buildCriteriaQuery("name =illegal= 'Category 1'", Category.class, entityManager));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testInvalidProperty() {
-        buildCriteriaQuery("invalidProperty == 0", Product.class, entityManager);
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> buildCriteriaQuery("invalidProperty == 0", Product.class, entityManager));
     }
 
     @Test

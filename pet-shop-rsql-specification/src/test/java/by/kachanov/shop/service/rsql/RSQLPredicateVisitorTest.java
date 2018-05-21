@@ -11,17 +11,19 @@ import by.kachanov.shop.config.TestConfig;
 import by.kachanov.shop.dto.Order;
 import cz.jirutka.rsql.parser.ast.ComparisonNode;
 import cz.jirutka.rsql.parser.ast.ComparisonOperator;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(classes = TestConfig.class)
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @EnableAutoConfiguration
 @ActiveProfiles("test")
 public class RSQLPredicateVisitorTest {
@@ -32,9 +34,11 @@ public class RSQLPredicateVisitorTest {
     @PersistenceContext
     private EntityManager entityManager;
     
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testIllegalOperator() {
-        getVisitor(Order.class).visit(createComparison("=illegal=", "user.name"));
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> getVisitor(Order.class).visit(createComparison("=illegal=", "user.name")));
     }
     
     private RSQLPredicateVisitor getVisitor(Class<?> rootType) {

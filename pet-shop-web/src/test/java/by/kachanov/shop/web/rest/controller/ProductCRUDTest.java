@@ -4,7 +4,7 @@ import by.kachanov.shop.dto.Category;
 import by.kachanov.shop.dto.Product;
 import by.kachanov.shop.service.api.CategoryService;
 import org.flywaydb.core.internal.util.Pair;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;

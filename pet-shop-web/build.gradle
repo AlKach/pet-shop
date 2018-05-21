@@ -33,8 +33,12 @@ dependencies {
     compile project(":pet-shop-service")
     compile project(":pet-shop-ui")
 
-    testCompile "junit:junit:${junitVersion}"
-    testCompile "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
+    testCompile("org.springframework.boot:spring-boot-starter-test:${springBootVersion}") {
+        exclude group: "junit", module: "junit"
+    }
+    testCompile "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
+    testRuntime "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
+    testRuntime "org.junit.platform:junit-platform-launcher:${junitPlatformVersion}"
     testCompile "com.jayway.jsonpath:json-path:2.4.0"
 }
 

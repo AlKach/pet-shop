@@ -12,9 +12,13 @@ dependencies {
     compile "cz.jirutka.rsql:rsql-parser:${rsqlVersion}"
     compile "org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}"
 
-    testCompile "junit:junit:${junitVersion}"
-    testCompile "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
+    testCompile("org.springframework.boot:spring-boot-starter-test:${springBootVersion}") {
+        exclude group: "junit", module: "junit"
+    }
     testCompile "org.hsqldb:hsqldb:${hsqlVersion}"
+    testCompile "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
+    testRuntime "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
+    testRuntime "org.junit.platform:junit-platform-launcher:${junitPlatformVersion}"
 
     testCompile project(":pet-shop-dto")
 }

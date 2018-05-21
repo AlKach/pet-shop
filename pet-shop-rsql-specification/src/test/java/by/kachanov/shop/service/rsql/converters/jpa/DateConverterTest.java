@@ -6,17 +6,16 @@ import java.time.ZoneId;
 import java.util.Date;
 
 import by.kachanov.shop.config.TestConfig;
-import by.kachanov.shop.service.rsql.converters.jpa.DateConverter;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(classes = TestConfig.class)
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 public class DateConverterTest {
     
     @Autowired
@@ -31,9 +30,9 @@ public class DateConverterTest {
         assertEquals(expected, converted);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testIllegalStringConversion() {
-        dateConverter.convert("23 January 2019");
+        assertThrows(IllegalArgumentException.class, () -> dateConverter.convert("23 January 2019"));
     }
 
 }

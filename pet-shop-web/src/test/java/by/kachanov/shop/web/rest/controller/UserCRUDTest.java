@@ -2,7 +2,7 @@ package by.kachanov.shop.web.rest.controller;
 
 import by.kachanov.shop.dto.User;
 import org.flywaydb.core.internal.util.Pair;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.List;

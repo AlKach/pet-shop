@@ -13,13 +13,15 @@ import cz.jirutka.rsql.parser.ast.ComparisonNode;
 import cz.jirutka.rsql.parser.ast.Node;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatcher;
 import org.mockito.InjectMocks;
-import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.mockito.Mockito.*;
 
+@ExtendWith(MockitoExtension.class)
 public class OperatorConversionServiceTest {
 
     @InjectMocks
@@ -33,11 +35,6 @@ public class OperatorConversionServiceTest {
             .peek(c -> when(c.supports(argThat(matcherFor(c)))).thenReturn(true))
             .peek(c -> when(c.convert(any(), any(), any())).thenReturn(mock(Predicate.class)))
             .collect(Collectors.toList());
-
-    @BeforeEach
-    public void setUp() {
-        MockitoAnnotations.initMocks(this);
-    }
 
     @Test
     public void convert() {

@@ -19,6 +19,7 @@ dependencies {
     testCompile "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
     testRuntime "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
     testRuntime "org.junit.platform:junit-platform-launcher:${junitPlatformVersion}"
+    testCompile "org.mockito:mockito-junit-jupiter:2.17.0"
 
     testCompile project(":pet-shop-dto")
 }

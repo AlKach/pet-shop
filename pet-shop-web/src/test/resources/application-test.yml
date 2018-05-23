@@ -4,6 +4,8 @@ spring:
     url: jdbc:postgresql://localhost:5432/shop_test
     username: shop_test
     password: password
+    hikari:
+      initialization-fail-timeout: -1
 logging:
   level:
     root: debug

@@ -43,6 +43,14 @@ dependencies {
 }
 
 if (project.hasProperty('testProfile') && project.testProfile == 'docker') {
+    if (System.getProperty("os.name").toLowerCase(Locale.ENGLISH).contains('windows')
+            && Float.valueOf(System.getProperty("os.version")) < 10) {
+        docker {
+            url 'tcp://192.168.99.100:2376'
+            certPath file(System.getProperty("user.home") + '\\.docker\\machine\\certs')
+        }
+    }
+
     task pullDbImage(type: DockerPullImage) {
         repository 'postgres'
         tag 'alpine'

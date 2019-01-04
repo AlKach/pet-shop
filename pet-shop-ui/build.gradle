@@ -20,8 +20,8 @@ dependencies {
 }
 
 node {
-    version = '6.9.5'
-    npmVersion = '5.7.1'
+    version = '11.6.0'
+    npmVersion = '6.5.0'
     npmWorkDir = file(npmDir)
     nodeModulesDir = file(uiBaseDir)
 }

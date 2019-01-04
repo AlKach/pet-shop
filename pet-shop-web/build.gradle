@@ -81,3 +81,26 @@ if (project.hasProperty('testProfile') && project.testProfile == 'docker') {
         systemProperty 'test.database.port', "${dockerTestDbPort}"
     }
 }
+
+task copyArtifact(type: Copy, dependsOn: test) {
+    from bootJar.archiveFile
+    into 'docker'
+}
+
+def appBinary = bootJar.archiveFile.get().asFile
+def appName = appBinary.name
+def appDir = appBinary.parentFile.path
+
+task dockerFile(type: Dockerfile, dependsOn: bootJar) {
+    destFile = file("$appDir/Dockerfile")
+    from 'openjdk:8-alpine'
+    addFile appName, "/app/$appName"
+    exposePort 9090
+    defaultCommand "java", "-jar", "-Dspring.profiles.active=docker", "/app/$appName"
+}
+
+task buildImage(type: DockerBuildImage, dependsOn: dockerFile) {
+    inputDir = file(appDir)
+    imageId = project.name
+    tags = [ project.name + ':' + project.version ] as Set
+}

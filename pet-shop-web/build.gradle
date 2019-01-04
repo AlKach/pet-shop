@@ -58,7 +58,7 @@ if (project.hasProperty('testProfile') && project.testProfile == 'docker') {
 
     task createTestDb(type: DockerCreateContainer, dependsOn: pullDbImage) {
         imageId = 'postgres:alpine'
-        portBindings = ['5432:5432']
+        portBindings = ["${dockerTestDbPort}:5432"]
         env = ['POSTGRES_DB=shop_test', 'POSTGRES_USER=shop_test', 'POSTGRES_PASSWORD=password']
     }
 
@@ -76,4 +76,8 @@ if (project.hasProperty('testProfile') && project.testProfile == 'docker') {
 
     test.dependsOn startTestDb
     test.finalizedBy destroyTestDb
+
+    test {
+        systemProperty 'test.database.port', "${dockerTestDbPort}"
+    }
 }

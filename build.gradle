@@ -15,6 +15,7 @@ subprojects {
     }
 
     test {
+        systemProperty 'test.database.port', "${defaultTestDbPort}"
         useJUnitPlatform()
     }
 }

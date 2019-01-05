@@ -1,6 +1,6 @@
 version: '3'
 services:
-  web:
+  pet-shop-web:
     image: 'pet-shop-web:1.0'
     ports:
       - '9090:9090'
@@ -13,3 +13,9 @@ services:
       POSTGRES_DB: shop
       POSTGRES_USER: shop
       POSTGRES_PASSWORD: password
+  pet-shop-ui:
+    image: 'pet-shop-ui:1.0'
+    depends_on:
+      - pet-shop-web
+    ports:
+      - 80:80

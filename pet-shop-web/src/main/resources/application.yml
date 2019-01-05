@@ -17,8 +17,6 @@ spring:
         show_sql: true
 server:
   port: 9090
-  servlet:
-    path: /shop
 logging:
   level:
     root: info

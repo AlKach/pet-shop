@@ -1,3 +1,12 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.bmuschko:gradle-docker-plugin:3.2.3'
+    }
+}
+
 allprojects {
     group = 'by.kachanov'
     version = 1.0
@@ -6,6 +15,15 @@ allprojects {
 subprojects {
     apply plugin: 'java'
     apply plugin: 'jacoco'
+    apply plugin: 'com.bmuschko.docker-remote-api'
+
+    if (System.getProperty("os.name").toLowerCase(Locale.ENGLISH).contains('windows')
+            && Float.valueOf(System.getProperty("os.version")) < 10) {
+        docker {
+            url 'tcp://192.168.99.100:2376'
+            certPath file(System.getProperty("user.home") + '\\.docker\\machine\\certs')
+        }
+    }
 
     sourceCompatibility = 1.8
     targetCompatibility = 1.8

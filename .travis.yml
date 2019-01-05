@@ -18,7 +18,7 @@ cache:
     - $HOME/.gradle/wrapper/
 script:
   - ./gradlew test
-  - sonar-scanner -Dsonar.login=$SONAR_TOKEN
+  - sonar-scanner -Dsonar.login=$SONAR_TOKEN -Dsonar.projectKey=pet-shop_pet-shop
 notifications:
   email:
     recipients:

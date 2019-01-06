@@ -1,0 +1,21 @@
+version: '3'
+services:
+  pet-shop-web:
+    image: 'pet-shop-web:1.0'
+    ports:
+      - '9090:9090'
+    depends_on:
+      - application-db
+  application-db:
+    image: 'postgres:alpine'
+    restart: always
+    environment:
+      POSTGRES_DB: shop
+      POSTGRES_USER: shop
+      POSTGRES_PASSWORD: password
+  pet-shop-ui:
+    image: 'pet-shop-ui:1.0'
+    depends_on:
+      - pet-shop-web
+    ports:
+      - 80:80

@@ -1,27 +1,9 @@
-buildscript {
-    repositories {
-        jcenter()
-    }
-    dependencies {
-        classpath 'com.bmuschko:gradle-docker-plugin:3.2.3'
-    }
-}
-
 plugins {
     id 'org.springframework.boot' version '2.0.0.RELEASE'
-    id 'com.bmuschko.docker-remote-api' version '3.2.3'
 }
 
 import com.bmuschko.gradle.docker.tasks.container.*
 import com.bmuschko.gradle.docker.tasks.image.*
-
-sourceSets {
-    main {
-        resources {
-            srcDir project(":pet-shop-ui").sourceSets.content.resources
-        }
-    }
-}
 
 dependencies {
     compile "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
@@ -43,13 +25,6 @@ dependencies {
 }
 
 if (project.hasProperty('testProfile') && project.testProfile == 'docker') {
-    if (System.getProperty("os.name").toLowerCase(Locale.ENGLISH).contains('windows')
-            && Float.valueOf(System.getProperty("os.version")) < 10) {
-        docker {
-            url 'tcp://192.168.99.100:2376'
-            certPath file(System.getProperty("user.home") + '\\.docker\\machine\\certs')
-        }
-    }
 
     task pullDbImage(type: DockerPullImage) {
         repository 'postgres'
@@ -80,4 +55,22 @@ if (project.hasProperty('testProfile') && project.testProfile == 'docker') {
     test {
         systemProperty 'test.database.port', "${dockerTestDbPort}"
     }
+}
+
+def appBinary = bootJar.archiveFile.get().asFile
+def appName = appBinary.name
+def appDir = appBinary.parentFile.path
+
+task dockerFile(type: Dockerfile, dependsOn: bootJar) {
+    destFile = file("$appDir/Dockerfile")
+    from 'openjdk:8-alpine'
+    addFile appName, "/app/$appName"
+    exposePort 9090
+    defaultCommand "java", "-jar", "-Dspring.profiles.active=docker", "/app/$appName"
+}
+
+task buildImage(type: DockerBuildImage, dependsOn: dockerFile) {
+    inputDir = file(appDir)
+    imageId = project.name
+    tags = [ project.name + ':' + project.version ] as Set
 }

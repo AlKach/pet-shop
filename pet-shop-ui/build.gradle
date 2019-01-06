@@ -2,6 +2,8 @@ plugins {
     id 'com.moowork.node' version '1.2.0'
 }
 
+import com.bmuschko.gradle.docker.tasks.image.*
+
 def uiBaseDir = "${project.projectDir}/src/content"
 def uiOutputDir = "${uiBaseDir}/dist"
 def npmDir = "${uiBaseDir}/npm"
@@ -50,4 +52,25 @@ task buildRestUi(type: NpmTask, dependsOn: installDeps) {
 
 processResources {
     dependsOn(buildAppUi, buildRestUi)
+}
+
+def nginxContentDirectory = "/usr/share/nginx/html"
+
+task copyNginxConfig(type: Copy) {
+    from file("$uiBaseDir/nginx")
+    into "$uiOutputDir/nginx"
+}
+
+task dockerFile(type: Dockerfile, dependsOn: [ processResources, copyNginxConfig ]) {
+    destFile = file("$uiOutputDir/Dockerfile")
+    from "nginx"
+    addFile "nginx", "/etc/nginx/conf.d"
+    addFile "web", nginxContentDirectory
+    addFile "rest", "$nginxContentDirectory/rest"
+}
+
+task buildImage(type: DockerBuildImage, dependsOn: dockerFile) {
+    inputDir = file(uiOutputDir)
+    imageId = project.name
+    tags = [ project.name + ':' + project.version ] as Set
 }

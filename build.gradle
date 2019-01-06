@@ -1,9 +1,10 @@
 buildscript {
     repositories {
-        jcenter()
+        gradlePluginPortal()
     }
     dependencies {
         classpath 'com.bmuschko:gradle-docker-plugin:3.2.3'
+        classpath 'io.franzbecker:gradle-lombok:1.14'
     }
 }
 
@@ -16,6 +17,7 @@ subprojects {
     apply plugin: 'java'
     apply plugin: 'jacoco'
     apply plugin: 'com.bmuschko.docker-remote-api'
+    apply plugin: 'io.franzbecker.gradle-lombok'
 
     if (System.getProperty("os.name").toLowerCase(Locale.ENGLISH).contains('windows')
             && Float.valueOf(System.getProperty("os.version")) < 10) {
@@ -30,6 +32,12 @@ subprojects {
 
     repositories {
         mavenCentral()
+        jcenter()
+    }
+
+    lombok {
+        version = '1.18.4'
+        sha256 = ''
     }
 
     test {

@@ -2,8 +2,6 @@ version: '3'
 services:
   pet-shop-web:
     image: 'pet-shop-web:1.0'
-    ports:
-      - '9090:9090'
     depends_on:
       - application-db
   application-db:

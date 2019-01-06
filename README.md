@@ -32,42 +32,9 @@ This will start Docker container with PostgreSQL instance with DB `shop_test`, u
 
 This approach is used in the build script. By default task `test` will start PostgreSQL for tests in Docker container. If you want to run tests on your own DB, comment out property `testProfile` in `gradle.properties`.
 
-### VirtualBox
+## Running
 
-pet-shop includes scripts for automating environment setup.
+Project contains `docker-compose` configuration to run all application's containers. Before running you will need to build application images:
 
-#### Database
-
-Environment setup scripts (stored in `/env` folder) automate running, resetting and configuring VM in VirtualBox.
-
-In order to set up development DB, perform following steps:
- 1. Create VM in VirtualBox.
- 2. Install Debian on it.
- 3. Create VM snapshot in VirtualBox (in order to be able to reset VM and run new version of setup script).
- 4. Configure SSH access to this VM. Make sure to permit root login (`PermitRootLogin yes`) and password authentication (`PasswordAuthentication yes`) in `/etc/ssh/sshd_config`. Also make sure posts 22 (SSH) and 5432 (PostgreSQL) are passed through from VMto your local machine.
- 5. Specify VM and snapshot names, DB service name, user and password in `/env/vm.properties` file. Also pay attention to `db_data_location` and `db_config_location` properties - they may vary depending on PostgreSQL version provided in your Debian distribution.
- 6. Make sure VirtualBox folder is in your `PATH`
- 7. Run VM in headless mode by running `/env/db-vm-run.sh`
- 8. Run `/env/db-vm-init.sh` to install and configure PostgreSQL on VM.
- 
-Now you have VM with installed PostgreSQL. Empty DB with specified service name, user and password will be created automatically. Running application for the first time will automatically create all needed tables.
-
-#### Environment management scripts
-
- - `db-backup-prepare.sh` - create and transfer to local machine backup of DB. DB will be stopped during backup procedure.
- - `db-backup-restore.sh` - restore DB from previously created backup. DB will be stopped during backup restoration procedure.
- - `db-vm-init.sh` - Connects to VM over SSH and sets up DB environment.
- - `db-vm-reset.sh` - Resets VM with DB to snapshot.
- - `db-vm-run.sh` - Starts VM with DB.
- - All scripts starting with `_` - Service scripts, should not be run standalone.
-
-#### vm.properties
-
- - `vm_db_name` - name of VM with DB
- - `vm_db_snapshot` - name of snapshot for resetting VM with DB
- - `vm_db_host` - host of VM with DB (used for making SSH connections)
- - `db_service` - name of DB
- - `db_username` - username for DB access
- - `db_password` - password for DB access
- - `db_backup_name` - file name for backup
- - `db_data_location` - location of data folder of DB
+    ./gradlew buildImages
+    docker-compose up

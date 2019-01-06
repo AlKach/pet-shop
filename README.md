@@ -1,4 +1,4 @@
-# pet-shop [![CI status](https://travis-ci.org/AlKach/pet-shop.svg?branch=master)](https://travis-ci.org/AlKach/pet-shop) [![BCH compliance](https://bettercodehub.com/edge/badge/AlKach/pet-shop?branch=master)](https://bettercodehub.com/) [![Sonar status](https://sonarcloud.io/api/project_badges/measure?project=by.kachanov.shop&metric=alert_status)](https://sonarcloud.io/dashboard?id=by.kachanov.shop)
+# pet-shop [![CI status](https://travis-ci.org/pet-shop/pet-shop.svg?branch=master)](https://travis-ci.org/pet-shop/pet-shop) [![BCH compliance](https://bettercodehub.com/edge/badge/pet-shop/pet-shop?branch=master)](https://bettercodehub.com/) [![Sonar status](https://sonarcloud.io/api/project_badges/measure?project=pet-shop_pet-shop&metric=alert_status)](https://sonarcloud.io/dashboard?id=pet-shop_pet-shop)
 
 Simple internet shop application. Created for practicing in developing web application from scratch.
 

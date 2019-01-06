@@ -1,5 +1,5 @@
 plugins {
-    id 'org.springframework.boot' version '2.0.0.RELEASE'
+    id 'org.springframework.boot' version '2.1.1.RELEASE'
 }
 
 import com.bmuschko.gradle.docker.tasks.container.*
@@ -27,26 +27,30 @@ dependencies {
 if (project.hasProperty('testProfile') && project.testProfile == 'docker') {
 
     task pullDbImage(type: DockerPullImage) {
-        repository 'postgres'
-        tag 'alpine'
+        repository = 'postgres'
+        tag = 'alpine'
     }
 
     task createTestDb(type: DockerCreateContainer, dependsOn: pullDbImage) {
         imageId = 'postgres:alpine'
         portBindings = ["${dockerTestDbPort}:5432"]
-        env = ['POSTGRES_DB=shop_test', 'POSTGRES_USER=shop_test', 'POSTGRES_PASSWORD=password']
+        envVars = [
+                POSTGRES_DB: 'shop_test',
+                POSTGRES_USER: 'shop_test',
+                POSTGRES_PASSWORD: 'password'
+        ]
     }
 
     task startTestDb(type: DockerStartContainer, dependsOn: createTestDb) {
-        targetContainerId { createTestDb.getContainerId() }
+        targetContainerId createTestDb.containerId
     }
 
     task stopTestDb(type: DockerStopContainer) {
-        targetContainerId { createTestDb.getContainerId() }
+        targetContainerId createTestDb.containerId
     }
 
     task destroyTestDb(type: DockerRemoveContainer, dependsOn: stopTestDb) {
-        targetContainerId { createTestDb.getContainerId() }
+        targetContainerId createTestDb.containerId
     }
 
     test.dependsOn startTestDb
@@ -63,7 +67,7 @@ def appDir = appBinary.parentFile.path
 
 task dockerFile(type: Dockerfile, dependsOn: bootJar) {
     destFile = file("$appDir/Dockerfile")
-    from 'openjdk:8-alpine'
+    from 'openjdk:11-jre-slim'
     addFile appName, "/app/$appName"
     exposePort 9090
     defaultCommand "java", "-jar", "-Dspring.profiles.active=docker", "/app/$appName"
